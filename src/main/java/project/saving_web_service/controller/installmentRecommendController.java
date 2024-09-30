@@ -22,6 +22,7 @@ public class installmentRecommendController {
     private final installmentRecommendService iRs;
     @GetMapping("/installment")
     public String installment(HttpSession session, Model model) {
+
         String login_id = (String) session.getAttribute("login_id");
         Member member = memberService.findMember(login_id);
 
