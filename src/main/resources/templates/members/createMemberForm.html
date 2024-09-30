@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:replace="fragments/header :: headerContent"></th:replace>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap" rel="stylesheet">
+    <title>Saving the Youth</title>
+    <style>
+        body{
+          background-color:aliceblue;
+        }
+        .nav{
+          height: 70px;
+          border-bottom: 1px solid black;
+          display: flex;
+          align-items: center;
+        }
+        .nav-right-items{
+          display: flex;
+          margin-left: auto;
+        }
+        .nav-item{
+          margin-left: 10px;
+          margin: 0 10px;
+        }
+        .company-name{
+          margin-left: 20px;
+        }
+        .title{
+          text-align: center;
+          font-size: 3.5rem;
+          font-weight: 300;
+        }
+        .subtitle{
+          text-align: center;
+          font-size: 1.25rem;
+          font-weight: 300;
+        }
+        .main{
+          width: 800px;
+          margin: 0 auto;
+          margin-top: 60px;
+        }
+        .tb{
+          width: 600px;
+          height: 300px;
+          border: 2px solid black;
+          margin: 10px;
+          border-radius: 4px;
+          text-align: left;
+          margin-left: auto;
+          margin-right: auto;
+          line-height: 2em;
+        }
+        .poetsen-one-regular {
+          font-family: "Poetsen One", sans-serif;
+          font-weight: 400;
+          font-style: normal;
+        }
+        .gamja-flower-regular {
+          font-family: "Gamja Flower", sans-serif;
+          font-weight: 400;
+          font-style: normal;
+        }
+
+    </style>
+    <link rel="stylesheet" href="button.css">
+</head>
+<body>
+<div class="nav poetsen-one-regular">
+    <div class="company-name">
+        Saving the Youth
+    </div>
+    <div class="nav-right-items">
+        <input type="submit" value="소개">
+        <input type="submit" value="마이 페이지">
+        <input type="submit" value="로그인">
+    </div>
+</div>
+<div class="main">
+    <div class="title gamja-flower-regular">
+        Saving the Youth 회원가입
+    </div>
+    <div class="subtitle">
+        사용자 정보 입력바랍니다.
+    </div>
+    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+    <form role="form" action="/members/new" th:object="${memberForm}" method="post" class="tb">
+        <div class="nav-item">
+            <label th:for="login_id">아이디</label>
+            <input type="text" size=14 th:field="*{login_id}" placeholder="아이디를 입력하세요">
+        </div>
+        <div class="nav-item">
+            <label th:for="password">비밀번호</label>
+            <input type="text" size=16 th:field="*{password}" placeholder="비밀번호를 입력하세요">
+        </div>
+        <div class="nav-item">
+            <label th:for="status">현재 본인은?</label>
+            <input type="text" size=19 th:field="*{status}" placeholder="본인의 상태를 입력하세요">
+        </div>
+        <div class="nav-item">
+            <label th:for="interest">저축 상품 서비스에 관심이 있나요?</label>
+            <input type="text" size=17 th:field="*{interest}" placeholder="예/아니오로 답해주세요">
+        </div>
+        <div class="nav-item">
+            <label th:for="commodity_existence">저축 상품을 가지고 있나요?</label>
+            <input type="text" size=17 th:field="*{commodity_existence}" placeholder="예/아니오로 답해주세요">
+        </div>
+        <div class="nav-item">
+            <label th:for="commodity">가지고 있는 상품은 무엇인가요?</label>
+            <input type="text" size=9 th:field="*{commodity}" placeholder="복수 응답 가능">
+        </div>
+        <div class="nav-item">
+            <label th:for="important">만약 저축상품을 이용한다면 가장 중요하게 생각하는 것은 무엇인가요?</label>
+            <input type="text" size=56 th:field="*{important}" placeholder="높은금리 / 해당 금융사에 대한 평판 / 우대조건 / 편의성 중 하나 입력">
+        </div>
+        <div class="nav-item">
+            <label th:for="period">선호하는 기간은 얼마나 되나요?</label>
+            <input type="text" size=33 th:field="*{period}" placeholder="6개월/12개월/24개월/36개월 중 하나 입력">
+        </div>
+        <div style="text-align: center;">
+            <button type="submit" class="button">회원가입</button>
+        </div>
+    </form>
+    <div th:replace="fragments/footer :: footer" />
+</div>
+
+</body>
+</html>

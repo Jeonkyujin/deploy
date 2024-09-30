@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saving the Youth</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <style>
+        body{
+          background-color:aliceblue;
+        }
+        .nav{
+          height: 70px;
+          border-bottom: 1px solid black;
+          display: flex;
+          align-items: center;
+        }
+        .nav-right-items{
+          display: flex;
+          margin-left: auto;
+        }
+        .nav-item{
+          margin-left: 10px;
+        }
+        .company-name{
+          margin-left: 20px;
+        }
+        .title{
+          text-align: center;
+          font-size: 3.5rem;
+          font-weight: 300;
+        }
+        .subtitle{
+          text-align: center;
+          font-size: 1.25rem;
+          font-weight: 300;
+        }
+        .main{
+          width: 800px;
+          margin: 0 auto;
+          margin-top: 60px;
+        }
+        .saving-item{
+          display: flex;
+        }
+        .item{
+          width: 300px;
+          height: 300px;
+          border: 1px solid black;
+          margin: 20px;
+          border-radius: 4px;
+          text-align: center;
+        }
+        .item-title{
+          font-size: 1.5rem; /* 공백 제거 */
+          background: rgba(0,0,0,.03);
+          height: 53px;
+          line-height: 53px;
+          border-bottom: 1px solid black;
+        }
+        .item-detail{
+          font-size: 1.5rem;
+          font-weight: bold;
+          padding: 20px;
+        }
+        .item-button{
+          padding: .5rem 1rem;
+          font-size: 1.25rem;
+          line-height: 1.5;
+          border-radius: .3rem;
+          color: #007bff;
+          background-color: transparent;
+          background-image: none;
+          border-color: #007bff;
+          margin-top: 30px;
+        }
+        .item-button-active{
+          background-color: #007bff;
+          color: white;
+        }
+    </style>
+</head>
+<body>
+<div class="nav">
+    <div class="company-name">
+        Saving the Youth
+    </div>
+    <div class="nav-right-items">
+        <div class="nav-item">소개</div>
+        <div class="nav-item"><a href="/myPage">마이 페이지</a></div>
+        <div class="nav-item"><a href="/Quiz">퀴즈</a></div>
+        <div class="nav-item">
+            <td th:text="'${member.login_id}님 환영합니다!!'"></td>
+        </div>
+
+    </div>
+</div>
+
+<div class="main">
+    <div class="title">
+        저축상품추천
+    </div>
+    <div class="subtitle">
+        개인의 정보에 맞춰 저축 상품을 추천합니다.
+    </div>
+    <div class="saving-item">
+        <div class="item">
+            <div class="item-title">
+                적금
+            </div>
+            <div class="item-detail">
+                원하는 조건에 해당하는 적금 추천
+            </div>
+            <form action="/installment" method="get">
+                <button type="submit" class="item-button item-button-active">
+                    Click
+                </button>
+            </form>
+        </div>
+        <div class="item">
+            <div class="item-title">
+                예금
+            </div>
+            <div class="item-detail">
+                원하는 조건에 해당하는 예금 추천
+            </div>
+            <form action="/deposit" method="get"> <!-- 폼 추가 -->
+                <button type="submit" class="item-button">
+                    Click
+                </button>
+            </form>
+        </div>
+        <div class="item">
+            <div class="item-title">
+                주택청약
+            </div>
+            <div class="item-detail">
+                원하는 조건에 해당하는 주택청약 추천
+            </div>
+            <form action="/housing" method="get"> <!-- 폼 추가 -->
+                <button type="submit" class="item-button">
+                    Click
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
