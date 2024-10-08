@@ -13,12 +13,13 @@
                 <th>회원번호</th>
                 <th>로그인 아이디</th>
                 <th>비밀번호</th>
-                <th>상태</th>
-                <th>관심유무</th>
-                <th>상품 존재 유무</th>
-                <th>보유 상품</th>
-                <th>선호 기간</th>
+                <th>신분</th>
+                <th>선호기간</th>
+                <th>저축 목적</th>
                 <th>중요하게 생각하는 것</th>
+                <th>저축 금액</th>
+                <th>선호하는 우대조건</th>
+                <th>분야</th>
             </tr>
             </thead>
             <tbody>
@@ -27,11 +28,12 @@
                 <td th:text="${member.login_id}"></td>
                 <td th:text="${member.password}"></td>
                 <td th:text="${member.status}"></td>
-                <td th:text="${member.interest}"></td>
-                <td th:text="${member.commodity_existence}"></td>
-                <td th:text="${member.commodity}"></td>
                 <td th:text="${member.period}"></td>
+                <td th:text="${member.purpose}"></td>
                 <td th:text="${member.important}"></td>
+                <td th:text="${member.amount}"></td>
+                <td th:text="${member.preferredCondition}"></td>
+                <td th:text="${member.field}"></td>
             </tr>
 
             </tbody>

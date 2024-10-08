@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+
+    <div style="text-align: right; margin-bottom: 20px;">
+        <form action="/deposit" method="post">
+            <input type="number" id="desiredRate" name="desiredRate" placeholder="원하는 금리" step="0.01" min="0" style="margin-right: 10px;">
+            <button type="submit" class="btn btn-primary">검색</button>
+        </form>
+    </div>
+
+    <div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>예금id</th>
+                <th>금융회사명</th>
+                <th>상품명</th>
+                <th>가입기간</th>
+                <th>가입금액</th>
+                <th>가입방법</th>
+                <th>우대조건</th>
+                <th>분야</th>
+                <th>금리</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="deposit, iter : ${deposit}">
+                <td th:text="${deposit.예금id}"></td> <!-- 상품명 -->
+                <td th:text="${deposit.금융회사명}"></td> <!-- 상품명 -->
+                <td th:text="${deposit.상품명}"></td>
+                <td th:text="${deposit.가입기간}"></td>
+                <td th:text="${deposit.가입금액}"></td> <!-- 금리 -->
+                <td th:text="${deposit.가입방법}"></td> <!-- 가입기간 -->
+                <td th:text="${deposit.우대조건}"></td> <!-- 가입금액 -->
+                <td th:text="${deposit.분야}"></td> <!-- 우대조건 -->
+                <td th:text="${deposit.금리}"></td> <!-- 분야 -->
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

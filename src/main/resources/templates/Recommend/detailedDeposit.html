@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Button Example</title>
+    <style>
+        .btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            margin: 10px;
+            transition: background-color 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        .warning-message {
+            color: red;
+            font-weight: bold;
+            margin-bottom: 10px; /* 버튼과 문구 간격 조정 */
+        }
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="button-container">
+    <!-- 우대조건을 만족하는 상품이 적습니다 문구 -->
+    <div class="warning-message">우대조건을 만족하는 상품이 적습니다</div>
+
+    <!-- 버튼들 -->
+    <button class="btn" onclick="location.href='/deposit/detailed?category=퇴직'">퇴직</button>
+    <button class="btn" onclick="location.href='/deposit/detailed?category=ISA'">ISA</button>
+    <button class="btn" onclick="location.href='/deposit/detailed?category=회전'">회전</button>
+</div>
+
+</body>
+</html>

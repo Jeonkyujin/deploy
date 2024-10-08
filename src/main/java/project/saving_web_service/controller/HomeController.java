@@ -63,9 +63,9 @@ public class HomeController {
 
         member.setPassword(updatedMember.getPassword());
         member.setStatus(updatedMember.getStatus());
-        member.setInterest(updatedMember.getInterest());
-        member.setCommodity_existence(updatedMember.getCommodity_existence());
-        member.setCommodity(updatedMember.getCommodity());
+        member.setField(updatedMember.getField());
+        member.setPreferredCondition(updatedMember.getPreferredCondition());
+        member.setAmount(updatedMember.getAmount());
         member.setPeriod(updatedMember.getPeriod());
         member.setImportant(updatedMember.getImportant());
 

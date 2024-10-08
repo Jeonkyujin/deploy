@@ -12,6 +12,7 @@ import project.saving_web_service.domain.Member;
 import project.saving_web_service.service.MemberService;
 import project.saving_web_service.service.installmentRecommendService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -20,54 +21,53 @@ public class installmentRecommendController {
 
     private final MemberService memberService;
     private final installmentRecommendService iRs;
+
     @GetMapping("/installment")
     public String installment(HttpSession session, Model model) {
 
         String login_id = (String) session.getAttribute("login_id");
         Member member = memberService.findMember(login_id);
 
-        if (member.getImportant().equals("높은금리")) {
-            List<Install> example = iRs.interest_rate(member.getPeriod());
-            if (!example.isEmpty()) {
-                model.addAttribute("high_Value", example);
-            }
-            return "highestRate";
+        List<Install> install = iRs.recommend(member);
+        model.addAttribute("install", install);
+        return "Recommend/installment";
 
-        }
-        else if(member.getImportant().equals("해당 금융사에 대한 평판")){
-            List<Install> example = iRs.reputation(member.getPeriod());
-            if (!example.isEmpty()) {
-                model.addAttribute("high_Value", example);
-            }
-        }
-        else if(member.getImportant().equals("편의성")){
-            return "convenience/convenience";
-        }
-        return "savings";
     }
-    @PostMapping("/installment/bank")
-    public String bank(@RequestParam("nearest_bank") String nearest_bank, Model model, HttpSession session){
-        String login_id = (String) session.getAttribute("login_id");
-        Member member = memberService.findMember(login_id);
-
-        List<Install> nearest = iRs.bank(nearest_bank, member.getPeriod());
-        if(!nearest.isEmpty()){
-            model.addAttribute("high_Value", nearest);
-        }
-        return "savings";
-    }
-
     @PostMapping("/installment")
     public String newRate(@RequestParam("desiredRate") double desiredRate, Model model, HttpSession session){
+
         String login_id = (String) session.getAttribute("login_id");
         Member member = memberService.findMember(login_id);
+        List<Install> FirstFilterInstall = iRs.recommend(member);
+        List<Install> Reinstall = new ArrayList<>();
 
-        List<Install> newRate = iRs.Rate(member.getPeriod(), desiredRate);
-        if(!newRate.isEmpty()){
-            model.addAttribute("high_Value", newRate);
+        for (Install installs : FirstFilterInstall) {
+            String [] a;
+            if(installs.get금리().contains("~")){
+                a = installs.get금리().split("~");
+                for (String s: a) {
+                    if (s == null || s.isEmpty()){
+                        continue;
+                    }
+                    double b = Double.parseDouble(s);
+                    if(b >= desiredRate){
+                        Reinstall.add(installs);
+                        break;
+                    }
+                }
+
+            }else {
+                a = new String[]{installs.get금리()};
+                double b = Double.parseDouble(a[0]);
+                if(b >= desiredRate){
+                    Reinstall.add(installs);
+                    break;
+                }
+
+            }
         }
-        return "highestRate";
+        model.addAttribute("install", Reinstall);
+        return "Recommend/installment";
     }
-
 
 }

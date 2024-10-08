@@ -31,11 +31,12 @@ public class JoinMemberController {
         member.setLogin_id(form.getLogin_id());
         member.setPassword(form.getPassword());
         member.setStatus(form.getStatus());
-        member.setInterest(form.getInterest());
-        member.setCommodity_existence(form.getCommodity_existence());
-        member.setCommodity(form.getCommodity());
+        member.setField(form.getField());
+        member.setPurpose(form.getPurpose());
+        member.setPreferredCondition(form.getPreferredCondition());
         member.setPeriod(form.getPeriod());
         member.setImportant(form.getImportant());
+        member.setAmount(form.getAmount());
 
         memberService.join(member);
         return "redirect:/";

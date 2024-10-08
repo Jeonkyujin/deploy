@@ -28,9 +28,9 @@ public class MemberService {
         if (existingMember != null) {
             existingMember.setPassword(member.getPassword());
             existingMember.setStatus(member.getStatus());
-            existingMember.setInterest(member.getInterest());
-            existingMember.setCommodity_existence(member.getCommodity_existence());
-            existingMember.setCommodity(member.getCommodity());
+            existingMember.setField(member.getField());
+            existingMember.setPreferredCondition(member.getPreferredCondition());
+            existingMember.setAmount(member.getAmount());
             existingMember.setPeriod(member.getPeriod());
             existingMember.setImportant(member.getImportant());
 

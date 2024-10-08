@@ -18,16 +18,16 @@ public class Member {
 
     private String status;
 
-    private String interest;
-
-    private String commodity_existence;
-
-    private String commodity;
-
     private String period;
 
     private String important;
 
-    private String recommendation;
+    private String field;
+
+    private String purpose;
+
+    private String preferredCondition;
+
+    private String amount;
 
 }

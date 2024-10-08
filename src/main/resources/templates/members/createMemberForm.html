@@ -46,7 +46,7 @@
         }
         .tb{
           width: 600px;
-          height: 300px;
+          height: 500px;
           border: 2px solid black;
           margin: 10px;
           border-radius: 4px;
@@ -102,24 +102,29 @@
             <input type="text" size=19 th:field="*{status}" placeholder="본인의 상태를 입력하세요">
         </div>
         <div class="nav-item">
-            <label th:for="interest">저축 상품 서비스에 관심이 있나요?</label>
-            <input type="text" size=17 th:field="*{interest}" placeholder="예/아니오로 답해주세요">
+            <label th:for="interest">저축을 할 때(또는 하고 있다면) 월 저축 금액은 얼마인가요?</label>
+            <input type="text" size=17 th:field="*{amount}" placeholder="만원단위로 적되 숫자만 적어주세요 ex)10만원 -> 10">
         </div>
         <div class="nav-item">
-            <label th:for="commodity_existence">저축 상품을 가지고 있나요?</label>
-            <input type="text" size=17 th:field="*{commodity_existence}" placeholder="예/아니오로 답해주세요">
+            <label th:for="commodity_existence">저축의 주요 목적은 무엇인가요?</label>
+            <input type="text" size=17 th:field="*{purpose}" placeholder="생활비 자금/ 결혼 자금/ 여행 자금  / 투자 자금 / 취미활동을 위한 자금 /
+원하는 물건 구매 자금/ 기타">
         </div>
         <div class="nav-item">
-            <label th:for="commodity">가지고 있는 상품은 무엇인가요?</label>
-            <input type="text" size=9 th:field="*{commodity}" placeholder="복수 응답 가능">
+            <label th:for="commodity">원하는 저축의 기간은?</label>
+            <input type="text" size=9 th:field="*{period}" placeholder="원하시는 개월을 써주세요 ex)18개월 -> 18">
         </div>
         <div class="nav-item">
-            <label th:for="important">만약 저축상품을 이용한다면 가장 중요하게 생각하는 것은 무엇인가요?</label>
-            <input type="text" size=56 th:field="*{important}" placeholder="높은금리 / 해당 금융사에 대한 평판 / 우대조건 / 편의성 중 하나 입력">
+            <label th:for="important">저축상품을 가입하게 된다면 가장 중요하게 생각하는 것이 무엇인가요?</label>
+            <input type="text" size=56 th:field="*{important}" placeholder="높은금리 / 해당 금융사에 대한 평판 / 우대조건 중 하나 입력">
         </div>
         <div class="nav-item">
-            <label th:for="period">선호하는 기간은 얼마나 되나요?</label>
-            <input type="text" size=33 th:field="*{period}" placeholder="6개월/12개월/24개월/36개월 중 하나 입력">
+            <label th:for="important">원하는 우대조건이 무엇인가요?</label>
+            <input type="text" size=56 th:field="*{preferredCondition}" placeholder="실적 / 이체 / 정보 사용 동의 / 앱 사용 / 가입 중 중복 입력 가능 ">
+        </div>
+        <div class="nav-item">
+            <label th:for="period">원하는 분야는 무엇인가요?</label>
+            <input type="text" size=33 th:field="*{field}" placeholder="환경 / 직장인 / 청년 / 퇴직 / 스포츠 / 사회적 약자 / 군인 / 가족 / 대학생 / 학생 중 하나 입력 ">
         </div>
         <div style="text-align: center;">
             <button type="submit" class="button">회원가입</button>

@@ -4,29 +4,44 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.saving_web_service.domain.Install;
+import project.saving_web_service.domain.Member;
+import project.saving_web_service.repository.CommonRepository;
 import project.saving_web_service.repository.InstallmentRepository;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 @Transactional(readOnly = true)
+@RequiredArgsConstructor
 
-public class installmentRecommendService {
+public class installmentRecommendService extends AbstractRecommendService<Install> {
 
     private final InstallmentRepository installmentrepository;
-    @Transactional
-    public void insert(Install install){
-            installmentrepository.put(install);
+
+    @Override
+    public List<Install> highestRate(Member member) {
+        return installmentrepository.findBy금리(member.getPeriod(), member.getAmount(), member.getField());
     }
 
-    public List<Install>interest_rate(String s){
-       return installmentrepository.findBy금리(s,4.00);
+    @Override
+    public List<Install> reputation(Member member) {
+        return installmentrepository.findby평판(member.getPeriod(), member.getAmount(), member.getField());
     }
 
-    public List<Install>reputation(String s){return installmentrepository.findby평판(s);}
+    public List<Install> condition(Member member){
+        String a = member.getPreferredCondition();
+        List<String> L;
+        if (a.contains(",")){
+            L = Arrays.asList(a.split(","));
+        }
+        else{
+           L = Collections.singletonList(a);
+        }
 
-    public List<Install>bank(String s, String p){return installmentrepository.findby편의성(s, p);}
+        return installmentrepository.findby우대조건(member.getPeriod(), member.getAmount(), member.getField(), L);
+    }
 
-    public List<Install>Rate(String s, double d){return installmentrepository.findBy금리(s, d);}
+
 }
