@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>금융 퀴즈</title>
+    <style>
+        body {
+            background-color: aliceblue;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        .quiz-container {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 600px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .quiz-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .quiz-option {
+            margin-bottom: 10px;
+            padding: 8px;
+            background-color: #fff;
+            border-radius: 4px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="quiz-container">
+    <h2 class="quiz-title">금융 퀴즈에 도전하세요!</h2>
+    <form th:action="@{/quiz/submit}" method="post">
+        <div th:each="quiz : ${quizzes}">
+            <h3 th:text="${quiz.question}"></h3>
+            <input type="hidden" name="quizIds" th:value="${quiz.id}" />
+            <div class="quiz-option">
+                <input type="radio" th:name="'quizOption_' + ${quiz.id}" th:id="'option1-' + ${quiz.id}" th:value="1" required>
+                <label th:for="'option1-' + ${quiz.id}" th:text="${quiz.option1}">옵션 1</label>
+            </div>
+            <div class="quiz-option">
+                <input type="radio" th:name="'quizOption_' + ${quiz.id}" th:id="'option2-' + ${quiz.id}" th:value="2">
+                <label th:for="'option2-' + ${quiz.id}" th:text="${quiz.option2}">옵션 2</label>
+            </div>
+            <div class="quiz-option">
+                <input type="radio" th:name="'quizOption_' + ${quiz.id}" th:id="'option3-' + ${quiz.id}" th:value="3">
+                <label th:for="'option3-' + ${quiz.id}" th:text="${quiz.option3}">옵션 3</label>
+            </div>
+            <div class="quiz-option">
+                <input type="radio" th:name="'quizOption_' + ${quiz.id}" th:id="'option4-' + ${quiz.id}" th:value="4">
+                <label th:for="'option4-' + ${quiz.id}" th:text="${quiz.option4}">옵션 4</label>
+            </div>
+        </div>
+        <button type="submit">답변 제출</button>
+    </form>
+</div>
+</body>
+</html>

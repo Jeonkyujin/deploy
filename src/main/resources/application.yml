@@ -22,3 +22,10 @@ spring:
 logging:
   level:
     org.hibernate.SQL: debug
+
+
+naver:
+  api:
+    client-id: 3ZMyCo7SjgoDceUIzX7R
+    client-secret: OYZVQHfnvB
+    url: "https://openapi.naver.com/v1/search/news.json"
