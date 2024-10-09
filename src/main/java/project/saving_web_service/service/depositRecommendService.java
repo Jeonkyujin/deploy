@@ -26,6 +26,7 @@ public class depositRecommendService extends AbstractRecommendService<Deposit> {
 		return depositRepository.findby평판(member.getPeriod(), member.getAmount(), member.getField());
 	}
 
+
 	@Override
 	public List<Deposit> condition(Member member) {
 		String a = member.getPreferredCondition();
