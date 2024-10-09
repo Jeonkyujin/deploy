@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>퀴즈 결과</title>
+    <style>
+        body {
+            background-color: aliceblue;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        .result-container {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 600px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .result-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .result-details {
+            margin-top: 10px;
+            font-size: 1rem;
+            color: #333;
+        }
+        .correct {
+            color: green;
+        }
+        .incorrect {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div class="result-container">
+    <h2 class="result-title">퀴즈 결과</h2>
+    <p th:text="'정답 개수: ' + ${correctCount} + ' / ' + ${totalCount}">정답 개수</p>
+    <div th:if="${results != null}" th:each="result : ${results}">
+        <p>
+            <strong th:text="${result['question']}">질문이 여기에 표시됩니다.</strong><br>
+            <span th:text="'사용자가 선택한 답변: ' + ${result['selectedOption']}">사용자가 선택한 답변</span><br>
+            <span th:text="'정답: ' + ${result['correctOption']}">정답</span><br>
+            <span th:if="${result['status'] == '정답'}" class="correct" th:text="'결과: ' + ${result['status']}">결과</span>
+            <span th:if="${result['status'] == '오답'}" class="incorrect" th:text="'결과: ' + ${result['status']}">결과</span><br>
+            <span th:text="'해설: ' + ${result['explanation']}">해설</span>
+        </p>
+        <hr>
+    </div>
+    <button onclick="location.href='/quiz'">다시 도전하기</button>
+</div>
+</body>
+</html>

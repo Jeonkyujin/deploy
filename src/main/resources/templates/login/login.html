@@ -6,77 +6,99 @@
     <title>Saving the Youth</title>
     <link href="style.css" rel="stylesheet" type="text/css" />
     <style>
-        body{
-          background-color:aliceblue;
+        body {
+            background-color: aliceblue;
         }
-        .nav{
-          height: 70px;
-          border-bottom: 1px solid black;
-          display: flex;
-          align-items: center;
+        .nav {
+            height: 70px;
+            border-bottom: 1px solid black;
+            display: flex;
+            align-items: center;
         }
-        .nav-right-items{
-          display: flex;
-          margin-left: auto;
+        .nav-right-items {
+            display: flex;
+            margin-left: auto;
         }
-        .nav-item{
-          margin-left: 10px;
+        .nav-item {
+            margin-left: 10px;
         }
-        .company-name{
-          margin-left: 20px;
+        .company-name {
+            margin-left: 20px;
         }
-        .title{
-          text-align: center;
-          font-size: 3.5rem;
-          font-weight: 300;
+        .title {
+            text-align: center;
+            font-size: 3.5rem;
+            font-weight: 300;
         }
-        .subtitle{
-          text-align: center;
-          font-size: 1.25rem;
-          font-weight: 300;
+        .subtitle {
+            text-align: center;
+            font-size: 1.25rem;
+            font-weight: 300;
         }
-        .main{
-          width: 800px;
-          margin: 0 auto;
-          margin-top: 60px;
+        .main {
+            width: 800px;
+            margin: 0 auto;
+            margin-top: 60px;
         }
-        .saving-item{
-          display: flex;
+        .saving-item {
+            display: flex;
         }
-        .item{
-          width: 300px;
-          height: 300px;
-          border: 1px solid black;
-          margin: 20px;
-          border-radius: 4px;
-          text-align: center;
+        .item {
+            width: 300px;
+            height: 300px;
+            border: 1px solid black;
+            margin: 20px;
+            border-radius: 4px;
+            text-align: center;
         }
-        .item-title{
-          font-size: 1.5rem; /* 공백 제거 */
-          background: rgba(0,0,0,.03);
-          height: 53px;
-          line-height: 53px;
-          border-bottom: 1px solid black;
+        .item-title {
+            font-size: 1.5rem;
+            background: rgba(0, 0, 0, .03);
+            height: 53px;
+            line-height: 53px;
+            border-bottom: 1px solid black;
         }
-        .item-detail{
-          font-size: 1.5rem;
-          font-weight: bold;
-          padding: 20px;
+        .item-detail {
+            font-size: 1.5rem;
+            font-weight: bold;
+            padding: 20px;
         }
-        .item-button{
-          padding: .5rem 1rem;
-          font-size: 1.25rem;
-          line-height: 1.5;
-          border-radius: .3rem;
-          color: #007bff;
-          background-color: transparent;
-          background-image: none;
-          border-color: #007bff;
-          margin-top: 30px;
+        .item-button {
+            padding: .5rem 1rem;
+            font-size: 1.25rem;
+            line-height: 1.5;
+            border-radius: .3rem;
+            color: #007bff;
+            background-color: transparent;
+            border-color: #007bff;
+            margin-top: 30px;
         }
-        .item-button-active{
-          background-color: #007bff;
-          color: white;
+        .item-button-active {
+            background-color: #007bff;
+            color: white;
+        }
+        /* 뉴스 섹션 스타일 추가 */
+        .news-section {
+            margin-left: 20px;
+            width: 600px;
+            height: 50px;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            text-align: center;
+        }
+        .news-item {
+            display: none;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
+        }
+        .news-item.active {
+            display: block;
         }
     </style>
 </head>
@@ -85,14 +107,20 @@
     <div class="company-name">
         Saving the Youth
     </div>
+    <div class="news-section">  <!-- 뉴스 섹션 추가 -->
+        <ul class="news-list" id="newsList">
+            <li th:each="news, iterStat : ${newsList}" class="news-item" th:classappend="${iterStat.index == 0} ? 'active'" th:data-link="${news.link}">
+                <a th:href="${news.link}" th:text="${news.title}" target="_blank"></a>
+            </li>
+        </ul>
+    </div>
     <div class="nav-right-items">
         <div class="nav-item">소개</div>
         <div class="nav-item"><a href="/myPage">마이 페이지</a></div>
-        <div class="nav-item"><a href="/Quiz">퀴즈</a></div>
+        <div class="nav-item"><a href="/quiz">퀴즈</a></div> <!-- /Quiz에서 /quiz로 수정 -->
         <div class="nav-item">
             <td th:text="'${member.login_id}님 환영합니다!!'"></td>
         </div>
-
     </div>
 </div>
 
@@ -124,15 +152,30 @@
             <div class="item-detail">
                 원하는 조건에 해당하는 예금 추천
             </div>
-            <form action="/deposit" method="get"> <!-- 폼 추가 -->
+            <form action="/deposit" method="get">
                 <button type="submit" class="item-button item-button-active">
                     Click
                 </button>
             </form>
         </div>
-
     </div>
 </div>
 <script src="script.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const newsItems = document.querySelectorAll('.news-item');
+        let currentNewsIndex = 0;
+
+        if (newsItems.length > 0) {
+            newsItems[currentNewsIndex].classList.add('active');
+
+            setInterval(() => {
+                newsItems[currentNewsIndex].classList.remove('active');
+                currentNewsIndex = (currentNewsIndex + 1) % newsItems.length;
+                newsItems[currentNewsIndex].classList.add('active');
+            }, 5000);
+        }
+    });
+</script>
 </body>
 </html>
