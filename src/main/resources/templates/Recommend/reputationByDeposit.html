@@ -1,0 +1,201 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <style>
+        /* 부모 컨테이너 크기 설정 */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 2개의 열로 구성 */
+            grid-gap: 20px;
+            padding: 20px;
+            max-width: 1000px; /* 부모 컨테이너의 최대 너비 설정 */
+            margin: 0 auto; /* 가운데 정렬 */
+        }
+        .card {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            text-align: center;
+            width: 100%;
+            max-width: 250px; /* 카드 크기 제한 */
+            height: 350px; /* 카드 높이 제한 */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .logo img {
+            max-width: 100px; /* 로고 최대 너비 제한 */
+            max-height: 50px; /* 로고 최대 높이 제한 */
+            width: auto;
+            height: auto;
+            object-fit: contain; /* 비율 유지하면서 이미지 크기 맞추기 */
+            margin-bottom: 10px;
+        }
+        .product-info {
+            font-size: 12px;
+            text-align: left;
+        }
+        .product-info p {
+            margin: 3px 0;
+        }
+        .search-bar {
+            text-align: right;
+            margin-bottom: 20px;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div>
+    <div th:replace="fragments/bodyHeader :: bodyHeader"></div>
+
+    <!-- 금리와 은행 선택을 하나의 폼에 배치 -->
+    <div class="search-bar">
+        <form action="/deposit" method="post">
+            <input type="number" id="desiredRate" name="desiredRate" placeholder="원하는 금리" step="0.01" min="0" style="margin-right: 10px;">
+
+            <!-- 선호하는 은행 선택 -->
+            <select id="preferredBank" name="preferredBank" style="margin-right: 10px;">
+                <option value="">선호하는 은행 선택</option>
+                <option value="하나은행">하나은행</option>
+                <option value="신한은행">신한은행</option>
+                <option value="IM뱅크">아이엠뱅크</option>
+                <option value="국민은행">KB국민은행</option>
+                <option value="IBK기업은행">IBK기업은행</option>
+                <option value="NH농협은행">NH농협은행</option>
+                <option value="KDB산업은행">KDB산업은행</option>
+                <option value="SC제일은행">SC제일은행</option>
+                <option value="Sh수협은행">수협은행</option>
+                <option value="수출입은행">수출입은행</option>
+                <option value="씨티은행">씨티은행</option>
+                <option value="우리은행">우리은행</option>
+                <option value="SBI저축은행">SBI저축은행</option>
+                <option value="웰컴저축은행">웰컴저축은행</option>
+                <option value="OK저축은행">OK저축은행</option>
+                <option value="한국투자저축은행">한국투자저축은행</option>
+                <option value="하나저축은행">하나저축은행</option>
+                <option value="신한저축은행">신한저축은행</option>
+                <option value="IBK저축은행">IBK저축은행</option>
+                <option value="페퍼저축은행">페퍼저축은행</option>
+                <option value="KB저축은행">KB저축은행</option>
+                <option value="고려저축은행">고려저축은행</option>
+                <option value="스마트저축은행">스마트저축은행</option>
+                <option value="키움저축은행">키움저축은행</option>
+                <option value="다올저축은행">다올저축은행</option>
+                <option value="애큐온저축은행">애큐온저축은행</option>
+                <option value="모아저축은행">모아저축은행</option>
+                <option value="DB저축은행">DB저축은행</option>
+                <option value="상상인저축은행">상상인저축은행</option>
+                <option value="상상인플러스저축은행">상상인플러스저축은행</option>
+                <option value="예가람저축은행">예가람저축은행</option>
+                <option value="우리금융저축은행">우리금융저축은행</option>
+                <option value="푸른저축은행">푸른저축은행</option>
+                <option value="대신저축은행">대신저축은행</option>
+                <option value="동양저축은행">동양저축은행</option>
+                <option value="OSB저축은행">OSB저축은행</option>
+                <option value="한성저축은행">한성저축은행</option>
+                <option value="BNK저축은행">BNK저축은행</option>
+                <option value="메리츠저축은행">메리츠저축은행</option>
+                <option value="삼정저축은행">삼정저축은행</option>
+            </select>
+
+            <button type="submit" class="btn btn-primary">검색</button>
+        </form>
+    </div>
+
+    <div class="grid-container">
+        <p th:text="${statusMessage}"></p>
+        <hr>
+        <div th:if="${#lists.isEmpty(depositStatus)}">
+            <p>조건을 만족하는 상품이 없습니다</p>
+        </div>
+        <div class="card" th:each="deposit, iter : ${depositStatus}">
+            <div class = "logo">
+                <img th:src="@{|/images/${deposit.금융회사명}.jpeg|}"
+                     alt="금융회사 로고"
+                     style="width: 100px; height: auto;" />
+            </div>
+            <div class="product-info">
+                <input type="checkbox" class="favorite-checkbox" th:value="${deposit.예금id}" style="margin-bottom: 10px;">
+
+                <p><strong>상품명:</strong> <span th:text="${deposit.상품명}"></span></p>
+                <p><strong>가입기간:</strong> <span th:text="${deposit.가입기간} + '개월'"></span></p>
+                <p><strong>가입금액:</strong> <span th:text="${deposit.가입금액} + '만원'"></span></p>
+                <p><strong>우대조건:</strong> <span th:text="${deposit.우대조건}"></span></p>
+                <p><strong>금리:</strong> <span th:text="${deposit.금리} + '%'"></span></p>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="grid-container">
+        <p th:text="${commonMessage}"></p>
+        <hr>
+        <div th:if="${#lists.isEmpty(deposit)}">
+            <p>조건을 만족하는 상품이 없습니다</p>
+        </div>
+        <div class="card" th:each="deposit, iter : ${deposit}">
+            <div class = "logo">
+                <img th:src="@{|/images/${deposit.금융회사명}.jpeg|}"
+                     alt="금융회사 로고"
+                     style="width: 100px; height: auto;" />
+            </div>
+            <div class="product-info">
+                <input type="checkbox" class="favorite-checkbox" th:value="${deposit.예금id}" style="margin-bottom: 10px;">
+
+                <p><strong>상품명:</strong> <span th:text="${deposit.상품명}"></span></p>
+                <p><strong>가입기간:</strong> <span th:text="${deposit.가입기간} + '개월'"></span></p>
+                <p><strong>가입금액:</strong> <span th:text="${deposit.가입금액} + '만원'"></span></p>
+                <p><strong>우대조건:</strong> <span th:text="${deposit.우대조건}"></span></p>
+                <p><strong>금리:</strong> <span th:text="${deposit.금리} + '%'"></span></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="text-align: center; margin-top: 20px;">
+    <button onclick="addToFavorites()" class="btn btn-primary">관심 목록에 추가</button>
+</div>
+
+
+<script>
+    function addToFavorites() {
+        // 선택된 체크박스의 값(installId)을 배열로 수집
+        const selectedInstallIds = Array.from(document.querySelectorAll('.favorite-checkbox:checked'))
+            .map(checkbox => checkbox.value);
+
+        if (selectedInstallIds.length === 0) {
+            alert("관심 목록에 추가할 상품을 선택하세요.");
+            return;
+        }
+
+        // 이미 모델에서 받아온 member 객체에서 id 가져오기
+        const memberId = [[${member.id}]];
+
+        // 서버로 POST 요청 보내기
+        fetch('/favorite', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ memberId: memberId, depositId: selectedInstallIds })
+        })
+        .then(response => {
+            if (response.ok) {
+                alert("관심 목록에 추가되었습니다!");
+            } else {
+                alert("오류가 발생했습니다. 다시 시도해주세요.");
+            }
+        })
+        .catch(error => {
+            console.error("오류:", error);
+            alert("서버에 문제가 발생했습니다. 나중에 다시 시도해주세요.");
+        });
+    }
+</script>
+
+</body>
+</html>

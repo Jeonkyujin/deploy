@@ -15,7 +15,7 @@ import project.saving_web_service.repository.DetailedDepositRepository;
 @RequiredArgsConstructor
 public class DetailedDepositRecommendService {
 	private final DetailedDepositRepository DDR;
-	public List<Deposit> category(String category) {
-		return DDR.findByCategory(category);
+	public List<Deposit> category(String category, Member member) {
+		return DDR.findByCategory(category, member);
 	}
 }

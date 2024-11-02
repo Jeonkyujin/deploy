@@ -2,9 +2,24 @@ package project.saving_web_service.repository;
 
 import java.util.List;
 
-public interface CommonRepository<T> {
+import org.springframework.stereotype.Repository;
 
-	List<T> findBy금리(String period, String amount, String field);
-	List<T> findby평판(String period, String amount, String field);
-	List<T> findby우대조건(String period, String amount, String field, List<String> l);
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+
+@Repository
+public abstract class CommonRepository<T> {
+
+	@PersistenceContext
+	protected final EntityManager em;
+
+	protected CommonRepository(EntityManager em) {
+		this.em = em;
+	}
+
+	public abstract List<T> findBy금리(String period, String amount);
+	public abstract List<T> findby평판(String period, String amount);
+	public abstract List<T> findby우대조건(String period, String amount, List<String> l);
+
+
 }

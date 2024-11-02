@@ -1,0 +1,102 @@
+<div class="container" xmlns:th="http://www.w3.org/1999/xhtml">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"></div>
+    <div>
+        <div th:each="member : ${member}">
+            <!-- memberId 저장 -->
+            <input type="hidden" id="memberId" th:value="${member.id}">
+
+
+
+            <p><strong>관심 상품 목록:</strong></p>
+            <form id="deleteFavoritesForm">
+                <div th:if="${#lists.isEmpty(member.favoriteInstalls)} and ${#lists.isEmpty(member.favoriteDeposits)}">
+                    <p>관심 상품이 없습니다.</p>
+                </div>
+                <div th:each="favoriteInstall : ${member.favoriteInstalls}">
+                    <div class="product-info">
+                        <!-- 체크박스 추가 -->
+                        <input type="checkbox" class="favorite-checkbox" th:value="${favoriteInstall.id}" th:data-type="installment" style="margin-right: 10px;">
+
+                        <!-- 은행 로고 추가 -->
+                        <div class = "logo">
+                            <img th:src="@{|/images/${favoriteInstall.install.금융회사명}.jpeg|}"
+                                 alt="금융회사 로고"
+                                 style="width: 100px; height: auto;" />
+                        </div>
+
+                        <!-- 상품 정보 -->
+                        <p><strong>상품명:</strong> <span th:text="${favoriteInstall.install.상품명}"></span></p>
+                        <p><strong>가입기간:</strong> <span th:text="${favoriteInstall.install.가입기간} + '개월'"></span></p>
+                        <p><strong>가입금액:</strong> <span th:text="${favoriteInstall.install.가입금액} + '만원'"></span></p>
+                        <p><strong>우대조건:</strong> <span th:text="${favoriteInstall.install.우대조건}"></span></p>
+                        <p><strong>금리:</strong> <span th:text="${favoriteInstall.install.금리} + '%'"></span></p>
+                    </div>
+                </div>
+                <div th:each="favoriteDeposit : ${member.favoriteDeposits}">
+                    <div class="product-info">
+                        <!-- 체크박스 추가 -->
+                        <input type="checkbox" class="favorite-checkbox" th:value="${favoriteDeposit.id}" th:data-type="deposit" style="margin-right: 10px;">
+
+                        <!-- 은행 로고 추가 -->
+                        <div class = "logo">
+                            <img th:src="@{|/images/${favoriteDeposit.deposit.금융회사명}.jpeg|}"
+                                 alt="금융회사 로고"
+                                 style="width: 100px; height: auto;" />
+                        </div>
+
+                        <!-- 상품 정보 -->
+                        <p><strong>상품명:</strong> <span th:text="${favoriteDeposit.deposit.상품명}"></span></p>
+                        <p><strong>가입기간:</strong> <span th:text="${favoriteDeposit.deposit.가입기간} + '개월'"></span></p>
+                        <p><strong>가입금액:</strong> <span th:text="${favoriteDeposit.deposit.가입금액} + '만원'"></span></p>
+                        <p><strong>우대조건:</strong> <span th:text="${favoriteDeposit.deposit.우대조건}"></span></p>
+                        <p><strong>금리:</strong> <span th:text="${favoriteDeposit.deposit.금리} + '%'"></span></p>
+                    </div>
+                </div>
+            </form>
+            <div style="text-align: center; margin-top: 20px;">
+                <!-- 관심 목록에서 삭제 버튼 -->
+                <button type="button" onclick="removeFromFavorites()" class="btn btn-danger">관심 목록에서 삭제</button>
+            </div>
+        </div>
+    </div>
+    <div th:replace="fragments/footer :: footer"></div>
+</div> <!-- /container -->
+
+<script>
+    function removeFromFavorites() {
+        // 선택된 체크박스의 값(favoriteInstall과 favoriteDeposit 객체)을 배열로 수집
+        const selectedFavoriteInstallments = Array.from(document.querySelectorAll('.favorite-checkbox:checked[data-type="installment"]'))
+            .map(checkbox => checkbox.value);
+        const selectedFavoriteDeposits = Array.from(document.querySelectorAll('.favorite-checkbox:checked[data-type="deposit"]'))
+            .map(checkbox => checkbox.value);
+
+        if (selectedFavoriteInstallments.length === 0 && selectedFavoriteDeposits.length === 0) {
+            alert("삭제할 상품을 선택하세요.");
+            return;
+        }
+
+        // 서버로 DELETE 요청 보내기 (적금과 예금을 함께 전송)
+        fetch('/favorites/delete', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+            favoriteInstallIds: selectedFavoriteInstallments,
+            favoriteDepositIds: selectedFavoriteDeposits
+        })
+        })
+        .then(response => {
+            if (response.ok) {
+                alert("선택된 관심 상품이 삭제되었습니다!");
+                window.location.reload(); // 페이지를 새로고침하여 변경 반영
+            } else {
+                alert("오류가 발생했습니다. 다시 시도해주세요.");
+            }
+        })
+        .catch(error => {
+            console.error("오류:", error);
+            alert("서버에 문제가 발생했습니다. 나중에 다시 시도해주세요.");
+        });
+    }
+</script>

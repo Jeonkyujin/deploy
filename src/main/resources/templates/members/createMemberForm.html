@@ -65,7 +65,11 @@
           font-weight: 400;
           font-style: normal;
         }
-
+        .checkbox-container {
+           display: flex;
+           flex-wrap: wrap;
+           gap: 10px;
+        }
     </style>
     <link rel="stylesheet" href="button.css">
 </head>
@@ -98,33 +102,44 @@
             <input type="text" size=16 th:field="*{password}" placeholder="비밀번호를 입력하세요">
         </div>
         <div class="nav-item">
-            <label th:for="status">현재 본인은?</label>
-            <input type="text" size=19 th:field="*{status}" placeholder="본인의 상태를 입력하세요">
+            <label>관심있는 분야를 선택해주세요</label><br/>
+            <div class="checkbox-container">
+                <input type="checkbox" th:field="*{status}" value="환경"> 환경
+                <input type="checkbox" th:field="*{status}" value="직장인"> 직장인
+                <input type="checkbox" th:field="*{status}" value="청년"> 청년
+                <input type="checkbox" th:field="*{status}" value="퇴직"> 퇴직
+                <input type="checkbox" th:field="*{status}" value="스포츠"> 스포츠
+                <input type="checkbox" th:field="*{status}" value="사회적 약자"> 사회적 약자
+                <input type="checkbox" th:field="*{status}" value="군인"> 군인
+                <input type="checkbox" th:field="*{status}" value="가족"> 가족
+                <input type="checkbox" th:field="*{status}" value="대학생"> 대학생
+                <input type="checkbox" th:field="*{status}" value="학생"> 학생
+            </div>
         </div>
+
         <div class="nav-item">
             <label th:for="interest">저축을 할 때(또는 하고 있다면) 월 저축 금액은 얼마인가요?</label>
             <input type="text" size=17 th:field="*{amount}" placeholder="만원단위로 적되 숫자만 적어주세요 ex)10만원 -> 10">
         </div>
         <div class="nav-item">
             <label th:for="commodity_existence">저축의 주요 목적은 무엇인가요?</label>
-            <input type="text" size=17 th:field="*{purpose}" placeholder="생활비 자금/ 결혼 자금/ 여행 자금  / 투자 자금 / 취미활동을 위한 자금 /
-원하는 물건 구매 자금/ 기타">
+            <input type="text" size=17 th:field="*{purpose}" placeholder="생활비 자금/ 결혼 자금/ 여행 자금  / 투자 자금 / 취미활동을 위한 자금 / 원하는 물건 구매 자금">
         </div>
         <div class="nav-item">
             <label th:for="commodity">원하는 저축의 기간은?</label>
             <input type="text" size=9 th:field="*{period}" placeholder="원하시는 개월을 써주세요 ex)18개월 -> 18">
         </div>
         <div class="nav-item">
-            <label th:for="important">저축상품을 가입하게 된다면 가장 중요하게 생각하는 것이 무엇인가요?</label>
-            <input type="text" size=56 th:field="*{important}" placeholder="높은금리 / 해당 금융사에 대한 평판 / 우대조건 중 하나 입력">
+            <label>저축상품을 가입하게 된다면 가장 중요하게 생각하는 것이 무엇인가요?</label><br/>
+            <div class="checkbox-container">
+                <input type="checkbox" th:field="*{important}" value="높은 금리"> 높은 금리
+                <input type="checkbox" th:field="*{important}" value="해당 금융권에 대한 평판"> 해당 금융권에 대한 평판
+                <input type="checkbox" th:field="*{important}" value="우대조건"> 우대조건
+            </div>
         </div>
         <div class="nav-item">
             <label th:for="important">원하는 우대조건이 무엇인가요?</label>
             <input type="text" size=56 th:field="*{preferredCondition}" placeholder="실적 / 이체 / 정보 사용 동의 / 앱 사용 / 가입 중 중복 입력 가능 ">
-        </div>
-        <div class="nav-item">
-            <label th:for="period">원하는 분야는 무엇인가요?</label>
-            <input type="text" size=33 th:field="*{field}" placeholder="환경 / 직장인 / 청년 / 퇴직 / 스포츠 / 사회적 약자 / 군인 / 가족 / 대학생 / 학생 중 하나 입력 ">
         </div>
         <div style="text-align: center;">
             <button type="submit" class="button">회원가입</button>

@@ -1,14 +1,25 @@
 package project.saving_web_service.DepositImplements;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import project.saving_web_service.Abstract.AbstractDepositFilter;
 import project.saving_web_service.domain.Deposit;
+import project.saving_web_service.domain.Install;
 
 public class depositHighestRate extends AbstractDepositFilter {
 	@Override
 	protected List<Deposit> filterByCriteria(List<Deposit> deposit) {
-		deposit.sort((Deposit1, Deposit2) -> {
+
+		List<Deposit> filteredDeposit = new ArrayList<>();
+		for (Deposit deposit1 : deposit) {
+			if( getMaxRate(deposit1.get금리()) >= 3.8){
+				filteredDeposit.add(deposit1);
+			}
+		}
+
+		filteredDeposit.sort((Deposit1, Deposit2) -> {
 			// 첫 번째 Install 객체에서 금리 추출
 			double maxRate1 = getMaxRate(Deposit1.get금리());
 
@@ -20,13 +31,11 @@ public class depositHighestRate extends AbstractDepositFilter {
 		});
 
 		// 정렬된 결과 반환
-		if (deposit.size() > 10) {
-			return deposit.subList(0,10);
-		}
-		return deposit;
+
+		return filteredDeposit;
 	}
 
-	private double getMaxRate(String 금리) {
+	public double getMaxRate(String 금리) {
 		if (금리.contains("~")) {
 			// "~"로 구분된 금리 범위에서 최대값 추출
 			String[] 금리범위 = 금리.split("~");

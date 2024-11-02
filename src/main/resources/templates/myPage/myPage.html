@@ -6,40 +6,20 @@
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
     <div>
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>회원번호</th>
-                <th>로그인 아이디</th>
-                <th>비밀번호</th>
-                <th>신분</th>
-                <th>선호기간</th>
-                <th>저축 목적</th>
-                <th>중요하게 생각하는 것</th>
-                <th>저축 금액</th>
-                <th>선호하는 우대조건</th>
-                <th>분야</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="member : ${member}">
-                <td th:text="${member.id}"></td>
-                <td th:text="${member.login_id}"></td>
-                <td th:text="${member.password}"></td>
-                <td th:text="${member.status}"></td>
-                <td th:text="${member.period}"></td>
-                <td th:text="${member.purpose}"></td>
-                <td th:text="${member.important}"></td>
-                <td th:text="${member.amount}"></td>
-                <td th:text="${member.preferredCondition}"></td>
-                <td th:text="${member.field}"></td>
-            </tr>
+        <div th:each="member : ${member}">
+            <p><strong>회원번호:</strong> <span th:text="${member.id}"></span></p>
+            <p><strong>로그인 아이디:</strong> <span th:text="${member.login_id}"></span></p>
+            <p><strong>비밀번호:</strong> <span th:text="${member.password}"></span></p>
+            <p><strong>관심사:</strong> <span th:text="${member.status}"></span></p>
+            <p><strong>선호기간:</strong> <span th:text="${member.period} + '개월'"></span></p>
+            <p><strong>저축 목적:</strong> <span th:text="${member.purpose}"></span></p>
+            <p><strong>중요하게 생각하는 것:</strong> <span th:text="${member.important}"></span></p>
+            <p><strong>저축 금액:</strong> <span th:text="${member.amount} + '만원'"></span></p>
+            <p><strong>선호하는 우대조건:</strong> <span th:text="${member.preferredCondition}"></span></p>
 
-            </tbody>
-        </table>
+        </div>
         <form action="/myPage/correction" method="get">
-         <button type="submit" class="btn btn-primary">정보 수정</button>
+            <button type="submit" class="btn btn-primary">정보 수정</button>
         </form>
     </div>
 

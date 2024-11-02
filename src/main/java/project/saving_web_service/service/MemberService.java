@@ -28,7 +28,6 @@ public class MemberService {
         if (existingMember != null) {
             existingMember.setPassword(member.getPassword());
             existingMember.setStatus(member.getStatus());
-            existingMember.setField(member.getField());
             existingMember.setPreferredCondition(member.getPreferredCondition());
             existingMember.setAmount(member.getAmount());
             existingMember.setPeriod(member.getPeriod());
@@ -38,6 +37,10 @@ public class MemberService {
         } else {
             throw new RuntimeException("Member not found with login_id: " + member.getLogin_id());
         }
+    }
+
+    public Member findbyId(Long id){
+        return memberRepository.findByRealId(id);
     }
 
 }

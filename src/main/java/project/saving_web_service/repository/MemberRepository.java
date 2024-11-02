@@ -29,4 +29,8 @@ public class MemberRepository {
             return null;
         }
     }
+
+    public Member findByRealId(Long id) {
+        return em.find(Member.class,id);
+    }
 }

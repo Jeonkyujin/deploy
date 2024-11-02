@@ -63,7 +63,6 @@ public class HomeController {
 
         member.setPassword(updatedMember.getPassword());
         member.setStatus(updatedMember.getStatus());
-        member.setField(updatedMember.getField());
         member.setPreferredCondition(updatedMember.getPreferredCondition());
         member.setAmount(updatedMember.getAmount());
         member.setPeriod(updatedMember.getPeriod());
@@ -74,6 +73,14 @@ public class HomeController {
 
         session.setAttribute("member", member);
 
+        return "redirect:/";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        // 세션 무효화: 세션에 저장된 모든 정보를 삭제하여 로그아웃 처리
+        session.invalidate();
+        // 로그아웃 후 홈페이지("/")로 리다이렉트
         return "redirect:/";
     }
 

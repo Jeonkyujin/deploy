@@ -1,6 +1,8 @@
 package project.saving_web_service.InstallImplements;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import project.saving_web_service.Abstract.AbstractInstallFilter;
 import project.saving_web_service.domain.Install;
@@ -8,7 +10,13 @@ import project.saving_web_service.domain.Install;
 public class installHighestRate extends AbstractInstallFilter {
 	@Override
 	protected List<Install> filterByCriteria(List<Install> installments) {
-		installments.sort((install1, install2) -> {
+		List<Install> filteredInstallments = new ArrayList<>();
+		for (Install installment : installments) {
+			if( getMaxRate(installment.get금리()) >= 4){
+				filteredInstallments.add(installment);
+			}
+		}
+		filteredInstallments.sort((install1, install2) -> {
 			// 첫 번째 Install 객체에서 금리 추출
 			double maxRate1 = getMaxRate(install1.get금리());
 
@@ -19,14 +27,11 @@ public class installHighestRate extends AbstractInstallFilter {
 			return Double.compare(maxRate2, maxRate1);
 		});
 
-		// 정렬된 결과 반환
-		if (installments.size() > 10) {
-			return installments.subList(0,10);
-		}
-		return installments;
+
+		return filteredInstallments;
 	}
 
-	private double getMaxRate(String 금리) {
+	public double getMaxRate(String 금리) {
 		if (금리.contains("~")) {
 			// "~"로 구분된 금리 범위에서 최대값 추출
 			String[] 금리범위 = 금리.split("~");

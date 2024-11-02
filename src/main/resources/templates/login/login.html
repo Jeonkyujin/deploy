@@ -8,6 +8,7 @@
     <style>
         body {
             background-color: aliceblue;
+            position: relative;
         }
         .nav {
             height: 70px;
@@ -77,28 +78,38 @@
             background-color: #007bff;
             color: white;
         }
-        /* 뉴스 섹션 스타일 추가 */
-        .news-section {
-            margin-left: 20px;
-            width: 600px;
-            height: 50px;
-            background-color: #f0f0f0;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
+
+        /* 알림 배너 스타일 수정 - 자연스럽게 중앙 위에 배치 */
+        .notification-banner {
+            position: absolute;
+            top: 100px; /* 화면 상단에서의 위치 */
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            max-width: 600px;
+            max-height: 400px; /* 최대 높이 설정 */
+            overflow-y: auto; /* 세로 스크롤 추가 */
             text-align: center;
+            z-index: 1000; /* 배너가 다른 요소보다 위에 오도록 설정 */
         }
-        .news-item {
-            display: none;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            width: 100%;
+        .notification-banner h3 {
+            margin-bottom: 10px;
         }
-        .news-item.active {
-            display: block;
+        .notification-banner p {
+            font-size: 1.2rem;
+        }
+        .close-banner-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: transparent;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -107,19 +118,51 @@
     <div class="company-name">
         Saving the Youth
     </div>
-    <div class="news-section">  <!-- 뉴스 섹션 추가 -->
-        <ul class="news-list" id="newsList">
-            <li th:each="news, iterStat : ${newsList}" class="news-item" th:classappend="${iterStat.index == 0} ? 'active'" th:data-link="${news.link}">
-                <a th:href="${news.link}" th:text="${news.title}" target="_blank"></a>
-            </li>
-        </ul>
-    </div>
     <div class="nav-right-items">
-        <div class="nav-item">소개</div>
         <div class="nav-item"><a href="/myPage">마이 페이지</a></div>
-        <div class="nav-item"><a href="/quiz">퀴즈</a></div> <!-- /Quiz에서 /quiz로 수정 -->
+        <div class="nav-item"><a href="/quiz">퀴즈</a></div>
+        <div class="nav-item"><a href="/favoriteCommodity">관심 상품</a></div>
+        <div class="nav-item"><a href="/logout">로그아웃</a></div>
         <div class="nav-item">
-            <td th:text="'${member.login_id}님 환영합니다!!'"></td>
+            <span th:text="${login_id} + '님 환영합니다!!'"></span>
+        </div>
+    </div>
+</div>
+
+<!-- 알림 배너 -->
+<div class="notification-banner" id="notificationBanner" th:if="${notebookResult != null}">
+    <button class="close-banner-btn" onclick="closeBanner()">&times;</button>
+    <h3>알림</h3>
+
+    <!-- 적금 정보 출력 -->
+    <div th:if="${installData != null}">
+        <h4>적금 추천</h4>
+        <div th:each="install : ${installData}">
+            <div th:if="${install.금융회사명 != null}">
+                <img th:src="'/images/' + ${install.금융회사명} + '.jpeg'" alt="금융회사 로고" style="width: 100px; height: auto;"/>
+            </div>
+            <p th:text="'상품명: ' + ${install.상품명}"></p>
+            <p th:text="'가입기간: ' + ${install.가입기간} + '개월'"></p>
+            <p th:text="'가입금액: ' + ${install.가입금액} + '만원'"></p>
+            <p th:text="'우대조건: ' + (${install.우대조건} != null ? ${install.우대조건} : '없음')"></p>
+            <p th:text="'금리: ' + ${install.금리} + '%'"></p>
+            <hr />
+        </div>
+    </div>
+
+    <!-- 예금 정보 출력 -->
+    <div th:if="${depositData != null}">
+        <h4>예금 추천</h4>
+        <div th:each="deposit : ${depositData}">
+            <div th:if="${deposit.금융회사명 != null}">
+                <img th:src="'/images/' + ${deposit.금융회사명} + '.logo.jpeg'" alt="금융회사 로고" style="width: 100px; height: auto;"/>
+            </div>
+            <p th:text="'상품명: ' + ${deposit.상품명}"></p>
+            <p th:text="'가입기간: ' + ${deposit.가입기간} + '개월'"></p>
+            <p th:text="'가입금액: ' + ${deposit.가입금액} + '만원'"></p>
+            <p th:text="'우대조건: ' + (${deposit.우대조건} != null ? ${deposit.우대조건} : '없음')"></p>
+            <p th:text="'금리: ' + ${deposit.금리} + '%'"></p>
+            <hr />
         </div>
     </div>
 </div>
@@ -160,8 +203,15 @@
         </div>
     </div>
 </div>
+
+<!-- JavaScript 코드 추가 -->
 <script src="script.js"></script>
 <script>
+    // 알림 배너 닫기 함수
+    function closeBanner() {
+        document.getElementById('notificationBanner').style.display = 'none';
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
         const newsItems = document.querySelectorAll('.news-item');
         let currentNewsIndex = 0;
@@ -177,5 +227,6 @@
         }
     });
 </script>
+
 </body>
 </html>

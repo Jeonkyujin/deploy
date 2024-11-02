@@ -1,25 +1,25 @@
-package project.saving_web_service.Abstract;
-
-
+package project.saving_web_service.DepositImplements;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import jakarta.persistence.TypedQuery;
+import project.saving_web_service.Abstract.AbstractDepositFilter;
 import project.saving_web_service.domain.Deposit;
-import project.saving_web_service.domain.Install;
 
-public abstract class AbstractDepositFilter {
+public class depositAllProductsByRate extends AbstractDepositFilter {
+	@Override
+	protected List<Deposit> filterByCriteria(List<Deposit> installments) {
+		return null;
+	}
 
 	public List<Deposit> mainFilter(String period, String amount, List<Deposit> deposit){
 		List <Deposit> firstFilter = FilterByPeriod(deposit, period);
 		List <Deposit> secondFilter = FilterByAmount(firstFilter, amount);
 
-		return filterByCriteria(secondFilter);
+		return secondFilter;
 	}
 
-	protected abstract List<Deposit> filterByCriteria(List<Deposit> installments);
 	public List<Deposit> FilterByPeriod(List<Deposit> deposit, String period){
 		List<Deposit> firstFilterRecommendResult = new ArrayList<>();
 		for (Deposit alldeposit : deposit) {
@@ -78,7 +78,7 @@ public abstract class AbstractDepositFilter {
 		return firstFilterRecommendResult;
 	}
 
-	private List<Deposit> FilterByAmount(List<Deposit> deposit, String amount){
+	public List<Deposit> FilterByAmount(List<Deposit> deposit, String amount){
 		List<Deposit> secondFilterRecommendResult = new ArrayList<>();
 		for (Deposit firstFilter : deposit) {
 			if (firstFilter.get가입금액().contains("~")) {
@@ -116,4 +116,3 @@ public abstract class AbstractDepositFilter {
 	}
 
 }
-

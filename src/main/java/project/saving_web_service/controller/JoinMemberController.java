@@ -30,12 +30,12 @@ public class JoinMemberController {
 
         member.setLogin_id(form.getLogin_id());
         member.setPassword(form.getPassword());
-        member.setStatus(form.getStatus());
-        member.setField(form.getField());
+        member.setStatus(String.join(",", form.getStatus()));
+
         member.setPurpose(form.getPurpose());
         member.setPreferredCondition(form.getPreferredCondition());
         member.setPeriod(form.getPeriod());
-        member.setImportant(form.getImportant());
+        member.setImportant(String.join(",", form.getImportant()));
         member.setAmount(form.getAmount());
 
         memberService.join(member);

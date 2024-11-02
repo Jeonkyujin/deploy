@@ -10,9 +10,7 @@ import project.saving_web_service.domain.Install;
 public class depositReputation extends AbstractDepositFilter {
 	@Override
 	protected List<Deposit> filterByCriteria(List<Deposit> deposit) {
-		if (deposit.size() > 10) {
-             return deposit.subList(0,10);
-		}
+
 		return deposit;
 	}
 }

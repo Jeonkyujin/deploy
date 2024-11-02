@@ -22,12 +22,12 @@ public class installmentRecommendService extends AbstractRecommendService<Instal
 
     @Override
     public List<Install> highestRate(Member member) {
-        return installmentrepository.findBy금리(member.getPeriod(), member.getAmount(), member.getField());
+        return installmentrepository.findBy금리(member.getPeriod(), member.getAmount());
     }
 
     @Override
     public List<Install> reputation(Member member) {
-        return installmentrepository.findby평판(member.getPeriod(), member.getAmount(), member.getField());
+        return installmentrepository.findby평판(member.getPeriod(), member.getAmount());
     }
 
     public List<Install> condition(Member member){
@@ -40,8 +40,15 @@ public class installmentRecommendService extends AbstractRecommendService<Instal
            L = Collections.singletonList(a);
         }
 
-        return installmentrepository.findby우대조건(member.getPeriod(), member.getAmount(), member.getField(), L);
+        return installmentrepository.findby우대조건(member.getPeriod(), member.getAmount(), L);
     }
 
+    public Install findInstall(Long id){
+        return installmentrepository.findbyId(id);
+    }
+
+    public List<Install> findAllInstall(){
+        return installmentrepository.findAll();
+    }
 
 }

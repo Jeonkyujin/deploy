@@ -5,25 +5,44 @@
     <title>Edit my page</title>
 </head>
 <body>
-    <form action="/myPage/correction" method="post">
-        <input type="password" id="password" name="password" placeholder="비밀번호">
-        <br>
-        <input type="text" id="status" name="status" placeholder="신분">
-        <br>
-        <input type="text" id="purpose" name="purpose" placeholder="저축 목적">
-        <br>
-        <input type="text" id="field" name="field" placeholder="분야">
-        <br>
-        <input type="text" id="preferredCondition" name="preferredCondition" placeholder="선호 우대조건">
-        <br>
-        <input type="text" id="amount" name="amount" placeholder="저축 금액">
-        <br>
-        <input type="text" id="period" name="period" placeholder="선호 기간">
-        <br>
-        <input type="text" id="important" name="important" placeholder="중요하게 생각하는 것 ">
-        <br>
+<form action="/myPage/correction" method="post">
+    <input type="password" id="password" name="password" placeholder="비밀번호">
+    <br>
 
-        <button type="submit" class="btn btn-primary">정보 수정</button>
-    </form>
+    <label>관심있는 분야를 선택해주세요:</label><br/>
+    <div>
+        <input type="checkbox" id="status1" name="status" value="환경"> 환경
+        <input type="checkbox" id="status2" name="status" value="직장인"> 직장인
+        <input type="checkbox" id="status3" name="status" value="청년"> 청년
+        <input type="checkbox" id="status4" name="status" value="퇴직"> 퇴직
+        <input type="checkbox" id="status5" name="status" value="스포츠"> 스포츠
+        <input type="checkbox" id="status6" name="status" value="사회적 약자"> 사회적 약자
+        <input type="checkbox" id="status7" name="status" value="군인"> 군인
+        <input type="checkbox" id="status8" name="status" value="가족"> 가족
+        <input type="checkbox" id="status9" name="status" value="대학생"> 대학생
+        <input type="checkbox" id="status10" name="status" value="학생"> 학생
+    </div>
+    <br>
+
+    <input type="text" id="purpose" name="purpose" placeholder="저축 목적">
+    <br>
+    <input type="text" id="preferredCondition" name="preferredCondition" placeholder="선호 우대조건">
+    <br>
+    <input type="text" id="amount" name="amount" placeholder="저축 금액">
+    <br>
+    <input type="text" id="period" name="period" placeholder="선호 기간">
+    <br>
+
+    <label>중요하게 생각하는 것을 선택해주세요:</label><br/>
+    <div>
+        <input type="checkbox" id="important1" name="important" value="높은 금리"> 높은 금리
+        <input type="checkbox" id="important2" name="important" value="해당 금융권에 대한 평판"> 해당 금융권에 대한 평판
+        <input type="checkbox" id="important3" name="important" value="우대조건"> 우대조건
+    </div>
+    <br>
+
+    <button type="submit" class="btn btn-primary">정보 수정</button>
+</form>
 </body>
 </html>
+
