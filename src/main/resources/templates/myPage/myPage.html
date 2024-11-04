@@ -7,16 +7,14 @@
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
     <div>
         <div th:each="member : ${member}">
-            <p><strong>회원번호:</strong> <span th:text="${member.id}"></span></p>
-            <p><strong>로그인 아이디:</strong> <span th:text="${member.login_id}"></span></p>
-            <p><strong>비밀번호:</strong> <span th:text="${member.password}"></span></p>
+
             <p><strong>성별:</strong> <span th:text="${member.sex}"></span></p>
             <p><strong>연령대:</strong> <span th:text="${member.age}"></span></p>
             <p><strong>관심사:</strong> <span th:text="${member.status}"></span></p>
-            <p><strong>선호기간:</strong> <span th:text="${member.period} + '개월'"></span></p>
-            <p><strong>저축 목적:</strong> <span th:text="${member.purpose}"></span></p>
-            <p><strong>중요하게 생각하는 것:</strong> <span th:text="${member.important}"></span></p>
             <p><strong>저축 금액:</strong> <span th:text="${member.amount} + '만원'"></span></p>
+            <p><strong>저축 목적:</strong> <span th:text="${member.purpose}"></span></p>
+            <p><strong>선호기간:</strong> <span th:text="${member.period} + '개월'"></span></p>
+            <p><strong>중요하게 생각하는 것:</strong> <span th:text="${member.important}"></span></p>
             <p><strong>선호하는 우대조건:</strong> <span th:text="${member.preferredCondition}"></span></p>
 
         </div>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Edit my page</title>
@@ -7,6 +7,21 @@
 <body>
 <form action="/myPage/correction" method="post">
     <input type="password" id="password" name="password" placeholder="비밀번호">
+    <br>
+
+    <label>성별을 선택해주세요</label><br/>
+    <div>
+        <input type="checkbox" id="sex1" name="sex" value="남성"> 남성
+        <input type="checkbox" id="sex2" name="sex" value="여성"> 여성
+    </div>
+    <br>
+
+    <label>연령대를 선택해주세요</label><br/>
+    <div>
+        <input type="checkbox" id="age1" name="age" value="20대"> 20대
+        <input type="checkbox" id="age2" name="age" value="30대"> 30대
+        <input type="checkbox" id="age3" name="age" value="40대이상"> 40대이상
+    </div>
     <br>
 
     <label>관심있는 분야를 선택해주세요:</label><br/>
@@ -24,11 +39,9 @@
     </div>
     <br>
 
-    <input type="text" id="purpose" name="purpose" placeholder="저축 목적">
-    <br>
-    <input type="text" id="preferredCondition" name="preferredCondition" placeholder="선호 우대조건">
-    <br>
     <input type="text" id="amount" name="amount" placeholder="저축 금액">
+    <br>
+    <input type="text" id="purpose" name="purpose" placeholder="저축 목적">
     <br>
     <input type="text" id="period" name="period" placeholder="선호 기간">
     <br>
@@ -40,6 +53,13 @@
         <input type="checkbox" id="important3" name="important" value="우대조건"> 우대조건
     </div>
     <br>
+
+    <input type="text" id="preferredCondition" name="preferredCondition" placeholder="선호 우대조건">
+    <br>
+
+
+
+
 
     <button type="submit" class="btn btn-primary">정보 수정</button>
 </form>
