@@ -31,7 +31,8 @@ public class JoinMemberController {
         member.setLogin_id(form.getLogin_id());
         member.setPassword(form.getPassword());
         member.setStatus(String.join(",", form.getStatus()));
-
+        member.setAge(form.getAge());
+        member.setSex(form.getSex());
         member.setPurpose(form.getPurpose());
         member.setPreferredCondition(form.getPreferredCondition());
         member.setPeriod(form.getPeriod());

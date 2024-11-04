@@ -8,10 +8,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import project.saving_web_service.domain.Member;
 import project.saving_web_service.service.MemberService;
 import project.saving_web_service.service.NewsService;  // 뉴스 서비스 추가
+import project.saving_web_service.service.RedisService;
 import project.saving_web_service.service.RestApiService;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,6 +25,7 @@ public class LoginController {
     private final MemberService memberService;
     private final NewsService newsService;
     private final RestApiService restApiService;
+    private final RedisService redisService;
 
     @GetMapping("/login")
     public String login(HttpSession httpSession, Model model) throws JsonProcessingException {
@@ -38,11 +41,13 @@ public class LoginController {
         List<Map<String, Object>> installDataList = (List<Map<String, Object>>) notebookData.get("install_data");
         List<Map<String, Object>> depositDataList = (List<Map<String, Object>>) notebookData.get("deposit_data");
 
+        Set<String> strings = redisService.viewedData(member.getAge(), member.getSex(), 5);
+
 
         // Model에 추가
         model.addAttribute("installData", installDataList);
         model.addAttribute("depositData", installDataList);
-
+        model.addAttribute("string", strings);
         model.addAttribute("member", member);
         model.addAttribute("login_id", login_id);
         List<Map<String, String>> newsList = newsService.getLatestNews();

@@ -31,6 +31,10 @@ public class Member {
 
     private String amount;
 
+    private String age;
+
+    private String sex;
+
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FavoriteInstall> favoriteInstalls = new ArrayList<>();
 

@@ -104,6 +104,22 @@
         <div class="nav-item">
             <label>관심있는 분야를 선택해주세요</label><br/>
             <div class="checkbox-container">
+                <input type="checkbox" th:field="*{sex}" value="남성"> 남성
+                <input type="checkbox" th:field="*{sex}" value="여성"> 여성
+            </div>
+        </div>
+        <div class="nav-item">
+            <label>관심있는 분야를 선택해주세요</label><br/>
+            <div class="checkbox-container">
+                <input type="checkbox" th:field="*{age}" value="20대"> 20대
+                <input type="checkbox" th:field="*{age}" value="30대"> 30대
+                <input type="checkbox" th:field="*{age}" value="40대 이상"> 40대 이상
+            </div>
+        </div>
+
+        <div class="nav-item">
+            <label>관심있는 분야를 선택해주세요</label><br/>
+            <div class="checkbox-container">
                 <input type="checkbox" th:field="*{status}" value="환경"> 환경
                 <input type="checkbox" th:field="*{status}" value="직장인"> 직장인
                 <input type="checkbox" th:field="*{status}" value="청년"> 청년

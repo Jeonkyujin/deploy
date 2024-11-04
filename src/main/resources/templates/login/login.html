@@ -129,6 +129,13 @@
     </div>
 </div>
 
+<h2 th:text="${member.age} + ' ' + ${member.sex} + '들이 실시간으로 관심 있는 상품들'"></h2>
+
+<ul>
+    <!-- 'strings'라는 모델 속성을 반복하여 각 항목을 출력합니다 -->
+    <li th:each="item, iterStat : ${string}" th:text="${iterStat.index + 1} + '. ' + ${item}"></li>
+</ul>
+
 <!-- 알림 배너 -->
 <div class="notification-banner" id="notificationBanner" th:if="${notebookResult != null}">
     <button class="close-banner-btn" onclick="closeBanner()">&times;</button>

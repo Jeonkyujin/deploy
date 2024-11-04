@@ -14,6 +14,6 @@ import project.saving_web_service.domain.FavoriteInstall;
 public interface FavoriteDepositRepository extends JpaRepository<FavoriteDeposit,Long> {
 
 	@Query("SELECT f FROM FavoriteDeposit f WHERE f.member.id = :memberId AND f.deposit.예금id = :depositId")
-	Optional<FavoriteInstall> findByMemberIdAndInstallId(@Param("memberId") Long memberId, @Param("depositId") Long installId);
+	Optional<FavoriteDeposit> findByMemberIdAndDepositId(@Param("memberId") Long memberId, @Param("depositId") Long depositId);
 
 }

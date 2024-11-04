@@ -8,8 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import project.saving_web_service.domain.Member;
 import project.saving_web_service.service.LoginService;
 import project.saving_web_service.service.MemberService;
-
-
+import project.saving_web_service.service.RedisService;
 
 @Controller
 @Slf4j
@@ -18,10 +17,12 @@ public class HomeController {
 
     private final LoginService loginService;
     private final MemberService memberService;
+    private final RedisService redisService;
 
     @RequestMapping("/")
     public String home() {
         log.info("home controller");
+        System.out.println(redisService.isRedisAvailable());
         return "home";
     }
 

@@ -19,9 +19,9 @@ public class FavoriteDepositController {
 	private final FavoriteDepositService favoriteDepositService;
 
 	@PostMapping
-	public ResponseEntity<Void> addFavorite(@RequestBody FavoriteDepositDTO favoritedepositDTO) {
-		favoriteDepositService.addFavorite(favoritedepositDTO);
-		return ResponseEntity.ok().build();
+	public ResponseEntity<String> addFavorite(@RequestBody FavoriteDepositDTO favoritedepositDTO) {
+		return favoriteDepositService.addFavorite(favoritedepositDTO);
+
 	}
 
 

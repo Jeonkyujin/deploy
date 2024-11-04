@@ -26,11 +26,15 @@ public class MemberForm {
     private String preferredCondition;
 
     private String amount;
+
+    private String age;
+
+    private String sex;
     public MemberForm(){
 
     }
 
-    public MemberForm(Long id,String login_id, String password, List<String> status, String period, List<String> important, String purpose, String preferredCondition, String amount){
+    public MemberForm(Long id,String login_id, String password, List<String> status, String period, List<String> important, String purpose, String preferredCondition, String amount, String age, String sex){
         this.id = id;
         this.login_id = login_id;
         this.password = password;
@@ -40,6 +44,8 @@ public class MemberForm {
         this.purpose = purpose;
         this.preferredCondition = preferredCondition;
         this.amount = amount;
+        this.age = age;
+        this.sex = sex;
 
     }
 }

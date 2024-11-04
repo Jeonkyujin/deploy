@@ -25,9 +25,9 @@ public class FavoriteInstallController {
 	private final FavoriteDepositService favoriteDepositService;
 
 	@PostMapping
-	public ResponseEntity<Void> addFavorite(@RequestBody FavoriteInstallDTO favoriteInstallDTO) {
-		favoriteInstallService.addFavorite(favoriteInstallDTO);
-		return ResponseEntity.ok().build();
+	public ResponseEntity<String> addFavorite(@RequestBody FavoriteInstallDTO favoriteInstallDTO) {
+		return favoriteInstallService.addFavorite(favoriteInstallDTO);
+
 	}
 
 	@DeleteMapping("/delete")
