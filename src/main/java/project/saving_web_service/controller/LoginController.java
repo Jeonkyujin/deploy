@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import project.saving_web_service.domain.Member;
 import project.saving_web_service.service.MemberService;
 import project.saving_web_service.service.NewsService;  // 뉴스 서비스 추가

@@ -131,10 +131,69 @@
 
 <h2 th:text="${member.age} + ' ' + ${member.sex} + '들이 실시간으로 관심 있는 상품들'"></h2>
 
-<ul>
-    <!-- 'strings'라는 모델 속성을 반복하여 각 항목을 출력합니다 -->
-    <li th:each="item, iterStat : ${string}" th:text="${iterStat.index + 1} + '. ' + ${item}"></li>
-</ul>
+<div id="dataDisplay"></div>
+
+<script>
+    function pollServer() {
+        // 페이지가 로드되자마자 한 번 데이터를 가져옵니다
+        fetch("/polling")
+            .then(response => response.text())
+            .then(data => {
+                console.log("서버로부터 데이터 수신:", data); // 콘솔 출력 (테스트용)
+
+                // 데이터를 쉼표로 분리하여 배열로 만듭니다
+                const items = data.split(", ").filter(item => item.trim() !== ""); // 빈 값 제거
+
+                let rankedHtml = "";
+
+                if (items.length > 0) {
+                    // 데이터가 있을 때만 <ol>을 사용해 목록을 생성
+                    rankedHtml = "<ol>";
+                    items.forEach(item => {
+                        const cleanItem = item.replace(/^\[|\]$/g, "");
+                        rankedHtml += `<li>${cleanItem}</li>`;
+                    });
+                    rankedHtml += "</ol>";
+                }
+
+                // dataDisplay 요소에 데이터를 표시합니다
+                document.getElementById("dataDisplay").innerHTML = rankedHtml;
+            });
+
+        // 이후 5초마다 데이터를 가져옵니다
+        setInterval(() => {
+            fetch("/polling")
+                .then(response => response.text())
+                .then(data => {
+                    console.log("서버로부터 데이터 수신:", data); // 콘솔 출력 (테스트용)
+
+                    // 데이터를 쉼표로 분리하여 배열로 만듭니다
+                    const items = data.split(", ").filter(item => item.trim() !== ""); // 빈 값 제거
+
+                    let rankedHtml = "";
+
+                    if (items.length > 0) {
+                        // 데이터가 있을 때만 <ol>을 사용해 목록을 생성
+                        rankedHtml = "<ol>";
+                        items.forEach(item => {
+                            const cleanItem = item.replace(/^\[|\]$/g, "");
+                            rankedHtml += `<li>${cleanItem}</li>`;
+                        });
+                        rankedHtml += "</ol>";
+                    }
+
+                    // dataDisplay 요소에 데이터를 표시합니다
+                    document.getElementById("dataDisplay").innerHTML = rankedHtml;
+                });
+        }, 5000); // 5초마다 폴링
+    }
+
+    pollServer();
+</script>
+
+
+
+
 
 <!-- 알림 배너 -->
 <div class="notification-banner" id="notificationBanner" th:if="${notebookResult != null}">
