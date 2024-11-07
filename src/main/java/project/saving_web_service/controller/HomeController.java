@@ -46,14 +46,16 @@ public class HomeController {
         String login_id = (String) session.getAttribute("login_id");
         Member member = memberService.findMember(login_id);
         model.addAttribute("member", member);
+        model.addAttribute("login_id", login_id);
         return "myPage/myPage";
     }
 
     @GetMapping ("/myPage/correction")
-    public String editpage(Model model, HttpSession session){
+    public String editPage(Model model, HttpSession session){
         String login_id = (String) session.getAttribute("login_id");
         Member member = memberService.findMember(login_id);
         model.addAttribute("member", member);
+        model.addAttribute("login_id", login_id);
         return "myPage/correction";
 
     }
@@ -68,6 +70,8 @@ public class HomeController {
         member.setAmount(updatedMember.getAmount());
         member.setPeriod(updatedMember.getPeriod());
         member.setImportant(updatedMember.getImportant());
+        member.setAge(updatedMember.getAge());
+        member.setSex(updatedMember.getSex());
 
 
         memberService.join(member);

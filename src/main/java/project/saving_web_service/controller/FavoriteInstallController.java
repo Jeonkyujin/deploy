@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import project.saving_web_service.domain.FavoriteInstallDTO;
 import project.saving_web_service.domain.FavoritesDeleteRequest;
@@ -25,8 +26,8 @@ public class FavoriteInstallController {
 	private final FavoriteDepositService favoriteDepositService;
 
 	@PostMapping
-	public ResponseEntity<String> addFavorite(@RequestBody FavoriteInstallDTO favoriteInstallDTO) {
-		return favoriteInstallService.addFavorite(favoriteInstallDTO);
+	public ResponseEntity<String> addFavorite(@RequestBody FavoriteInstallDTO favoriteInstallDTO, HttpSession session) {
+		return favoriteInstallService.addFavorite(favoriteInstallDTO, session);
 
 	}
 

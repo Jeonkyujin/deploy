@@ -1,61 +1,140 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>퀴즈 결과</title>
+    <link href="/css/default.css" rel="stylesheet" type="text/css" />
+    <link href="/css/page.css" rel="stylesheet" type="text/css" />
     <style>
-        body {
-            background-color: aliceblue;
+        /* 헤더 배경 이미지 추가 */
+        .sub-section {
+            background-image: url('/images/quiz.png'); /* 원하는 이미지 경로로 수정 */
+            background-size: cover;
+            background-position: center;
+            color: white;
+            height: 250px; /* 원하는 높이로 설정 */
             display: flex;
             flex-direction: column;
+            justify-content: center;
             align-items: center;
-            padding: 20px;
-            font-family: Arial, sans-serif;
+            text-align: center;
         }
-        .result-container {
-            margin-top: 30px;
+
+        .quiz-container {
+            margin: 30px auto; /* 화면 중앙 배치를 위해 margin을 auto로 설정 */
             padding: 20px;
             background-color: #f0f0f0;
             border-radius: 8px;
-            width: 80%;
+            width: 60%; /* 크기 조정 */
             max-width: 600px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        .result-title {
+
+        .quiz-content__title {
             font-size: 1.8rem;
             margin-bottom: 20px;
             text-align: center;
-        }
-        .result-details {
-            margin-top: 10px;
-            font-size: 1rem;
             color: #333;
         }
+
+        .result-content {
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        .result-text {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
         .correct {
             color: green;
         }
+
         .incorrect {
             color: red;
         }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
     </style>
 </head>
+
 <body>
-<div class="result-container">
-    <h2 class="result-title">퀴즈 결과</h2>
-    <p th:text="'정답 개수: ' + ${correctCount} + ' / ' + ${totalCount}">정답 개수</p>
-    <div th:if="${results != null}" th:each="result : ${results}">
-        <p>
-            <strong th:text="${result['question']}">질문이 여기에 표시됩니다.</strong><br>
-            <span th:text="'사용자가 선택한 답변: ' + ${result['selectedOption']}">사용자가 선택한 답변</span><br>
-            <span th:text="'정답: ' + ${result['correctOption']}">정답</span><br>
-            <span th:if="${result['status'] == '정답'}" class="correct" th:text="'결과: ' + ${result['status']}">결과</span>
-            <span th:if="${result['status'] == '오답'}" class="incorrect" th:text="'결과: ' + ${result['status']}">결과</span><br>
-            <span th:text="'해설: ' + ${result['explanation']}">해설</span>
-        </p>
-        <hr>
+<!-- 헤더 시작 -->
+<header>
+    <div class="header-wrapper">
+        <div class="logo">
+            <a href="/login">SMART SAVING GUIDE</a>
+        </div>
+        <ul class="header-menu">
+            <li class="nav-item"><a href="/quiz">퀴즈</a></li>
+            <li class="nav-item"><a href="/favoriteCommodity">관심상품</a></li>
+            <li class="nav-item"><a href="/myPage">마이페이지</a></li>
+            <li class="nav-item"><a href="/logout">로그아웃</a></li>
+            <li class="nav-item">
+                <span th:text="${login_id} + '님 환영합니다!!'"></span>
+            </li>
+        </ul>
     </div>
-    <button onclick="location.href='/quiz'">다시 도전하기</button>
+</header>
+<!-- 헤더 끝 -->
+
+<!-- 서브 섹션 시작 -->
+<section class="sub-section">
+    <div class="content-wrapper">
+        <h2 class="sub-title">퀴즈 결과</h2>
+    </div>
+</section>
+<!-- 서브 섹션 끝 -->
+
+<div class="quiz-container">
+    <div class="quiz-content">
+        <h2 class="quiz-content__title">퀴즈 결과</h2>
+        <p th:text="'정답 개수: ' + ${correctCount} + ' / ' + ${totalCount}" class="result-text">정답 개수 1개</p>
+        <div th:if="${results != null}" th:each="result : ${results}" class="result-content">
+            <p class="result-text1">
+                <b>Q</b><strong th:text="${result['question']}">질문이 여기에 표시됩니다.</strong>
+            </p>
+            <p class="result-text2">
+                <b>A</b><span th:text="'사용자가 선택한 답변: ' + ${result['selectedOption']}">사용자가 선택한 답변</span>
+            </p>
+            <p class="result-text3">
+                <span th:text="'정답: ' + ${result['correctOption']}">정답</span>
+            </p>
+            <p class="result-text3">
+                <span th:if="${result['status'] == '정답'}" class="correct" th:text="'결과: ' + ${result['status']}">결과</span>
+                <span th:if="${result['status'] == '오답'}" class="incorrect" th:text="'결과: ' + ${result['status']}">결과</span>
+            </p>
+            <p class="result-text3">
+                <span th:text="'해설: ' + ${result['explanation']}">해설</span>
+            </p>
+            <hr>
+        </div>
+        <button onclick="location.href='/quiz'">다시 도전하기</button>
+    </div>
 </div>
+
+<!-- 푸터 시작 -->
+<footer>
+    <div class="content-wrapper">
+        <h2 class="footer-logo">SMART SAVING GUIDE</h2>
+        <p class="copyright">Copyright © 2024 SMART SAVING GUIDE CO., LTD. All Rights Reserved.</p>
+    </div>
+</footer>
+<!-- 푸터 끝 -->
+
 </body>
 </html>

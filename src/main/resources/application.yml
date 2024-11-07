@@ -5,8 +5,16 @@ spring:
     username: rbwls1542
     password: a12345
   redis:
-    host: localhost
+    host: 13.124.248.38
     port: 6379
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
+    thymeleaf:
+      cache: false
+
 
   jpa:
     open-in-view: true

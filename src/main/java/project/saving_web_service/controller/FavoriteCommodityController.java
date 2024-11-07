@@ -20,6 +20,7 @@ public class FavoriteCommodityController {
 		String login_id = (String) session.getAttribute("login_id");
 		Member member = memberService.findMember(login_id);
 		model.addAttribute("member", member);
+		model.addAttribute("login_id",login_id);
 
 		return "Favorite/favoriteCommodity";
 	}

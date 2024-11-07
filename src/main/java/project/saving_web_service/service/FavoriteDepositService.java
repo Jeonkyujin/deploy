@@ -2,11 +2,13 @@ package project.saving_web_service.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import project.saving_web_service.domain.Deposit;
 import project.saving_web_service.domain.FavoriteDeposit;
@@ -29,7 +31,7 @@ public class FavoriteDepositService {
 	private final DepositRepository depositRepository;
 	private final FavoriteDepositRepository favoritedepositRepository;
 	private final RedisService redisService;
-	public ResponseEntity<String> addFavorite(FavoriteDepositDTO favoriteDepositDTO) {
+	public ResponseEntity<String> addFavorite(FavoriteDepositDTO favoriteDepositDTO, HttpSession session) {
 		Member member = memberRepository.findByRealId(favoriteDepositDTO.getMemberId());
 
 		List<Long> depositIds = favoriteDepositDTO.getDepositId();
@@ -46,9 +48,12 @@ public class FavoriteDepositService {
 			Deposit deposit = depositRepository.findbyId(depositId);
 			FavoriteDeposit favoriteDeposit = new FavoriteDeposit(member, deposit);
 
-			// Redis 업데이트
+			Set<String> strings1 = redisService.viewedData(member.getAge(), member.getSex());
 			redisService.addItemRecentlySaved(member.getAge(), member.getSex(), depositId,a);
-
+			Set<String> strings2 = redisService.viewedData(member.getAge(), member.getSex());
+			if(!strings1.equals(strings2)){
+				session.setAttribute("currentTopRanking",strings2);
+			}
 			// 관심 목록에 추가
 			favoritedepositRepository.save(favoriteDeposit);
 			addedSuccessfully.add(depositId); // 성공적으로 추가된 상품 ID 기록

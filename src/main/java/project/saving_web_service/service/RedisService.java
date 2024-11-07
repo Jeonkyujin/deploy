@@ -1,5 +1,6 @@
 package project.saving_web_service.service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -46,6 +47,11 @@ public class RedisService {
 		return redisTemplate.opsForZSet().reverseRange(key,0,count-1);
 	}
 
+	public Set<String> viewedData(String age, String sex){
+		String key = age + ":" + sex;
+		return redisTemplate.opsForZSet().reverseRange(key,0,0);
+	}
+
 	public boolean isRedisAvailable() {
 		try {
 			return redisTemplate.getConnectionFactory().getConnection().ping().equals("PONG");
@@ -53,5 +59,6 @@ public class RedisService {
 			return false;
 		}
 	}
+
 
 }

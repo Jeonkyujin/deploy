@@ -34,7 +34,7 @@ public class LoginController {
         String login_id = (String) httpSession.getAttribute("login_id");
         String notebookResult = restApiService.execute(login_id);
         Member member = memberService.findMember(login_id);
-
+        String a = "abc";
 
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, Object> notebookData = objectMapper.readValue(notebookResult, Map.class);
@@ -46,7 +46,7 @@ public class LoginController {
         Set<String> strings = redisService.viewedData(member.getAge(), member.getSex(), 5);
 
 
-        // Model에 추가
+
         model.addAttribute("installData", installDataList);
         model.addAttribute("depositData", installDataList);
         model.addAttribute("string", strings);
@@ -54,8 +54,13 @@ public class LoginController {
         model.addAttribute("login_id", login_id);
         List<Map<String, String>> newsList = newsService.getLatestNews();
         model.addAttribute("newsList", newsList);
-        model.addAttribute("notebookResult", notebookResult);
-
+        if (httpSession.getAttribute("firstLogin") == null) {
+            httpSession.setAttribute("firstLogin", true);
+            httpSession.setAttribute("currentTopRanking", a);
+            model.addAttribute("notebookResult", notebookResult); // notebookResult에 알림 데이터를 설정
+        } else {
+            model.addAttribute("notebookResult", null); // 이미 로그인한 상태라면 null로 설정
+        }
         return "login/login.html";
     }
 

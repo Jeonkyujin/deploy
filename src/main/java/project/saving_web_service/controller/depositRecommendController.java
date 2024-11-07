@@ -35,6 +35,7 @@ public class depositRecommendController {
 		List<Deposit> deposit = dRS.recommend(member);
 		List<Deposit> status = statusDepositService.findStatus(member.getStatus());
 		System.out.println(status.size());
+		model.addAttribute("login_id", login_id);
 		model.addAttribute("deposit", deposit);
 		model.addAttribute("member", member);
 		model.addAttribute("depositStatus", status);
@@ -71,6 +72,7 @@ public class depositRecommendController {
 			model.addAttribute("deposit", SecondFilterDeposit);
 			model.addAttribute("member", member);
 			model.addAttribute("depositStatus", status);
+			model.addAttribute("login_id", login_id);
 			model.addAttribute("statusMessage", member.getStatus()+"를 위한 추천상품");
 			model.addAttribute("commonMessage", "조건 맞춤 추천상품");
 			return "Recommend/reputationByDeposit";
@@ -86,6 +88,7 @@ public class depositRecommendController {
 			model.addAttribute("deposit", FirstFilterDeposit);
             model.addAttribute("member",member);
 			model.addAttribute("depositStatus", status);
+			model.addAttribute("login_id", login_id);
 			model.addAttribute("statusMessage", member.getStatus()+"를 위한 추천상품");
 			model.addAttribute("commonMessage", "조건 맞춤 추천상품");
 			return "perfectRecommend/deposit";

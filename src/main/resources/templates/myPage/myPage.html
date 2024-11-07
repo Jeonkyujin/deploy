@@ -1,29 +1,107 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: header" />
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마이페이지 - SMART SAVING GUIDE</title>
+    <link href="/css/default.css" rel="stylesheet" type="text/css" />
+    <link href="/css/page.css" rel="stylesheet" type="text/css" />
+    <style>
+        /* 회색 배경에 이미지 추가 */
+        .sub-section {
+            background-image: url('/images/sub-bg3.jpg'); /* 원하는 이미지 경로로 수정 */
+            background-size: cover;
+            background-position: center;
+            color: white;
+            height: 250px; /* 원하는 높이로 설정 */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+    </style>
+</head>
+
 <body>
-
-<div class="container">
-    <div th:replace="fragments/bodyHeader :: bodyHeader" />
-    <div>
-        <div th:each="member : ${member}">
-
-            <p><strong>성별:</strong> <span th:text="${member.sex}"></span></p>
-            <p><strong>연령대:</strong> <span th:text="${member.age}"></span></p>
-            <p><strong>관심사:</strong> <span th:text="${member.status}"></span></p>
-            <p><strong>저축 금액:</strong> <span th:text="${member.amount} + '만원'"></span></p>
-            <p><strong>저축 목적:</strong> <span th:text="${member.purpose}"></span></p>
-            <p><strong>선호기간:</strong> <span th:text="${member.period} + '개월'"></span></p>
-            <p><strong>중요하게 생각하는 것:</strong> <span th:text="${member.important}"></span></p>
-            <p><strong>선호하는 우대조건:</strong> <span th:text="${member.preferredCondition}"></span></p>
-
+<header>
+    <div class="header-wrapper">
+        <div class="logo">
+            <a href="/login">SMART SAVING GUIDE</a>
         </div>
-        <form action="/myPage/correction" method="get">
-            <button type="submit" class="btn btn-primary">정보 수정</button>
-        </form>
-    </div>
+        <ul class="header-menu">
 
-    <div th:replace="fragments/footer :: footer" />
-</div> <!-- /container -->
+            <li class="nav-item"><a href="/quiz">퀴즈</a></li>
+            <li class="nav-item"><a href="/favoriteCommodity">관심상품</a></li>
+            <li class="nav-item"><a href="/myPage">마이페이지</a></li>
+            <li class="nav-item"><a href="/logout">로그아웃</a></li>
+            <li class="nav-item">
+                <span th:text="${login_id} + '님 환영합니다!!'"></span>
+            </li>
+        </ul>
+    </div>
+</header>
+
+<section class="sub-section">
+    <div class="content-wrapper">
+        <h2 class="sub-title">마이페이지</h2>
+        <p class="sub-text">고객님의 정보를 변경할 수 있습니다.</p>
+    </div>
+</section>
+
+<div class="mypage-container">
+    <div class="content-wrapper">
+        <h2 class="mypage-title">정보 확인</h2>
+        <div class="mypage-content">
+            <table>
+                <tbody>
+                <tr>
+                    <th>성별</th>
+                    <td><span th:text="${member.sex}"></span></td>
+                </tr>
+                <tr>
+                    <th>연령대</th>
+                    <td><span th:text="${member.age}"></span></td>
+                </tr>
+                <tr>
+                    <th>관심사</th>
+                    <td><span th:text="${member.status}"></span></td>
+                </tr>
+                <tr>
+                    <th>저축 금액</th>
+                    <td><span th:text="${member.amount} + '만원'"></span></td>
+                </tr>
+                <tr>
+                    <th>저축 목적</th>
+                    <td><span th:text="${member.purpose}"></span></td>
+                </tr>
+                <tr>
+                    <th>선호기간</th>
+                    <td><span th:text="${member.period} + '개월'"></span></td>
+                </tr>
+                <tr>
+                    <th>중요하게 생각하는 것</th>
+                    <td><span th:text="${member.important}"></span></td>
+                </tr>
+                <tr>
+                    <th>선호하는 우대조건</th>
+                    <td><span th:text="${member.preferredCondition}"></span></td>
+                </tr>
+                </tbody>
+            </table>
+            <form action="/myPage/correction" method="get">
+                <button type="submit" class="btn btn-primary">정보 수정</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="content-wrapper">
+        <h2 class="footer-logo">SMART SAVING GUIDE</h2>
+        <p class="copyright">Copyright © 2024 SMART SAVING GUIDE CO., LTD. All Rights Reserved.</p>
+    </div>
+</footer>
+
 </body>
 </html>

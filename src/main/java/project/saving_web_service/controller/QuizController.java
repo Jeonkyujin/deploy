@@ -1,5 +1,6 @@
 package project.saving_web_service.controller;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,12 +24,14 @@ public class QuizController {
 
 
     @GetMapping("/quiz")
-    public String showQuizPage(Model model) {
+    public String showQuizPage(Model model, HttpSession session) {
+        String login_id = (String)session.getAttribute("login_id");
         List<Quiz> quizzes = quizService.getRandomQuizzes();
         if (quizzes.isEmpty()) {
             model.addAttribute("errorMessage", "현재 제공할 수 있는 퀴즈가 없습니다.");
             return "quiz-error";
         }
+        model.addAttribute("login_id", login_id);
         model.addAttribute("quizzes", quizzes);
         return "quiz";
     }
@@ -37,7 +40,8 @@ public class QuizController {
     @PostMapping("/quiz/submit")
     public String submitQuiz(@RequestParam Map<String, String> quizOptions,
                              @RequestParam("quizIds") Long[] quizIds,
-                             Model model) {
+                             Model model, HttpSession session) {
+        String login_id = (String)session.getAttribute("login_id");
         int correctCount = 0;
         List<Map<String, String>> results = new ArrayList<>();
 
@@ -69,7 +73,7 @@ public class QuizController {
             result.put("explanation", quiz.getExplanation());
             results.add(result);
         }
-
+        model.addAttribute("login_id", login_id);
         model.addAttribute("correctCount", correctCount);
         model.addAttribute("totalCount", quizIds.length);
         model.addAttribute("results", results);

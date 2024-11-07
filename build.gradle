@@ -32,6 +32,9 @@ dependencies {
 	implementation 'javax.servlet:javax.servlet-api:4.0.1' //추가된 것
 	implementation 'org.apache.commons:commons-text:1.10.0' //추가된 것
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	implementation 'org.springframework.boot:spring-boot-starter-web-services'
+
+
 
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.mysql:mysql-connector-j'

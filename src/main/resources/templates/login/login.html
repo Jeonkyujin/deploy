@@ -4,66 +4,84 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Saving the Youth</title>
-    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link href="/css/default.css" rel="stylesheet" type="text/css" />
+    <link href="/css/page.css" rel="stylesheet" type="text/css" />
     <style>
         body {
-            background-color: aliceblue;
-            position: relative;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
         }
-        .nav {
-            height: 70px;
-            border-bottom: 1px solid black;
+
+        .main-section {
+            background-image: url('/images/main-visual.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 500px;
             display: flex;
+            flex-direction: column;
+            justify-content: center;
             align-items: center;
+            text-align: center;
+            color: white;
         }
-        .nav-right-items {
+
+        .header-wrapper {
             display: flex;
-            margin-left: auto;
+            justify-content: space-between;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.9);
         }
-        .nav-item {
-            margin-left: 10px;
-        }
-        .company-name {
-            margin-left: 20px;
-        }
-        .title {
-            text-align: center;
-            font-size: 3.5rem;
-            font-weight: 300;
-        }
-        .subtitle {
-            text-align: center;
-            font-size: 1.25rem;
-            font-weight: 300;
-        }
-        .main {
-            width: 800px;
-            margin: 0 auto;
-            margin-top: 60px;
-        }
-        .saving-item {
-            display: flex;
-        }
-        .item {
-            width: 300px;
-            height: 300px;
-            border: 1px solid black;
-            margin: 20px;
-            border-radius: 4px;
-            text-align: center;
-        }
-        .item-title {
-            font-size: 1.5rem;
-            background: rgba(0, 0, 0, .03);
-            height: 53px;
-            line-height: 53px;
-            border-bottom: 1px solid black;
-        }
-        .item-detail {
+
+        .logo {
             font-size: 1.5rem;
             font-weight: bold;
-            padding: 20px;
+            color: #007bff;
         }
+
+        .header-menu {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-item a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .nav-item a:hover {
+            text-decoration: underline;
+        }
+
+        .centered-content {
+            text-align: center;
+        }
+
+        .main-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #000;
+            margin-bottom: 0.5rem;
+        }
+
+        .description {
+            font-size: 1rem;
+            color: #6c757d;
+            margin-bottom: 1rem;
+        }
+
+        .main-title:after {
+            content: "";
+            display: block;
+            width: 50px;
+            height: 2px;
+            background-color: #007bff;
+            margin: 0.5rem auto;
+        }
+
         .item-button {
             padding: .5rem 1rem;
             font-size: 1.25rem;
@@ -73,65 +91,186 @@
             background-color: transparent;
             border-color: #007bff;
             margin-top: 30px;
+            display: inline-block;
         }
+
         .item-button-active {
             background-color: #007bff;
             color: white;
         }
 
-        /* 알림 배너 스타일 수정 - 자연스럽게 중앙 위에 배치 */
-        .notification-banner {
-            position: absolute;
-            top: 100px; /* 화면 상단에서의 위치 */
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-            width: 80%;
-            max-width: 600px;
-            max-height: 400px; /* 최대 높이 설정 */
-            overflow-y: auto; /* 세로 스크롤 추가 */
+        .first-section-container {
+            display: flex;
+            justify-content: center;
+            gap: 5px; /* 두 섹션 간의 간격 */
+            margin-top: 20px;
+        }
+
+        .first-section {
+            width: 300px; /* 각 섹션의 너비를 지정 */
             text-align: center;
-            z-index: 1000; /* 배너가 다른 요소보다 위에 오도록 설정 */
         }
+
+        /* 알림 배너 스타일 */
+        .notification-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #fffbcc;
+            color: #333;
+            padding: 20px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            text-align: center;
+        }
+
         .notification-banner h3 {
-            margin-bottom: 10px;
+            margin: 0 0 10px;
+            font-size: 1.25rem;
+            font-weight: bold;
         }
-        .notification-banner p {
-            font-size: 1.2rem;
-        }
-        .close-banner-btn {
+
+        .notification-banner .close-banner-btn {
             position: absolute;
             top: 10px;
             right: 10px;
-            background-color: transparent;
+            background: none;
             border: none;
             font-size: 1.5rem;
             cursor: pointer;
+            color: #333;
         }
+        .ranking-section ol {
+            padding-left: 20px; /* 숫자의 위치를 설정 */
+            margin: 0;
+            list-style-position: inside; /* 숫자를 안쪽에 고정 */
+        }
+        .ranking-section li {
+            padding-left: 5px; /* 리스트 항목 간의 간격 조정 */
+            margin: 5px 0;
+        }
+
     </style>
 </head>
+
 <body>
-<div class="nav">
-    <div class="company-name">
-        Saving the Youth
+<header>
+    <div class="header-wrapper">
+        <div class="logo">
+            SMART SAVING GUIDE
+        </div>
+        <ul class="header-menu">
+            <li class="nav-item"><a href="/myPage">마이 페이지</a></li>
+            <li class="nav-item"><a href="/quiz">퀴즈</a></li>
+            <li class="nav-item"><a href="/favoriteCommodity">관심 상품</a></li>
+            <li class="nav-item"><a href="/logout">로그아웃</a></li>
+            <li class="nav-item">
+                <span th:text="${login_id} + '님 환영합니다!!'"></span>
+            </li>
+        </ul>
     </div>
-    <div class="nav-right-items">
-        <div class="nav-item"><a href="/myPage">마이 페이지</a></div>
-        <div class="nav-item"><a href="/quiz">퀴즈</a></div>
-        <div class="nav-item"><a href="/favoriteCommodity">관심 상품</a></div>
-        <div class="nav-item"><a href="/logout">로그아웃</a></div>
-        <div class="nav-item">
-            <span th:text="${login_id} + '님 환영합니다!!'"></span>
+</header>
+
+<section class="main-section">
+    <div class="content-wrapper">
+        <p class="visual-text1">저축 어떻게 해야하실지 고민이신가요?</p>
+        <p class="visual-text2">SMART SAVING GUIDE 에서</p>
+        <p class="visual-text3">다양한 상품을 추천해드립니다!</p>
+    </div>
+</section>
+
+<section class="first-section-container">
+
+    <div class="ranking-section content-wrapper centered-content" id="dataDisplay">
+        <p th:text="${member.age} + ' ' + ${member.sex} + '의 실시간 관심 목록'">실시간 관심 목록</p>
+        <!-- 실시간 랭킹 데이터가 여기에 표시됩니다 -->
+        <div id="rankingList">
+            <!-- 여기에 실시간 랭킹 데이터가 표시됩니다. 예시로 빈 목록을 둡니다 -->
+            <ol>
+                <li>예시 상품 1</li>
+                <li>예시 상품 2</li>
+                <li>예시 상품 3</li>
+            </ol>
+        </div>
+    </div>
+    <div class="first-section content-wrapper centered-content">
+        <h2 class="main-title">적금 추천 상품</h2>
+        <p class="description">고객님의 정보에 맞춘 저축 상품을 추천합니다.</p>
+        <form action="/installment" method="get">
+            <button type="submit" class="item-button item-button-active">
+                Click
+            </button>
+        </form>
+    </div>
+    <div class="first-section content-wrapper centered-content">
+        <h2 class="main-title">예금 추천 상품</h2>
+        <p class="description">고객님의 정보에 맞춘 저축 상품을 추천합니다.</p>
+        <form action="/deposit" method="get">
+            <button type="submit" class="item-button item-button-active">
+                Click
+            </button>
+        </form>
+    </div>
+</section>
+
+<!-- 알림 배너 -->
+<div class="notification-banner" id="notebookNotificationBanner" th:if="${notebookResult != null}">
+    <button class="close-banner-btn" onclick="closeBanner()">&times;</button>
+    <h3>알림</h3>
+    <div th:if="${installData != null}">
+        <h4>적금 추천</h4>
+        <div th:each="install : ${installData}">
+            <div th:if="${install.금융회사명 != null}">
+                <img th:src="'/images/' + ${install.금융회사명} + '.jpeg'" alt="금융회사 로고" style="width: 100px; height: auto;"/>
+            </div>
+            <p th:text="'상품명: ' + ${install.상품명}"></p>
+            <p th:text="'가입기간: ' + ${install.가입기간} + '개월'"></p>
+            <p th:text="'가입금액: ' + ${install.가입금액} + '만원'"></p>
+            <p th:text="'우대조건: ' + (${install.우대조건} != null ? ${install.우대조건} : '없음')"></p>
+            <p th:text="'금리: ' + ${install.금리} + '%'"></p>
+            <hr />
+        </div>
+    </div>
+
+    <div th:if="${depositData != null}">
+        <h4>예금 추천</h4>
+        <div th:each="deposit : ${depositData}">
+            <div th:if="${deposit.금융회사명 != null}">
+                <img th:src="'/images/' + ${deposit.금융회사명} + '.logo.jpeg'" alt="금융회사 로고" style="width: 100px; height: auto;"/>
+            </div>
+            <p th:text="'상품명: ' + ${deposit.상품명}"></p>
+            <p th:text="'가입기간: ' + ${deposit.가입기간} + '개월'"></p>
+            <p th:text="'가입금액: ' + ${deposit.가입금액} + '만원'"></p>
+            <p th:text="'우대조건: ' + (${deposit.우대조건} != null ? ${deposit.우대조건} : '없음')"></p>
+            <p th:text="'금리: ' + ${deposit.금리} + '%'"></p>
+            <hr />
         </div>
     </div>
 </div>
 
-<h2 th:text="${member.age} + ' ' + ${member.sex} + '들이 실시간으로 관심 있는 상품들'"></h2>
+<div class="notification-banner" id="sseNotificationBanner" style="display: none;">
+    <button class="close-banner-btn" onclick="closeSseBanner()">&times;</button>
+    <h3>알림</h3>
+    <p id="sseNotificationContent"></p>
+</div>
 
-<div id="dataDisplay"></div>
+
+
+
+<footer>
+    <div class="content-wrapper">
+        <h2 class="footer-logo">SMART SAVING GUIDE</h2>
+        <p class="copyright">Copyright © 2024 SMART SAVING GUIDE CO., LTD. All Rights Reserved.</p>
+    </div>
+</footer>
+
+<script>
+    function closeBanner() {
+        document.getElementById('notebookNotificationBanner').style.display = 'none';
+    }
+</script>
+
 
 <script>
     function pollServer() {
@@ -149,15 +288,18 @@
                 if (items.length > 0) {
                     // 데이터가 있을 때만 <ol>을 사용해 목록을 생성
                     rankedHtml = "<ol>";
-                    items.forEach(item => {
+                    items.forEach((item, index) => {
                         const cleanItem = item.replace(/^\[|\]$/g, "");
-                        rankedHtml += `<li>${cleanItem}</li>`;
+                        rankedHtml += `<li>${index + 1}. ${cleanItem}</li>`; // 인덱스+1로 순번 표시
                     });
                     rankedHtml += "</ol>";
+                } else {
+                    // 데이터가 없을 경우 기본 메시지
+                    rankedHtml = "<p>관심 목록이 없습니다.</p>";
                 }
 
-                // dataDisplay 요소에 데이터를 표시합니다
-                document.getElementById("dataDisplay").innerHTML = rankedHtml;
+                // rankingList 요소에 데이터를 표시합니다
+                document.getElementById("rankingList").innerHTML = rankedHtml;
             });
 
         // 이후 5초마다 데이터를 가져옵니다
@@ -175,15 +317,18 @@
                     if (items.length > 0) {
                         // 데이터가 있을 때만 <ol>을 사용해 목록을 생성
                         rankedHtml = "<ol>";
-                        items.forEach(item => {
+                        items.forEach((item, index) => {
                             const cleanItem = item.replace(/^\[|\]$/g, "");
-                            rankedHtml += `<li>${cleanItem}</li>`;
+                            rankedHtml += `<li>${index + 1}. ${cleanItem}</li>`; // 인덱스+1로 순번 표시
                         });
                         rankedHtml += "</ol>";
+                    } else {
+                        // 데이터가 없을 경우 기본 메시지
+                        rankedHtml = "<p>관심 목록이 없습니다.</p>";
                     }
 
-                    // dataDisplay 요소에 데이터를 표시합니다
-                    document.getElementById("dataDisplay").innerHTML = rankedHtml;
+                    // rankingList 요소에 데이터를 표시합니다
+                    document.getElementById("rankingList").innerHTML = rankedHtml;
                 });
         }, 5000); // 5초마다 폴링
     }
@@ -191,91 +336,30 @@
     pollServer();
 </script>
 
-
-
-
-
-<!-- 알림 배너 -->
-<div class="notification-banner" id="notificationBanner" th:if="${notebookResult != null}">
-    <button class="close-banner-btn" onclick="closeBanner()">&times;</button>
-    <h3>알림</h3>
-
-    <!-- 적금 정보 출력 -->
-    <div th:if="${installData != null}">
-        <h4>적금 추천</h4>
-        <div th:each="install : ${installData}">
-            <div th:if="${install.금융회사명 != null}">
-                <img th:src="'/images/' + ${install.금융회사명} + '.jpeg'" alt="금융회사 로고" style="width: 100px; height: auto;"/>
-            </div>
-            <p th:text="'상품명: ' + ${install.상품명}"></p>
-            <p th:text="'가입기간: ' + ${install.가입기간} + '개월'"></p>
-            <p th:text="'가입금액: ' + ${install.가입금액} + '만원'"></p>
-            <p th:text="'우대조건: ' + (${install.우대조건} != null ? ${install.우대조건} : '없음')"></p>
-            <p th:text="'금리: ' + ${install.금리} + '%'"></p>
-            <hr />
-        </div>
-    </div>
-
-    <!-- 예금 정보 출력 -->
-    <div th:if="${depositData != null}">
-        <h4>예금 추천</h4>
-        <div th:each="deposit : ${depositData}">
-            <div th:if="${deposit.금융회사명 != null}">
-                <img th:src="'/images/' + ${deposit.금융회사명} + '.logo.jpeg'" alt="금융회사 로고" style="width: 100px; height: auto;"/>
-            </div>
-            <p th:text="'상품명: ' + ${deposit.상품명}"></p>
-            <p th:text="'가입기간: ' + ${deposit.가입기간} + '개월'"></p>
-            <p th:text="'가입금액: ' + ${deposit.가입금액} + '만원'"></p>
-            <p th:text="'우대조건: ' + (${deposit.우대조건} != null ? ${deposit.우대조건} : '없음')"></p>
-            <p th:text="'금리: ' + ${deposit.금리} + '%'"></p>
-            <hr />
-        </div>
-    </div>
-</div>
-
-<div class="main">
-    <div class="title">
-        저축상품추천
-    </div>
-    <div class="subtitle">
-        개인의 정보에 맞춰 저축 상품을 추천합니다.
-    </div>
-    <div class="saving-item">
-        <div class="item">
-            <div class="item-title">
-                적금
-            </div>
-            <div class="item-detail">
-                원하는 조건에 해당하는 적금 추천
-            </div>
-            <form action="/installment" method="get">
-                <button type="submit" class="item-button item-button-active">
-                    Click
-                </button>
-            </form>
-        </div>
-        <div class="item">
-            <div class="item-title">
-                예금
-            </div>
-            <div class="item-detail">
-                원하는 조건에 해당하는 예금 추천
-            </div>
-            <form action="/deposit" method="get">
-                <button type="submit" class="item-button item-button-active">
-                    Click
-                </button>
-            </form>
-        </div>
-    </div>
-</div>
-
 <!-- JavaScript 코드 추가 -->
 <script src="script.js"></script>
 <script>
+    // SSE 연결 설정
+    const eventSource = new EventSource("/sse");
+
+    // SSE 이벤트 리스너 설정
+    eventSource.addEventListener("topRankingUpdate", function(event) {
+        const data = JSON.parse(event.data);
+        const banner = document.getElementById('sseNotificationBanner'); // ID 변경
+        const bannerContent = `
+            <h3>알림</h3>
+            <p>${data.message}</p>
+            <p>상품명: ${data.productNames.join(", ")}</p>
+        `;
+
+        // 알림 배너에 내용 설정 및 표시
+        banner.innerHTML = bannerContent + '<button class="close-banner-btn" onclick="closeSseBanner()">&times;</button>';
+        banner.style.display = 'block';
+    });
+
     // 알림 배너 닫기 함수
-    function closeBanner() {
-        document.getElementById('notificationBanner').style.display = 'none';
+    function closeSseBanner() {
+        document.getElementById('sseNotificationBanner').style.display = 'none'; // ID 변경
     }
 
     document.addEventListener('DOMContentLoaded', function() {

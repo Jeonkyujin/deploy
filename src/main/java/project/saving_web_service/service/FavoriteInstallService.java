@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import project.saving_web_service.domain.FavoriteInstall;
 import project.saving_web_service.domain.FavoriteInstallDTO;
@@ -27,7 +29,7 @@ public class FavoriteInstallService {
 	private final InstallmentRepository installmentRepository;
     private final FavoriteInstallRepository favoriteInstallRepository;
 
-	public ResponseEntity<String> addFavorite(FavoriteInstallDTO favoriteInstallDTO) {
+	public ResponseEntity<String> addFavorite(FavoriteInstallDTO favoriteInstallDTO, HttpSession session) {
 		Member member = memberRepository.findByRealId(favoriteInstallDTO.getMemberId());
 
 		List<Long> installIds = favoriteInstallDTO.getInstallId();
@@ -44,7 +46,13 @@ public class FavoriteInstallService {
 			FavoriteInstall favoriteInstall = new FavoriteInstall(member, install);
 
 			// Redis 업데이트
+			Set<String> strings1 = redisService.viewedData(member.getAge(), member.getSex());
+
 			redisService.addItemRecentlySaved(member.getAge(), member.getSex(), installId);
+			Set<String> strings2 = redisService.viewedData(member.getAge(), member.getSex());
+			if(!strings1.equals(strings2)){
+				session.setAttribute("currentTopRanking",strings2);
+			}
 
 			// 관심 목록에 추가
 			favoriteInstallRepository.save(favoriteInstall);
