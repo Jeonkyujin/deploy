@@ -12,7 +12,6 @@
             margin: 0;
             padding: 0;
         }
-
         .main-section {
             background-image: url('/images/main-visual.jpg');
             background-size: cover;
@@ -26,38 +25,40 @@
             text-align: center;
             color: white;
         }
-
         .header-wrapper {
             display: flex;
             justify-content: space-between;
             padding: 10px 20px;
             background: rgba(255, 255, 255, 0.9);
         }
-
         .logo {
             font-size: 1.5rem;
             font-weight: bold;
             color: #007bff;
         }
-
         .header-menu {
             list-style: none;
             display: flex;
             gap: 20px;
         }
-
         .nav-item a {
             color: #007bff;
             text-decoration: none;
             font-weight: 500;
         }
-
         .nav-item a:hover {
             text-decoration: underline;
         }
-
         .centered-content {
             text-align: center;
+            width:40%;
+            padding:70px 0
+        }
+
+        .centered-content p:first-child{
+             font-size: 30px;
+             font-weight: bold;
+             color: #435df4;
         }
 
         .main-title {
@@ -66,13 +67,11 @@
             color: #000;
             margin-bottom: 0.5rem;
         }
-
         .description {
             font-size: 1rem;
             color: #6c757d;
             margin-bottom: 1rem;
         }
-
         .main-title:after {
             content: "";
             display: block;
@@ -81,7 +80,6 @@
             background-color: #007bff;
             margin: 0.5rem auto;
         }
-
         .item-button {
             padding: .5rem 1rem;
             font-size: 1.25rem;
@@ -92,45 +90,66 @@
             border-color: #007bff;
             margin-top: 30px;
             display: inline-block;
+            width: 120px;
+            font-size: 16px;
+            border: none;
+            box-shadow: 1px 1px 5px rgba(0,0,0,0.3);
+            margin-bottom:100px
         }
-
         .item-button-active {
             background-color: #007bff;
             color: white;
         }
-
         .first-section-container {
             display: flex;
             justify-content: center;
-            gap: 5px; /* 두 섹션 간의 간격 */
+            gap: 5px;
             margin-top: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
         }
-
         .first-section {
-            width: 300px; /* 각 섹션의 너비를 지정 */
+          width: 300px;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
-
-        /* 알림 배너 스타일 */
         .notification-banner {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: #fffbcc;
+            top: 100px;
+            right: 200px;
+            width: 420px;
+            min-height: 500px;
+            border-radius: 30px;
             color: #333;
+            background: #4f7bf6;
             padding: 20px;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
             z-index: 1000;
             text-align: center;
         }
-
         .notification-banner h3 {
             margin: 0 0 10px;
             font-size: 1.25rem;
             font-weight: bold;
+            color: #fff;
+            margin-bottom: 20px;
         }
-
+        .notification-banner h4 {
+            font-weight: bold;
+            color: #4e6bff;
+            border-bottom: 1px solid #c4c4c4;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .notification-banner .div-container {
+            background: #fff;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            padding: 10px;
+        }
         .notification-banner .close-banner-btn {
             position: absolute;
             top: 10px;
@@ -142,15 +161,56 @@
             color: #333;
         }
         .ranking-section ol {
-            padding-left: 20px; /* 숫자의 위치를 설정 */
+            padding-left: 20px;
             margin: 0;
-            list-style-position: inside; /* 숫자를 안쪽에 고정 */
+            list-style-position: inside;
         }
         .ranking-section li {
-            padding-left: 5px; /* 리스트 항목 간의 간격 조정 */
-            margin: 5px 0;
+            padding: 20px;
+            border: 1px solid #e3e3e3;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+        }
+        .special-notification-banner {
+            position: fixed;
+            top: 16%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* 정중앙 위치 설정 */
+            width: 400px;
+            min-height: 150px;
+            background-color: #ffcc00; /* 배너 배경색 */
+            color: #333;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            text-align: center;
         }
 
+        .special-notification-banner h3 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .special-notification-banner p {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .special-notification-banner .close-banner-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #333;
+        }
     </style>
 </head>
 
@@ -181,12 +241,9 @@
 </section>
 
 <section class="first-section-container">
-
     <div class="ranking-section content-wrapper centered-content" id="dataDisplay">
         <p th:text="${member.age} + ' ' + ${member.sex} + '의 실시간 관심 목록'">실시간 관심 목록</p>
-        <!-- 실시간 랭킹 데이터가 여기에 표시됩니다 -->
         <div id="rankingList">
-            <!-- 여기에 실시간 랭킹 데이터가 표시됩니다. 예시로 빈 목록을 둡니다 -->
             <ol>
                 <li>예시 상품 1</li>
                 <li>예시 상품 2</li>
@@ -216,47 +273,51 @@
 
 <!-- 알림 배너 -->
 <div class="notification-banner" id="notebookNotificationBanner" th:if="${notebookResult != null}">
-    <button class="close-banner-btn" onclick="closeBanner()">&times;</button>
-    <h3>알림</h3>
-    <div th:if="${installData != null}">
+    <button class="close-banner-btn" onclick="closeNotebookBanner()">&times;</button>
+    <h3>회원님과 비슷한 회원이 관심목록에 넣은 상품</h3>
+    <div th:if="${installData != null}" class="div-container">
         <h4>적금 추천</h4>
-        <div th:each="install : ${installData}">
-            <div th:if="${install.금융회사명 != null}">
-                <img th:src="'/images/' + ${install.금융회사명} + '.jpeg'" alt="금융회사 로고" style="width: 100px; height: auto;"/>
+        <div th:if="${#lists.isEmpty(installData)}">
+            <p>추천 상품 없음</p>
+        </div>
+        <div th:if="${!#lists.isEmpty(installData)}">
+            <div th:if="${installData[0].금융회사명 != null}">
+                <img th:src="'/images/' + ${installData[0].금융회사명} + '.png'" alt="금융회사 로고" style="width: 100px; height: auto;"/>
             </div>
-            <p th:text="'상품명: ' + ${install.상품명}"></p>
-            <p th:text="'가입기간: ' + ${install.가입기간} + '개월'"></p>
-            <p th:text="'가입금액: ' + ${install.가입금액} + '만원'"></p>
-            <p th:text="'우대조건: ' + (${install.우대조건} != null ? ${install.우대조건} : '없음')"></p>
-            <p th:text="'금리: ' + ${install.금리} + '%'"></p>
+            <p th:text="'상품명: ' + ${installData[0].상품명}"></p>
+            <p th:text="'가입기간: ' + (${installData[0].가입기간} != 제한없음 ? ${installData[0].가입기간} + '개월' : '제한없음')"></p>
+            <p th:text="'가입금액: ' +(${installData[0].가입금액} != 제한없음 ? ${installData[0].가입금액} : '제한없음')"></p>
+            <p th:text="'우대조건: ' + (${installData[0].우대조건} != null ? ${installData[0].우대조건} : '없음')"></p>
+            <p th:text="'금리: ' + ${installData[0].금리} + '%'"></p>
             <hr />
         </div>
     </div>
 
-    <div th:if="${depositData != null}">
+    <div th:if="${depositData != null}" class="div-container">
         <h4>예금 추천</h4>
-        <div th:each="deposit : ${depositData}">
-            <div th:if="${deposit.금융회사명 != null}">
-                <img th:src="'/images/' + ${deposit.금융회사명} + '.logo.jpeg'" alt="금융회사 로고" style="width: 100px; height: auto;"/>
+        <div th:if="${#lists.isEmpty(depositData)}">
+            <p>추천 상품 없음</p>
+        </div>
+        <div th:if="${!#lists.isEmpty(depositData)}">
+            <div th:if="${depositData[0].금융회사명 != null}">
+                <img th:src="'/images/' + ${depositData[0].금융회사명} + '.png'" alt="금융회사 로고" style="width: 100px; height: auto;"/>
             </div>
-            <p th:text="'상품명: ' + ${deposit.상품명}"></p>
-            <p th:text="'가입기간: ' + ${deposit.가입기간} + '개월'"></p>
-            <p th:text="'가입금액: ' + ${deposit.가입금액} + '만원'"></p>
-            <p th:text="'우대조건: ' + (${deposit.우대조건} != null ? ${deposit.우대조건} : '없음')"></p>
-            <p th:text="'금리: ' + ${deposit.금리} + '%'"></p>
+            <p th:text="'상품명: ' + ${depositData[0].상품명}"></p>
+            <p th:text="'가입기간: ' + (${depositData[0].가입기간} != '제한없음' ? ${depositData[0].가입기간} + '개월' : '제한없음')"></p>
+            <p th:text="'가입금액: ' + (${depositData[0].가입금액} != 제한없음 ? ${depositData[0].가입금액} : '제한없음')"></p>
+            <p th:text="'우대조건: ' + (${depositData[0].우대조건} != null ? ${depositData[0].우대조건} : '없음')"></p>
+            <p th:text="'금리: ' + ${depositData[0].금리} + '%'"></p>
             <hr />
         </div>
+
     </div>
 </div>
 
-<div class="notification-banner" id="sseNotificationBanner" style="display: none;">
-    <button class="close-banner-btn" onclick="closeSseBanner()">&times;</button>
+<div th:if="${showAlert}" class="special-notification-banner" id="alertNotificationBanner">
     <h3>알림</h3>
-    <p id="sseNotificationContent"></p>
+    <p th:utext="${alertMessage}"></p>
+    <button class="close-banner-btn" onclick="closeRankingBanner()">&times;</button>
 </div>
-
-
-
 
 <footer>
     <div class="content-wrapper">
@@ -266,117 +327,53 @@
 </footer>
 
 <script>
-    function closeBanner() {
+    function closeNotebookBanner() {
         document.getElementById('notebookNotificationBanner').style.display = 'none';
     }
-</script>
 
+    function closeRankingBanner() {
+        document.getElementById('alertNotificationBanner').style.display = 'none';
+    }
+
+</script>
 
 <script>
     function pollServer() {
-        // 페이지가 로드되자마자 한 번 데이터를 가져옵니다
+        // 서버에서 데이터 가져오기
         fetch("/polling")
             .then(response => response.text())
             .then(data => {
-                console.log("서버로부터 데이터 수신:", data); // 콘솔 출력 (테스트용)
-
-                // 데이터를 쉼표로 분리하여 배열로 만듭니다
-                const items = data.split(", ").filter(item => item.trim() !== ""); // 빈 값 제거
-
-                let rankedHtml = "";
-
-                if (items.length > 0) {
-                    // 데이터가 있을 때만 <ol>을 사용해 목록을 생성
-                    rankedHtml = "<ol>";
-                    items.forEach((item, index) => {
-                        const cleanItem = item.replace(/^\[|\]$/g, "");
-                        rankedHtml += `<li>${index + 1}. ${cleanItem}</li>`; // 인덱스+1로 순번 표시
-                    });
-                    rankedHtml += "</ol>";
-                } else {
-                    // 데이터가 없을 경우 기본 메시지
-                    rankedHtml = "<p>관심 목록이 없습니다.</p>";
-                }
-
-                // rankingList 요소에 데이터를 표시합니다
+                const items = data.split(", ").filter(item => item.trim() !== "");
+                let rankedHtml = "<ol>";
+                items.forEach((item, index) => {
+                    rankedHtml += `<li>${index + 1}. ${item.replace(/^\[|\]$/g, "")}</li>`;
+                });
+                rankedHtml += "</ol>";
                 document.getElementById("rankingList").innerHTML = rankedHtml;
             });
 
-        // 이후 5초마다 데이터를 가져옵니다
         setInterval(() => {
             fetch("/polling")
                 .then(response => response.text())
                 .then(data => {
-                    console.log("서버로부터 데이터 수신:", data); // 콘솔 출력 (테스트용)
-
-                    // 데이터를 쉼표로 분리하여 배열로 만듭니다
-                    const items = data.split(", ").filter(item => item.trim() !== ""); // 빈 값 제거
-
-                    let rankedHtml = "";
-
-                    if (items.length > 0) {
-                        // 데이터가 있을 때만 <ol>을 사용해 목록을 생성
-                        rankedHtml = "<ol>";
-                        items.forEach((item, index) => {
-                            const cleanItem = item.replace(/^\[|\]$/g, "");
-                            rankedHtml += `<li>${index + 1}. ${cleanItem}</li>`; // 인덱스+1로 순번 표시
-                        });
-                        rankedHtml += "</ol>";
-                    } else {
-                        // 데이터가 없을 경우 기본 메시지
-                        rankedHtml = "<p>관심 목록이 없습니다.</p>";
-                    }
-
-                    // rankingList 요소에 데이터를 표시합니다
+                    const items = data.split(", ").filter(item => item.trim() !== "");
+                    let rankedHtml = "<ol>";
+                    items.forEach((item, index) => {
+                        rankedHtml += `<li>${index + 1}. ${item.replace(/^\[|\]$/g, "")}</li>`;
+                    });
+                    rankedHtml += "</ol>";
                     document.getElementById("rankingList").innerHTML = rankedHtml;
                 });
-        }, 5000); // 5초마다 폴링
+        }, 5000);
     }
 
     pollServer();
 </script>
 
-<!-- JavaScript 코드 추가 -->
-<script src="script.js"></script>
 <script>
-    // SSE 연결 설정
-    const eventSource = new EventSource("/sse");
-
-    // SSE 이벤트 리스너 설정
-    eventSource.addEventListener("topRankingUpdate", function(event) {
-        const data = JSON.parse(event.data);
-        const banner = document.getElementById('sseNotificationBanner'); // ID 변경
-        const bannerContent = `
-            <h3>알림</h3>
-            <p>${data.message}</p>
-            <p>상품명: ${data.productNames.join(", ")}</p>
-        `;
-
-        // 알림 배너에 내용 설정 및 표시
-        banner.innerHTML = bannerContent + '<button class="close-banner-btn" onclick="closeSseBanner()">&times;</button>';
-        banner.style.display = 'block';
-    });
-
-    // 알림 배너 닫기 함수
-    function closeSseBanner() {
-        document.getElementById('sseNotificationBanner').style.display = 'none'; // ID 변경
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-        const newsItems = document.querySelectorAll('.news-item');
-        let currentNewsIndex = 0;
-
-        if (newsItems.length > 0) {
-            newsItems[currentNewsIndex].classList.add('active');
-
-            setInterval(() => {
-                newsItems[currentNewsIndex].classList.remove('active');
-                currentNewsIndex = (currentNewsIndex + 1) % newsItems.length;
-                newsItems[currentNewsIndex].classList.add('active');
-            }, 5000);
-        }
+    window.addEventListener("beforeunload", function () {
+        fetch("api/saveTopProduct", { method: "POST" });
     });
 </script>
-
 </body>
 </html>

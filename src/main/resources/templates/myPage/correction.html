@@ -6,13 +6,12 @@
     <link href="/css/default.css" rel="stylesheet" type="text/css" />
     <link href="/css/page.css" rel="stylesheet" type="text/css" />
     <style>
-        /* 회색 배경에 이미지 추가 */
         .sub-section {
-            background-image: url('/images/sub-bg.jpg'); /* 원하는 이미지 경로로 수정 */
+            background-image: url('/images/sub-bg.jpg');
             background-size: cover;
             background-position: center;
             color: white;
-            height: 250px; /* 원하는 높이로 설정 */
+            height: 250px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -29,7 +28,6 @@
             <a href="/login">SMART SAVING GUIDE</a>
         </div>
         <ul class="header-menu">
-
             <li class="nav-item"><a href="/quiz">퀴즈</a></li>
             <li class="nav-item"><a href="/favoriteCommodity">관심상품</a></li>
             <li class="nav-item"><a href="/myPage/">마이페이지</a></li>
@@ -57,7 +55,7 @@
                     <tbody>
                     <tr>
                         <th>비밀번호</th>
-                        <td><input type="password" id="password" name="password" placeholder="비밀번호"></td>
+                        <td><input type="password" id="password" name="password" placeholder="비밀번호" required></td>
                     </tr>
                     <tr>
                         <th>성별</th>
@@ -124,19 +122,19 @@
                                 <input type="checkbox" id="important2" name="important" value="해당 금융권에 대한 평판"> 해당 금융권에 대한 평판
                                 <input type="checkbox" id="important3" name="important" value="우대조건"> 우대조건
                             </div>
-                        <td>
+                        </td>
                     </tr>
                     <tr>
                         <th>선호하는 우대조건</th>
                         <td>
-                        <div class="input-box">
-                            <input type="checkbox" id="preferredCondition1" name="preferredCondition" value="실적"> 실적
-                            <input type="checkbox" id="preferredCondition2" name="preferredCondition" value="이체"> 이체
-                            <input type="checkbox" id="preferredCondition3" name="preferredCondition" value="정보 사용 동의"> 정보 사용 동의
-                            <input type="checkbox" id="preferredCondition4" name="preferredCondition" value="앱 사용"> 앱 사용
-                            <input type="checkbox" id="preferredCondition5" name="preferredCondition" value="가입"> 가입
-                        </div>
-                        <td>
+                            <div class="input-box">
+                                <input type="checkbox" id="preferredCondition1" name="preferredCondition" value="실적"> 실적
+                                <input type="checkbox" id="preferredCondition2" name="preferredCondition" value="이체"> 이체
+                                <input type="checkbox" id="preferredCondition3" name="preferredCondition" value="정보 사용 동의"> 정보 사용 동의
+                                <input type="checkbox" id="preferredCondition4" name="preferredCondition" value="앱 사용"> 앱 사용
+                                <input type="checkbox" id="preferredCondition5" name="preferredCondition" value="가입"> 가입
+                            </div>
+                        </td>
                     </tr>
                     </tbody>
                 </table>

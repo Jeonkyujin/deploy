@@ -1,11 +1,11 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://13.124.248.38:8080/test?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    url: jdbc:mysql://3.34.191.82:8080/test?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: rbwls1542
     password: a12345
   redis:
-    host: 13.124.248.38
+    host: 3.34.191.82
     port: 6379
   devtools:
     livereload:

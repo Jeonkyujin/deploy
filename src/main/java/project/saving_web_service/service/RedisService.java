@@ -49,7 +49,15 @@ public class RedisService {
 
 	public Set<String> viewedData(String age, String sex){
 		String key = age + ":" + sex;
-		return redisTemplate.opsForZSet().reverseRange(key,0,0);
+
+		Set<String> topEntry = redisTemplate.opsForZSet().reverseRange(key, 0, 0);
+
+		if (topEntry == null || topEntry.isEmpty()) {
+			return Collections.emptySet();
+		}
+
+		Double highestScore = redisTemplate.opsForZSet().score(key, topEntry.iterator().next());
+		return redisTemplate.opsForZSet().rangeByScore(key, highestScore, highestScore);
 	}
 
 	public boolean isRedisAvailable() {

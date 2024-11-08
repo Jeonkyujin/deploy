@@ -9,7 +9,7 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class RestApiService {
 	public String execute(String loginId) {
-		String jupyterApiUrl = "http://13.124.248.38:8888/api/contents/Untitled%20Folder/lastProject.ipynb";
+		String jupyterApiUrl = "http://3.34.191.82:8888/api/contents/Untitled20Folder/lastProject.ipynb";
 
 		// 요청 본문에 사용할 데이터 준비
 		String requestPayload = "{\"login_id\":\"" + loginId + "\"}";

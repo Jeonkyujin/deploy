@@ -48,12 +48,10 @@ public class FavoriteDepositService {
 			Deposit deposit = depositRepository.findbyId(depositId);
 			FavoriteDeposit favoriteDeposit = new FavoriteDeposit(member, deposit);
 
-			Set<String> strings1 = redisService.viewedData(member.getAge(), member.getSex());
+
 			redisService.addItemRecentlySaved(member.getAge(), member.getSex(), depositId,a);
-			Set<String> strings2 = redisService.viewedData(member.getAge(), member.getSex());
-			if(!strings1.equals(strings2)){
-				session.setAttribute("currentTopRanking",strings2);
-			}
+
+
 			// 관심 목록에 추가
 			favoritedepositRepository.save(favoriteDeposit);
 			addedSuccessfully.add(depositId); // 성공적으로 추가된 상품 ID 기록

@@ -46,13 +46,10 @@ public class FavoriteInstallService {
 			FavoriteInstall favoriteInstall = new FavoriteInstall(member, install);
 
 			// Redis 업데이트
-			Set<String> strings1 = redisService.viewedData(member.getAge(), member.getSex());
 
 			redisService.addItemRecentlySaved(member.getAge(), member.getSex(), installId);
-			Set<String> strings2 = redisService.viewedData(member.getAge(), member.getSex());
-			if(!strings1.equals(strings2)){
-				session.setAttribute("currentTopRanking",strings2);
-			}
+
+
 
 			// 관심 목록에 추가
 			favoriteInstallRepository.save(favoriteInstall);

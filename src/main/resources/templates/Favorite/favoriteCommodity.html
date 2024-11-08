@@ -66,6 +66,19 @@
     background-color: #bd2130; /* 클릭 시 더 진한 색상 */
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* 클릭 시 그림자 조정 */
 }
+        .no-favorites {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 200px; /* 문구가 가운데에 위치하도록 높이 설정 */
+        font-size: 1.5rem;
+        color: #555;
+        background-color: #f8f8f8;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        margin: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
 
     </style>
 
@@ -99,7 +112,7 @@
 
 
 <form id="deleteFavoritesForm">
-    <div th:if="${#lists.isEmpty(member.favoriteInstalls)} and ${#lists.isEmpty(member.favoriteDeposits)}">
+    <div th:if="${#lists.isEmpty(member.favoriteInstalls)} and ${#lists.isEmpty(member.favoriteDeposits)}" class="no-favorites">
         <p>관심 상품이 없습니다.</p>
     </div>
 

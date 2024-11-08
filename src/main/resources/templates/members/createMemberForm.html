@@ -1,168 +1,82 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <th:replace="fragments/header :: headerContent"></th:replace>
+  <th:replace="fragments /header :: headerContent">
+    </th:replace>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap" rel="stylesheet">
     <title>Saving the Youth</title>
-    <style>
-        body{
-          background-color:aliceblue;
-        }
-        .nav{
-          height: 70px;
-          border-bottom: 1px solid black;
-          display: flex;
-          align-items: center;
-        }
-        .nav-right-items{
-          display: flex;
-          margin-left: auto;
-        }
-        .nav-item{
-          margin-left: 10px;
-          margin: 0 10px;
-        }
-        .company-name{
-          margin-left: 20px;
-        }
-        .title{
-          text-align: center;
-          font-size: 3.5rem;
-          font-weight: 300;
-        }
-        .subtitle{
-          text-align: center;
-          font-size: 1.25rem;
-          font-weight: 300;
-        }
-        .main{
-          width: 800px;
-          margin: 0 auto;
-          margin-top: 60px;
-        }
-        .tb{
-          width: 600px;
-          height: 500px;
-          border: 2px solid black;
-          margin: 10px;
-          border-radius: 4px;
-          text-align: left;
-          margin-left: auto;
-          margin-right: auto;
-          line-height: 2em;
-        }
-        .poetsen-one-regular {
-          font-family: "Poetsen One", sans-serif;
-          font-weight: 400;
-          font-style: normal;
-        }
-        .gamja-flower-regular {
-          font-family: "Gamja Flower", sans-serif;
-          font-weight: 400;
-          font-style: normal;
-        }
-        .checkbox-container {
-           display: flex;
-           flex-wrap: wrap;
-           gap: 10px;
-        }
-    </style>
-    <link rel="stylesheet" href="button.css">
+    <link href="../../static/css/default.css" rel="stylesheet" type="text/css" />
+    <link href="../../static/css/page.css" rel="stylesheet" type="text/css" />
 </head>
+
 <body>
-<div class="nav poetsen-one-regular">
-    <div class="company-name">
-        Saving the Youth
-    </div>
-    <div class="nav-right-items">
-        <input type="submit" value="소개">
-        <input type="submit" value="마이 페이지">
-        <input type="submit" value="로그인">
-    </div>
-</div>
-<div class="main">
-    <div class="title gamja-flower-regular">
-        Saving the Youth 회원가입
-    </div>
-    <div class="subtitle">
-        사용자 정보 입력바랍니다.
-    </div>
-    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
-    <form role="form" action="/members/new" th:object="${memberForm}" method="post" class="tb">
-        <div class="nav-item">
+  <div class="login-wrapper">
+    <div class="login-container auto">
+      <a href="../index.html" class="home-button"><img src="../../static/image/home-button.png"></a>
+      <div class="login-content__box">
+        <h2>회원가입</h2>
+        <p>사용자 정보를 입력해주세요.</p>
+        <form role="form" action="/members/new" th:object="${memberForm}" method="post" class="join-form__box">
+          <div class="form-label__box">
             <label th:for="login_id">아이디</label>
-            <input type="text" size=14 th:field="*{login_id}" placeholder="아이디를 입력하세요">
-        </div>
-        <div class="nav-item">
+            <input type="text" size=14 th:field="*{login_id}" placeholder="아이디를 입력하세요" class="input-style">
+          </div>
+          <div class="form-label__box">
             <label th:for="password">비밀번호</label>
-            <input type="text" size=16 th:field="*{password}" placeholder="비밀번호를 입력하세요">
-        </div>
-        <div class="nav-item">
-            <label>성별을 선택해주세요</label><br/>
+            <input type="text" size=16 th:field="*{password}" placeholder="비밀번호를 입력하세요" class="input-style">
+          </div>
+          <div class="nav-item">
+            <label class="label-title">관심있는 분야를 선택해주세요</label>
             <div class="checkbox-container">
-                <input type="checkbox" th:field="*{sex}" value="남성"> 남성
-                <input type="checkbox" th:field="*{sex}" value="여성"> 여성
+              <input type="checkbox" th:field="*{status}" value="환경"> 환경
+              <input type="checkbox" th:field="*{status}" value="직장인"> 직장인
+              <input type="checkbox" th:field="*{status}" value="청년"> 청년
+              <input type="checkbox" th:field="*{status}" value="퇴직"> 퇴직
+              <input type="checkbox" th:field="*{status}" value="스포츠"> 스포츠
+              <input type="checkbox" th:field="*{status}" value="사회적 약자"> 사회적 약자
+              <input type="checkbox" th:field="*{status}" value="군인"> 군인
+              <input type="checkbox" th:field="*{status}" value="가족"> 가족
+              <input type="checkbox" th:field="*{status}" value="대학생"> 대학생
+              <input type="checkbox" th:field="*{status}" value="학생"> 학생
             </div>
-        </div>
-        <div class="nav-item">
-            <label>연령대를 선택해주세요</label><br/>
-            <div class="checkbox-container">
-                <input type="checkbox" th:field="*{age}" value="20대"> 20대
-                <input type="checkbox" th:field="*{age}" value="30대"> 30대
-                <input type="checkbox" th:field="*{age}" value="40대 이상"> 40대 이상
-            </div>
-        </div>
+          </div>
 
-        <div class="nav-item">
-            <label>관심있는 분야를 선택해주세요</label><br/>
+          <div class="nav-item">
+            <label th:for="interest" class="label-title">저축을 할 때(또는 하고 있다면) 월 저축 금액은 얼마인가요?</label>
+            <input type="text" size=17 th:field="*{amount}" placeholder="만원단위로 적되 숫자만 적어주세요 ex)10만원 -> 10"
+              class="input-style2">
+          </div>
+          <div class="nav-item">
+            <label th:for="commodity_existence" class="label-title">저축의 주요 목적은 무엇인가요?</label>
+            <input type="text" size=17 th:field="*{purpose}"
+              placeholder="생활비 자금/ 결혼 자금/ 여행 자금  / 투자 자금 / 취미활동을 위한 자금 / 원하는 물건 구매 자금" class="input-style2">
+          </div>
+          <div class="nav-item">
+            <label th:for="commodity" class="label-title">원하는 저축의 기간은?</label>
+            <input type="text" size=9 th:field="*{period}" placeholder="원하시는 개월을 써주세요 ex)18개월 -> 18"
+              class="input-style2">
+          </div>
+          <div class="nav-item">
+            <label class="label-title">저축상품을 가입하게 된다면 가장 중요하게 생각하는 것이 무엇인가요?</label>
             <div class="checkbox-container">
-                <input type="checkbox" th:field="*{status}" value="환경"> 환경
-                <input type="checkbox" th:field="*{status}" value="직장인"> 직장인
-                <input type="checkbox" th:field="*{status}" value="청년"> 청년
-                <input type="checkbox" th:field="*{status}" value="퇴직"> 퇴직
-                <input type="checkbox" th:field="*{status}" value="스포츠"> 스포츠
-                <input type="checkbox" th:field="*{status}" value="사회적 약자"> 사회적 약자
-                <input type="checkbox" th:field="*{status}" value="군인"> 군인
-                <input type="checkbox" th:field="*{status}" value="가족"> 가족
-                <input type="checkbox" th:field="*{status}" value="대학생"> 대학생
-                <input type="checkbox" th:field="*{status}" value="학생"> 학생
+              <input type="checkbox" th:field="*{important}" value="높은 금리"> 높은 금리
+              <input type="checkbox" th:field="*{important}" value="해당 금융권에 대한 평판"> 해당 금융권에 대한 평판
+              <input type="checkbox" th:field="*{important}" value="우대조건"> 우대조건
             </div>
-        </div>
-
-        <div class="nav-item">
-            <label th:for="interest">저축을 할 때(또는 하고 있다면) 월 저축 금액은 얼마인가요?</label>
-            <input type="text" size=17 th:field="*{amount}" placeholder="만원단위로 적되 숫자만 적어주세요 ex)10만원 -> 10">
-        </div>
-        <div class="nav-item">
-            <label th:for="commodity_existence">저축의 주요 목적은 무엇인가요?</label>
-            <input type="text" size=17 th:field="*{purpose}" placeholder="생활비 자금/ 결혼 자금/ 여행 자금  / 투자 자금 / 취미활동을 위한 자금 / 원하는 물건 구매 자금">
-        </div>
-        <div class="nav-item">
-            <label th:for="commodity">원하는 저축의 기간은?</label>
-            <input type="text" size=9 th:field="*{period}" placeholder="원하시는 개월을 써주세요 ex)18개월 -> 18">
-        </div>
-        <div class="nav-item">
-            <label>저축상품을 가입하게 된다면 가장 중요하게 생각하는 것이 무엇인가요?</label><br/>
-            <div class="checkbox-container">
-                <input type="checkbox" th:field="*{important}" value="높은 금리"> 높은 금리
-                <input type="checkbox" th:field="*{important}" value="해당 금융권에 대한 평판"> 해당 금융권에 대한 평판
-                <input type="checkbox" th:field="*{important}" value="우대조건"> 우대조건
-            </div>
-        </div>
-        <div class="nav-item">
-            <label th:for="important">원하는 우대조건이 무엇인가요?</label>
-            <input type="text" size=56 th:field="*{preferredCondition}" placeholder="실적 / 이체 / 정보 사용 동의 / 앱 사용 / 가입 중 중복 입력 가능 ">
-        </div>
-        <div style="text-align: center;">
+          </div>
+          <div class="nav-item">
+            <label th:for="important" class="label-title">원하는 우대조건이 무엇인가요?</label>
+            <input type="text" size=56 th:field="*{preferredCondition}"
+              placeholder="실적 / 이체 / 정보 사용 동의 / 앱 사용 / 가입 중 중복 입력 가능" class="input-style2">
+          </div>
+          <div style="text-align: center;">
             <button type="submit" class="button">회원가입</button>
-        </div>
-    </form>
-    <div th:replace="fragments/footer :: footer" />
-</div>
-
+          </div>
+        </form>
+      </div>
+    </div>
 </body>
+
 </html>
