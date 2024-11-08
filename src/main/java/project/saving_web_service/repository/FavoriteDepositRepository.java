@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import project.saving_web_service.domain.FavoriteDeposit;
 import project.saving_web_service.domain.FavoriteInstall;
 
-@EnableJpaRepositories
+
 public interface FavoriteDepositRepository extends JpaRepository<FavoriteDeposit, Long> {
 
 	@Query("SELECT f FROM FavoriteDeposit f WHERE f.member.id = :memberId AND f.deposit.예금id = :depositId")

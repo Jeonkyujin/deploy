@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import project.saving_web_service.domain.FavoriteInstall;
 
-@EnableJpaRepositories
+
 public interface FavoriteInstallRepository extends JpaRepository<FavoriteInstall, Long> {
 	@Query("SELECT f FROM FavoriteInstall f WHERE f.member.id = :memberId AND f.install.적금id = :installId")
 	Optional<FavoriteInstall> findByMemberIdAndInstallId(@Param("memberId") Long memberId, @Param("installId") Long installId);
