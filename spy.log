@@ -10,3 +10,5 @@
 1722499051593|0|rollback|connection 6|url jdbc:mysql://localhost:3306/saving_service?serverTimezone=UTC&characterEncoding=UTF-8||
 1722499051600|0|rollback|connection 5|url jdbc:mysql://localhost:3306/saving_service?serverTimezone=UTC&characterEncoding=UTF-8||
 1722499051612|0|rollback|connection 7|url jdbc:mysql://localhost:3306/saving_service?serverTimezone=UTC&characterEncoding=UTF-8||
+1731062949870|1942306|statement|connection 43|url jdbc:mysql://3.34.191.82:3306/test?serverTimezone=UTC&characterEncoding=UTF-8|select m1_0.member_id,m1_0.age,m1_0.amount,m1_0.important,m1_0.login_id,m1_0.password,m1_0.period,m1_0.preferredCondition,m1_0.purpose,m1_0.sex,m1_0.status from member m1_0 where m1_0.login_id=?|select m1_0.member_id,m1_0.age,m1_0.amount,m1_0.important,m1_0.login_id,m1_0.password,m1_0.period,m1_0.preferredCondition,m1_0.purpose,m1_0.sex,m1_0.status from member m1_0 where m1_0.login_id='954qew'
+1731062949917|0|rollback|connection 43|url jdbc:mysql://3.34.191.82:3306/test?serverTimezone=UTC&characterEncoding=UTF-8||
