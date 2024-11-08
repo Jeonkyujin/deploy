@@ -1,4 +1,4 @@
-/*
+
 package project.saving_web_service.configuration;
 
 import org.springframework.context.annotation.Bean;
@@ -21,4 +21,3 @@ public class SecurityConfig {
 		return http.build();
 	}
 }
-*/
