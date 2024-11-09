@@ -121,7 +121,7 @@
         <div th:each="favoriteInstall : ${member.favoriteInstalls}" class="product-info">
             <input type="checkbox" class="favorite-checkbox" th:value="${favoriteInstall.id}" th:data-type="installment" style="margin-right: 10px;">
             <div class="logo">
-                <img th:src="@{|/images/${favoriteInstall.install.금융회사명}.jpeg|}" alt="금융회사 로고" />
+                <img th:src="@{|/images/${favoriteInstall.install.금융회사명}.png|}" alt="금융회사 로고" />
             </div>
             <p><strong>상품명:</strong> <span th:text="${favoriteInstall.install.상품명}"></span></p>
             <p><strong>가입기간:</strong> <span th:text="${favoriteInstall.install.가입기간} + '개월'"></span></p>
@@ -134,7 +134,7 @@
         <div th:each="favoriteDeposit : ${member.favoriteDeposits}" class="product-info">
             <input type="checkbox" class="favorite-checkbox" th:value="${favoriteDeposit.id}" th:data-type="deposit" style="margin-right: 10px;">
             <div class="logo">
-                <img th:src="@{|/images/${favoriteDeposit.deposit.금융회사명}.jpeg|}" alt="금융회사 로고" />
+                <img th:src="@{|/images/${favoriteDeposit.deposit.금융회사명}.png|}" alt="금융회사 로고" />
             </div>
             <p><strong>상품명:</strong> <span th:text="${favoriteDeposit.deposit.상품명}"></span></p>
             <p><strong>가입기간:</strong> <span th:text="${favoriteDeposit.deposit.가입기간} + '개월'"></span></p>

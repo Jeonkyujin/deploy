@@ -1,5 +1,5 @@
 
-package project.saving_web_service.configuration;
+/*package project.saving_web_service.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,4 +20,5 @@ public class SecurityConfig {
 
 		return http.build();
 	}
-}
+
+}*/

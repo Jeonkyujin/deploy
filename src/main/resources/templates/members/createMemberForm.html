@@ -7,14 +7,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Saving the Youth</title>
-    <link href="../../static/css/default.css" rel="stylesheet" type="text/css" />
-    <link href="../../static/css/page.css" rel="stylesheet" type="text/css" />
+    <link href="/css/default.css" rel="stylesheet" type="text/css" />
+    <link href="/css/page.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
   <div class="login-wrapper">
     <div class="login-container auto">
-      <a href="../index.html" class="home-button"><img src="../../static/image/home-button.png"></a>
       <div class="login-content__box">
         <h2>회원가입</h2>
         <p>사용자 정보를 입력해주세요.</p>
@@ -26,6 +25,21 @@
           <div class="form-label__box">
             <label th:for="password">비밀번호</label>
             <input type="text" size=16 th:field="*{password}" placeholder="비밀번호를 입력하세요" class="input-style">
+          </div>
+          <div class="nav-item">
+            <label class="label-title">성별을 선택해주세요</label>
+            <div class="checkbox-container">
+              <input type="checkbox" th:field="*{sex}" value="남성"> 남성
+              <input type="checkbox" th:field="*{sex}" value="여성"> 여성
+            </div>
+          </div>
+          <div class="nav-item">
+            <label class="label-title">연령대를 선택해주세요</label>
+            <div class="checkbox-container">
+              <input type="checkbox" th:field="*{age}" value="20대"> 20대
+              <input type="checkbox" th:field="*{age}" value="30대"> 30대
+              <input type="checkbox" th:field="*{age}" value="40대이상"> 40대이상
+            </div>
           </div>
           <div class="nav-item">
             <label class="label-title">관심있는 분야를 선택해주세요</label>
@@ -49,9 +63,16 @@
               class="input-style2">
           </div>
           <div class="nav-item">
-            <label th:for="commodity_existence" class="label-title">저축의 주요 목적은 무엇인가요?</label>
-            <input type="text" size=17 th:field="*{purpose}"
-              placeholder="생활비 자금/ 결혼 자금/ 여행 자금  / 투자 자금 / 취미활동을 위한 자금 / 원하는 물건 구매 자금" class="input-style2">
+            <label class="label-title">저축의 주요 목적은 무엇인가요?</label>
+            <div class="checkbox-container">
+              <input type="checkbox" th:field="*{purpose}" value="생활비 자금"> 생활비 자금
+              <input type="checkbox" th:field="*{purpose}" value="결혼 자금"> 결혼 자금
+              <input type="checkbox" th:field="*{purpose}" value="여행 자금"> 여행 자금
+              <input type="checkbox" th:field="*{purpose}" value="투자 자금"> 투자 자금
+              <input type="checkbox" th:field="*{purpose}" value="취미 활동을 위한 자금"> 취미 활동을 위한 자금
+              <input type="checkbox" th:field="*{purpose}" value="원하는 물건 구매 자금"> 원하는 물건 구매 자금
+
+            </div>
           </div>
           <div class="nav-item">
             <label th:for="commodity" class="label-title">원하는 저축의 기간은?</label>
@@ -67,9 +88,14 @@
             </div>
           </div>
           <div class="nav-item">
-            <label th:for="important" class="label-title">원하는 우대조건이 무엇인가요?</label>
-            <input type="text" size=56 th:field="*{preferredCondition}"
-              placeholder="실적 / 이체 / 정보 사용 동의 / 앱 사용 / 가입 중 중복 입력 가능" class="input-style2">
+            <label class="label-title">원하는 우대조건이 무엇인가요?</label>
+            <div class="checkbox-container">
+              <input type="checkbox" th:field="*{preferredCondition}" value="실적"> 실적
+              <input type="checkbox" th:field="*{preferredCondition}" value="이체"> 이체
+              <input type="checkbox" th:field="*{preferredCondition}" value="정보 사용 동의"> 정보 사용 동의
+              <input type="checkbox" th:field="*{preferredCondition}" value="앱 사용"> 앱 사용
+              <input type="checkbox" th:field="*{preferredCondition}" value="가입"> 가입
+            </div>
           </div>
           <div style="text-align: center;">
             <button type="submit" class="button">회원가입</button>
@@ -77,6 +103,7 @@
         </form>
       </div>
     </div>
+  </div>
 </body>
 
 </html>

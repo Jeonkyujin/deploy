@@ -28,12 +28,10 @@ public class HomeController {
 
     @PostMapping("/")
     public String login(@RequestParam("login_id") String login_id,
-                        @RequestParam("password") String password, HttpSession session,
-                         @RequestParam("_csrf") String csrfToken
+                        @RequestParam("password") String password, HttpSession session
+
     ) {
-        if (!isValidCsrfToken(csrfToken, session)) {
-            return "redirect:/"; // CSRF 토큰이 유효하지 않으면 로그인 실패 처리
-        }
+
 
         String checking_id = loginService.loginCheck(login_id, password);
         if (checking_id != null) {
@@ -47,10 +45,6 @@ public class HomeController {
         }
     }
 
-    private boolean isValidCsrfToken(String csrfToken, HttpSession session) {
-        String sessionCsrfToken = (String) session.getAttribute("CSRF_TOKEN"); // 세션에서 저장된 CSRF 토큰
-        return csrfToken.equals(sessionCsrfToken); // 두 토큰이 일치하는지 검증
-    }
     @GetMapping("/myPage")
     public String myPage(Model model, HttpSession session){
         String login_id = (String) session.getAttribute("login_id");
