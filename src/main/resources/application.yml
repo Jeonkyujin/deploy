@@ -5,7 +5,7 @@ spring:
     username: rbwls1542
     password: a12345
   redis:
-    host: localhost
+    host: 43.200.6.191
     port: 6379
     repositories:
       enabled: false
