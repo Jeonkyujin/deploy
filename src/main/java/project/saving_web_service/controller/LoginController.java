@@ -33,15 +33,15 @@ public class LoginController {
     @GetMapping("/login")
     public String login(HttpSession httpSession, Model model) throws JsonProcessingException {
         String login_id = (String)httpSession.getAttribute("login_id");
-        String notebookResult = restApiService.execute(login_id);
+        //String notebookResult = restApiService.execute(login_id);
         Member member = memberService.findMember(login_id);
 
         ObjectMapper objectMapper = new ObjectMapper();
-        Map<String, Object> notebookData = objectMapper.readValue(notebookResult, Map.class);
+        //Map<String, Object> notebookData = objectMapper.readValue(notebookResult, Map.class);
 
-        // install_data와 deposit_data를 추출
-        List<Map<String, Object>> installDataList = (List<Map<String, Object>>)notebookData.get("install_data");
-        List<Map<String, Object>> depositDataList = (List<Map<String, Object>>)notebookData.get("deposit_data");
+
+       // List<Map<String, Object>> installDataList = (List<Map<String, Object>>)notebookData.get("install_data");
+       // List<Map<String, Object>> depositDataList = (List<Map<String, Object>>)notebookData.get("deposit_data");
 
         Set<String> strings = redisService.viewedData(member.getAge(), member.getSex(), 5);
 
@@ -49,8 +49,8 @@ public class LoginController {
 
         Set<String> previousTopProduct = (Set<String>)httpSession.getAttribute("previousTopProduct");
 
-        model.addAttribute("installData", installDataList);
-        model.addAttribute("depositData", depositDataList);
+       // model.addAttribute("installData", installDataList);
+       // model.addAttribute("depositData", depositDataList);
         model.addAttribute("string", strings);
         model.addAttribute("member", member);
         model.addAttribute("login_id", login_id);
@@ -58,7 +58,7 @@ public class LoginController {
         model.addAttribute("newsList", newsList);
         if (httpSession.getAttribute("firstLogin") == null) {
             httpSession.setAttribute("firstLogin", true);
-            model.addAttribute("notebookResult", notebookResult); // notebookResult에 알림 데이터를 설정
+       //     model.addAttribute("notebookResult", notebookResult); // notebookResult에 알림 데이터를 설정
         } else {
             if (!currentTopProduct.equals(previousTopProduct)) {
                 System.out.println("---------------");
