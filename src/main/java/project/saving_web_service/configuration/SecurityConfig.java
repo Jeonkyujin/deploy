@@ -21,9 +21,8 @@ public class SecurityConfig{
 		http
 			.csrf(csrf -> csrf.disable())// CSRF 보호 비활성화
 			.authorizeHttpRequests(auth -> auth
-				.requestMatchers("/login").permitAll()// 로그인 URL 허용
-			.anyRequest().authenticated()
-			);// 그 외의 요청은 인증 필요
+				.anyRequest().authenticated()
+			);
 		return http.build();
 	}
 }
