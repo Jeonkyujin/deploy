@@ -1,5 +1,7 @@
 package project.saving_web_service.service;
 
+import java.util.List;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,6 +43,10 @@ public class MemberService {
 
     public Member findbyId(Long id){
         return memberRepository.findByRealId(id);
+    }
+
+    public List<Member> findAll(){
+        return memberRepository.findAll();
     }
 
 }

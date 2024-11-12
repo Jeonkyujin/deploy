@@ -1,5 +1,7 @@
 package project.saving_web_service.repository;
 
+import java.util.List;
+
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
@@ -32,5 +34,10 @@ public class MemberRepository {
 
     public Member findByRealId(Long id) {
         return em.find(Member.class,id);
+    }
+
+    public List<Member> findAll() {
+        return em.createQuery("select m from Member m", Member.class)
+            .getResultList();
     }
 }

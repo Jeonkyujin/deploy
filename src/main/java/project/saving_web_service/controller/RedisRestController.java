@@ -29,7 +29,7 @@ public class RedisRestController {
 		String login_id = (String) httpSession.getAttribute("login_id");
 		Member member = memberService.findMember(login_id);
 		Set<String> strings = redisService.viewedData(member.getAge(), member.getSex(), 5);
-		String data =strings.toString();
+		String data = strings.toString();
 		return data;
 	}
 	@GetMapping("/sse")
