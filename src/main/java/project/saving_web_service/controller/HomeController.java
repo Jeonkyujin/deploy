@@ -22,7 +22,6 @@ public class HomeController {
     @RequestMapping("/")
     public String home() {
         log.info("home controller");
-        System.out.println(redisService.isRedisAvailable());
         return "home";
     }
 
