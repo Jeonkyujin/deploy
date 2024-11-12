@@ -21,7 +21,7 @@ public class SecurityConfig{
 		http
 			.csrf(csrf -> csrf.disable())// CSRF 보호 비활성화
 			.authorizeHttpRequests(auth -> auth
-				.anyRequest().authenticated()
+				.anyRequest().permitAll()
 			);
 		return http.build();
 	}
