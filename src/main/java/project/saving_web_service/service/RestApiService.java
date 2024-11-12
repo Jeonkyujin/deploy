@@ -17,6 +17,7 @@ public class RestApiService {
 		// HTTP 요청 헤더 설정
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
+		headers.set("Referer", "http://43.200.6.191:8888");
 
 		// 요청 본문과 헤더 설정
 		HttpEntity<String> requestEntity = new HttpEntity<>(requestPayload, headers);

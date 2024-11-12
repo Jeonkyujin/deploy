@@ -12,7 +12,6 @@ import lombok.AllArgsConstructor;
 
 @Configuration
 @EnableWebSecurity
-
 public class SecurityConfig {
 
 	@Bean
