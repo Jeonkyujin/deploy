@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
 
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
@@ -33,9 +34,10 @@ public class RedisRestController {
 		String data = strings.toString();
 		return data;
 	}
+	@CrossOrigin(origins = "http://43.200.6.191:8080")
 	@GetMapping("/sse")
 	public SseEmitter sse(HttpSession httpSession, Model model) {
-		SseEmitter emitter = new SseEmitter();
+		SseEmitter emitter = new SseEmitter(0L);
 		String login_id = (String) httpSession.getAttribute("login_id");
 		Member member = memberService.findMember(login_id);
 
