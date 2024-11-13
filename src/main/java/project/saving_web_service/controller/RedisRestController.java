@@ -69,7 +69,7 @@ public class RedisRestController {
 
 						data.put("message", "1위 상품이 변경되었습니다");
 						data.put("productNames", b); // Set을 그대로 JSON에 넣기
-						data.put("show", true);
+
 
 						// JSON 문자열로 변환
 						String json = objectMapper.writeValueAsString(data);

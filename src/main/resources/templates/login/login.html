@@ -434,25 +434,19 @@
 
             // 알림 배너에 업데이트된 상품 정보 표시
             const bannerElement = document.getElementById('newAlertNotificationBanner');
-            if (show && bannerElement) {
-            const message = data.message;
-            const productNames = data.productNames;
-
-            let productHtml = '<h3>알림</h3><p>' + message + '</p><p>[';
-            productNames.forEach((product, index) => {
-                productHtml += product;
-                if (index !== productNames.length - 1) {
-                    productHtml += ', '; // 각 상품 사이에 쉼표 추가
-                }
-            });
-            productHtml += ']</p><button class="close-banner-btn" onclick="closeNewRankingBanner()">&times;</button>';
-            bannerElement.innerHTML = productHtml;
-            bannerElement.style.display = 'block'; // 배너 표시
-        } else if (bannerElement) {
-            // show 값이 false일 경우 배너 숨기기
-            bannerElement.style.display = 'none';
-        }
-    });
+            if (bannerElement) {
+                let productHtml = '<h3>알림</h3><p>' + message + '</p><p>[';
+                productNames.forEach((product, index) => {
+                    productHtml += product;
+                    if (index !== productNames.length - 1) {
+                        productHtml += ', '; // 각 상품 사이에 쉼표 추가
+                    }
+                });
+                productHtml += ']</p><button class="close-banner-btn" onclick="closeNewRankingBanner()">&times;</button>';
+                bannerElement.innerHTML = productHtml;
+                bannerElement.style.display = 'block'; // 배너 표시
+            }
+        });
 
         // 오류 처리
         eventSource.onerror = function (event) {
