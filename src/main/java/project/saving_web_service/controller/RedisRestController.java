@@ -75,7 +75,9 @@ public class RedisRestController {
 
 						// JSON 데이터 전송
 						emitter.send(SseEmitter.event().name("topRankingUpdate").data(json));
-						httpSession.setAttribute("loginPreviousTopRanking", b);
+						synchronized (httpSession) {
+							httpSession.setAttribute("loginPreviousTopRanking", b);
+						}
 					}
 
 					// 1초마다 체크 (필요에 따라 조정 가능)
