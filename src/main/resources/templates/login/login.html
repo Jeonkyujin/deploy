@@ -297,6 +297,12 @@
     <button class="close-banner-btn" onclick="closeRankingBanner()">&times;</button>
 </div>
 
+<div class="special-notification-banner" id="newAlertNotificationBanner" style="display: none;">
+    <h3>알림</h3>
+    <p id="newAlertMessage"></p>
+    <button class="close-banner-btn" onclick="closeNewRankingBanner()">&times;</button>
+</div>
+
 <footer>
     <div class="content-wrapper">
         <h2 class="footer-logo">SMART SAVING GUIDE</h2>
@@ -423,7 +429,7 @@
             const productNames = data.productNames;
 
             // 알림 배너에 업데이트된 상품 정보 표시
-            const bannerElement = document.getElementById('alertNotificationBanner');
+            const bannerElement = document.getElementById('newAlertNotificationBanner');
             if (bannerElement) {
                 let productHtml = '<h3>알림</h3><p>' + message + '</p><ul>';
                 productNames.forEach(product => {

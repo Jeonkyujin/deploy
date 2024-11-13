@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
 
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
@@ -33,7 +34,7 @@ public class RedisRestController {
 		return data;
 	}
 	@GetMapping("/sse")
-	public SseEmitter sse(HttpSession httpSession) {
+	public SseEmitter sse(HttpSession httpSession, Model model) {
 		SseEmitter emitter = new SseEmitter();
 		String login_id = (String) httpSession.getAttribute("login_id");
 		Member member = memberService.findMember(login_id);
@@ -63,6 +64,7 @@ public class RedisRestController {
 					if (! a.equals(b) ) {
 						// JSON 형식의 데이터 생성
 						Map<String, Object> data = new HashMap<>();
+						data.put("showAlert", true);
 						data.put("message", "1위 상품이 변경되었습니다");
 						data.put("productNames", b); // Set을 그대로 JSON에 넣기
 
