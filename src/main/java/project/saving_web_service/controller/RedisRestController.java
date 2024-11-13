@@ -38,6 +38,8 @@ public class RedisRestController {
 		String login_id = (String) httpSession.getAttribute("login_id");
 		Member member = memberService.findMember(login_id);
 
+		Set<String> strings = redisService.viewedData(member.getAge(), member.getAge());
+		httpSession.setAttribute("loginPreviousTopRanking", strings);
 		// AtomicReference<Set<String>> previousTopProduct = new AtomicReference<>(
 		// 	(Set<String>) httpSession.getAttribute("previousTopProduct")
 		// );
@@ -54,11 +56,12 @@ public class RedisRestController {
 				while (true) {
 					// 현재 1위 상품 가져오기
 
-					Set<String> a  = (Set<String>) httpSession.getAttribute("previousTopProduct");
+					Set<String> a  = (Set<String>) httpSession.getAttribute("loginPreviousTopRanking");
+
+					Set<String> b = redisService.viewedData(member.getAge(), member.getSex());
 					// 1위 상품이 변경되었는지 확인
-					if (a != null ) {
+					if (httpSession.getAttribute("firstLogin")!= null && ! a.equals(b) ) {
 						// JSON 형식의 데이터 생성
-						Set<String> b =  (Set<String>) httpSession.getAttribute("currentTopProduct");
 						Map<String, Object> data = new HashMap<>();
 						data.put("message", "1위 상품이 변경되었습니다");
 						data.put("productNames", b); // Set을 그대로 JSON에 넣기
@@ -68,7 +71,7 @@ public class RedisRestController {
 
 						// JSON 데이터 전송
 						emitter.send(SseEmitter.event().name("topRankingUpdate").data(json));
-						httpSession.setAttribute("previousTopProduct", null);
+						httpSession.setAttribute("loginPreviousTopRanking", b);
 					}
 
 					// 1초마다 체크 (필요에 따라 조정 가능)

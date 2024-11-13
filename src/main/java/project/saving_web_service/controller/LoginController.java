@@ -11,7 +11,7 @@ import project.saving_web_service.domain.Member;
 import project.saving_web_service.service.MemberService;
 import project.saving_web_service.service.NewsService;  // 뉴스 서비스 추가
 import project.saving_web_service.service.RedisService;
-import project.saving_web_service.service.RestApiService;
+
 
 import java.util.Iterator;
 import java.util.List;
