@@ -124,9 +124,17 @@
                 <img th:src="@{|/images/${favoriteInstall.install.금융회사명}.png|}" alt="금융회사 로고" />
             </div>
             <p><strong>상품명:</strong> <span th:text="${favoriteInstall.install.상품명}"></span></p>
-            <p><strong>가입기간:</strong> <span th:text="${favoriteInstall.install.가입기간} + '개월'"></span></p>
-            <p><strong>가입금액:</strong> <span th:text="${favoriteInstall.install.가입금액} + '만원'"></span></p>
-            <p><strong>우대조건:</strong> <span th:text="${favoriteInstall.install.우대조건}"></span></p>
+            <p><strong>가입기간:</strong>
+                <span th:text="${favoriteInstall.install.가입기간 == '제한없음' ? '제한없음' : favoriteInstall.install.가입기간 + '개월'}"></span>
+            </p>
+
+            <p><strong>가입금액:</strong>
+                <span th:text="${favoriteInstall.install.가입금액 == '제한없음' ? '제한없음' : favoriteInstall.install.가입금액 + '만원'}"></span>
+            </p>
+
+            <p><strong>우대조건:</strong>
+                <span th:text="${favoriteInstall.install.우대조건 != null ? favoriteInstall.install.우대조건 : '없음'}"></span>
+            </p>
             <p><strong>금리:</strong> <span th:text="${favoriteInstall.install.금리} + '%'"></span></p>
         </div>
 
@@ -137,9 +145,17 @@
                 <img th:src="@{|/images/${favoriteDeposit.deposit.금융회사명}.png|}" alt="금융회사 로고" />
             </div>
             <p><strong>상품명:</strong> <span th:text="${favoriteDeposit.deposit.상품명}"></span></p>
-            <p><strong>가입기간:</strong> <span th:text="${favoriteDeposit.deposit.가입기간} + '개월'"></span></p>
-            <p><strong>가입금액:</strong> <span th:text="${favoriteDeposit.deposit.가입금액} + '만원'"></span></p>
-            <p><strong>우대조건:</strong> <span th:text="${favoriteDeposit.deposit.우대조건}"></span></p>
+            <p><strong>가입기간:</strong>
+                <span th:text="${favoriteDeposit.deposit.가입기간 == '제한없음' ? '제한없음' : favoriteDeposit.deposit.가입기간 + '개월'}"></span>
+            </p>
+
+            <p><strong>가입금액:</strong>
+                <span th:text="${favoriteDeposit.deposit.가입금액 == '제한없음' ? '제한없음' : favoriteDeposit.deposit.가입금액 + '만원'}"></span>
+            </p>
+
+            <p><strong>우대조건:</strong>
+                <span th:text="${favoriteDeposit.deposit.우대조건 != null ? favoriteDeposit.deposit.우대조건 : '없음'}"></span>
+            </p>
             <p><strong>금리:</strong> <span th:text="${favoriteDeposit.deposit.금리} + '%'"></span></p>
         </div>
     </div>
