@@ -439,7 +439,7 @@
                 productNames.forEach(product => {
                     productHtml += `<li>${product}</li>`;
                 });
-                productHtml += '</ul><button class="close-banner-btn" onclick="closeRankingBanner()">&times;</button>';
+                productHtml += '</ul><button class="close-banner-btn" onclick="closeNewRankingBanner()">&times;</button>';
                 bannerElement.innerHTML = productHtml;
                 bannerElement.style.display = 'block'; // 배너 표시
             }
