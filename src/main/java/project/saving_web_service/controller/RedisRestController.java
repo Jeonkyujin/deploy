@@ -42,14 +42,8 @@ public class RedisRestController {
 		Member member = memberService.findMember(login_id);
 
 		Set<String> strings = redisService.viewedData(member.getAge(), member.getAge());
-		httpSession.setAttribute("loginPreviousTopRanking", strings);
-		// AtomicReference<Set<String>> previousTopProduct = new AtomicReference<>(
-		// 	(Set<String>) httpSession.getAttribute("previousTopProduct")
-		// );
-		//
-		// AtomicReference<Set<String>> currentTopProduct = new AtomicReference<>(
-		// 	(Set<String>) httpSession.getAttribute("currentTopProduct")
-		// );
+		AtomicReference<Set<String>> previousTopRanking = new AtomicReference<>(strings);
+
 
 		ObjectMapper objectMapper = new ObjectMapper();
 
@@ -59,11 +53,11 @@ public class RedisRestController {
 				while (true) {
 					// 현재 1위 상품 가져오기
 
-					Set<String> a  = (Set<String>) httpSession.getAttribute("loginPreviousTopRanking");
+
 
 					Set<String> b = redisService.viewedData(member.getAge(), member.getSex());
 					// 1위 상품이 변경되었는지 확인
-					if (a != null && b != null && ! (a.equals(b)) ) {
+					if (previousTopRanking.get() != null && b != null && ! (previousTopRanking.get().equals(b)) ) {
 						// JSON 형식의 데이터 생성
 						Map<String, Object> data = new HashMap<>();
 
