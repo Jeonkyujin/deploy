@@ -202,11 +202,15 @@
         <div class="product-info">
             <input type="checkbox" class="favorite-checkbox" th:value="${installment.적금id}" style="margin-bottom: 10px;">
             <p><strong>상품명:</strong> <span th:text="${installment.상품명}"></span></p>
-            <p><strong>가입기간:</strong> <span th:text="${installment.가입기간} + '개월'"></span></p>
+            <p><strong>가입기간:</strong>
+                <span th:text="${installment.가입기간 == '제한없음' ? '제한없음' : installment.가입기간 + '개월'}"></span>
+            </p>
             <p><strong>가입금액:</strong>
                 <span th:text="${installment.가입금액 == '제한없음' ? '제한없음' : installment.가입금액 + '만원'}"></span>
             </p>
-            <p><strong>우대조건:</strong> <span th:text="${installment.우대조건}"></span></p>
+            <p><strong>우대조건:</strong>
+                <span th:text="${#strings.isEmpty(installment.우대조건) ? '없음' : installment.우대조건}"></span>
+            </p>
             <p><strong>금리:</strong> <span th:text="${installment.금리} + '%'"></span></p>
         </div>
     </div>
@@ -230,11 +234,15 @@
         <div class="product-info">
             <input type="checkbox" class="favorite-checkbox" th:value="${installment.적금id}" style="margin-bottom: 10px;">
             <p><strong>상품명:</strong> <span th:text="${installment.상품명}"></span></p>
-            <p><strong>가입기간:</strong> <span th:text="${installment.가입기간} + '개월'"></span></p>
+            <p><strong>가입기간:</strong>
+                <span th:text="${installment.가입기간 == '제한없음' ? '제한없음' : installment.가입기간 + '개월'}"></span>
+            </p>
             <p><strong>가입금액:</strong>
                 <span th:text="${installment.가입금액 == '제한없음' ? '제한없음' : installment.가입금액 + '만원'}"></span>
             </p>
-            <p><strong>우대조건:</strong> <span th:text="${installment.우대조건}"></span></p>
+            <p><strong>우대조건:</strong>
+                <span th:text="${#strings.isEmpty(installment.우대조건) ? '없음' : installment.우대조건}"></span>
+            </p>
             <p><strong>금리:</strong> <span th:text="${installment.금리} + '%'"></span></p>
         </div>
     </div>
