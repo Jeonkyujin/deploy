@@ -37,7 +37,7 @@ public class RedisRestController {
 	@CrossOrigin(origins = "http://43.200.6.191:8080")
 	@GetMapping("/sse")
 	public SseEmitter sse(HttpSession httpSession, Model model) {
-		SseEmitter emitter = new SseEmitter(0L);
+		SseEmitter emitter = new SseEmitter(300_000L);
 		String login_id = (String) httpSession.getAttribute("login_id");
 		Member member = memberService.findMember(login_id);
 
