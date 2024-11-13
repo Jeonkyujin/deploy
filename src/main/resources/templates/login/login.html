@@ -435,11 +435,14 @@
             // 알림 배너에 업데이트된 상품 정보 표시
             const bannerElement = document.getElementById('newAlertNotificationBanner');
             if (bannerElement) {
-                let productHtml = '<h3>알림</h3><p>' + message + '</p><ul>';
-                productNames.forEach(product => {
-                    productHtml += `<li>${product}</li>`;
+                let productHtml = '<h3>알림</h3><p>' + message + '</p><p>[';
+                productNames.forEach((product, index) => {
+                    productHtml += product;
+                    if (index !== productNames.length - 1) {
+                        productHtml += ', '; // 각 상품 사이에 쉼표 추가
+                    }
                 });
-                productHtml += '</ul><button class="close-banner-btn" onclick="closeNewRankingBanner()">&times;</button>';
+                productHtml += ']</p><button class="close-banner-btn" onclick="closeNewRankingBanner()">&times;</button>';
                 bannerElement.innerHTML = productHtml;
                 bannerElement.style.display = 'block'; // 배너 표시
             }
