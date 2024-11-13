@@ -60,7 +60,7 @@ public class RedisRestController {
 
 					Set<String> b = redisService.viewedData(member.getAge(), member.getSex());
 					// 1위 상품이 변경되었는지 확인
-					if (httpSession.getAttribute("firstLogin")!= null && ! a.equals(b) ) {
+					if (! a.equals(b) ) {
 						// JSON 형식의 데이터 생성
 						Map<String, Object> data = new HashMap<>();
 						data.put("message", "1위 상품이 변경되었습니다");
