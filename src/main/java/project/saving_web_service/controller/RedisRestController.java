@@ -1,13 +1,9 @@
 package project.saving_web_service.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.stream.Collectors;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -45,64 +41,47 @@ public class RedisRestController {
 		String login_id = (String) httpSession.getAttribute("login_id");
 		Member member = memberService.findMember(login_id);
 
-		// 초기 세션 데이터를 Redis에서 가져와 복사본 생성
-		Set<String> copiedRanking = new HashSet<>(redisService.viewedData(member.getAge(), member.getAge()));
+		Set<String> strings = redisService.viewedData(member.getAge(), member.getAge());
+		httpSession.setAttribute("loginPreviousTopRanking", strings);
+		// AtomicReference<Set<String>> previousTopProduct = new AtomicReference<>(
+		// 	(Set<String>) httpSession.getAttribute("previousTopProduct")
+		// );
+		//
+		// AtomicReference<Set<String>> currentTopProduct = new AtomicReference<>(
+		// 	(Set<String>) httpSession.getAttribute("currentTopProduct")
+		// );
 
 		ObjectMapper objectMapper = new ObjectMapper();
+
 
 		new Thread(() -> {
 			try {
 				while (true) {
-					// 현재 Redis에서 1위 상품 가져오기
-					Set<String> currentRanking = redisService.viewedData(member.getAge(), member.getSex());
+					// 현재 1위 상품 가져오기
 
-					// 이전 랭킹과 현재 랭킹 비교
-					Set<String> normalizedPreviousRanking = copiedRanking.stream()
-						.map(String::trim)
-						.map(String::toLowerCase)
-						.collect(Collectors.toSet());
+					Set<String> a  = (Set<String>) httpSession.getAttribute("loginPreviousTopRanking");
 
-					Set<String> normalizedCurrentRanking = currentRanking.stream()
-						.map(String::trim)
-						.map(String::toLowerCase)
-						.collect(Collectors.toSet());
+					Set<String> b = redisService.viewedData(member.getAge(), member.getSex());
+					// 1위 상품이 변경되었는지 확인
+					if (httpSession.getAttribute("firstLogin") != null && a != null && b != null && ! (a.equals(b)) ) {
+						// JSON 형식의 데이터 생성
+						Map<String, Object> data = new HashMap<>();
 
-					System.out.println("Normalized A Elements:");
-					for (String element : normalizedPreviousRanking) {
-						System.out.println("'" + element + "' - Length: " + element.length());
-						for (char c : element.toCharArray()) {
-							System.out.println("Char: " + c + ", Unicode: " + (int) c);
+						data.put("message", "1위 상품이 변경되었습니다");
+						data.put("productNames", b); // Set을 그대로 JSON에 넣기
+
+
+						// JSON 문자열로 변환
+						String json = objectMapper.writeValueAsString(data);
+
+						// JSON 데이터 전송
+						emitter.send(SseEmitter.event().name("topRankingUpdate").data(json));
+						synchronized (httpSession) {
+							httpSession.setAttribute("loginPreviousTopRanking", b);
 						}
 					}
 
-					System.out.println("Normalized A Elements:");
-					for (String element : normalizedCurrentRanking) {
-						System.out.println("'" + element + "' - Length: " + element.length());
-						for (char c : element.toCharArray()) {
-							System.out.println("Char: " + c + ", Unicode: " + (int) c);
-						}
-					}
-
-					for (String element : normalizedPreviousRanking) {
-						if (!normalizedCurrentRanking.contains(element)) {
-							// 알림 데이터 생성
-							Map<String, Object> data = new HashMap<>();
-							data.put("message", "1위 상품이 변경되었습니다");
-							data.put("currentRanking", currentRanking);
-
-
-
-							copiedRanking.clear();
-							copiedRanking.addAll(currentRanking);
-							// JSON으로 변환 및 전송
-							String json = objectMapper.writeValueAsString(data);
-
-							emitter.send(SseEmitter.event().name("rankingUpdate").data(json));
-							break; // 알림 후 즉시 종료
-						}
-					}
-
-					// 1초 대기
+					// 1초마다 체크 (필요에 따라 조정 가능)
 					Thread.sleep(1000);
 				}
 			} catch (Exception e) {
@@ -112,5 +91,4 @@ public class RedisRestController {
 
 		return emitter;
 	}
-
 }
