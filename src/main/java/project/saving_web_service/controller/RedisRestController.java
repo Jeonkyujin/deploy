@@ -57,38 +57,26 @@ public class RedisRestController {
 
 					Set<String> b = redisService.viewedData(member.getAge(), member.getSex());
 
-					System.out.println("A Elements:");
 					for (String element : a) {
-						System.out.println("'" + element + "' - Length: " + element.length());
-						for (char c : element.toCharArray()) {
-							System.out.println("Char: " + c + ", Unicode: " + (int) c);
+						if (! b.contains(element) ) {
+							// JSON 형식의 데이터 생성
+							Map<String, Object> data = new HashMap<>();
+
+							data.put("message", "1위 상품이 변경되었습니다");
+							data.put("productNames", b); // Set을 그대로 JSON에 넣기
+
+
+							synchronized (httpSession) {
+								httpSession.setAttribute("loginPreviousTopRanking", b);
+							}
+							// JSON 문자열로 변환
+							String json = objectMapper.writeValueAsString(data);
+							// JSON 데이터 전송
+							emitter.send(SseEmitter.event().name("topRankingUpdate").data(json));
+							break;
+
 						}
-					}
 
-					System.out.println("B Elements:");
-					for (String element : b) {
-						System.out.println("'" + element + "' - Length: " + element.length());
-						for (char c : element.toCharArray()) {
-							System.out.println("Char: " + c + ", Unicode: " + (int) c);
-						}
-					}
-					// 1위 상품이 변경되었는지 확인
-					if (! a.equals(b) ) {
-						// JSON 형식의 데이터 생성
-						Map<String, Object> data = new HashMap<>();
-
-						data.put("message", "1위 상품이 변경되었습니다");
-						data.put("productNames", b); // Set을 그대로 JSON에 넣기
-
-
-						// JSON 문자열로 변환
-						String json = objectMapper.writeValueAsString(data);
-
-						// JSON 데이터 전송
-						emitter.send(SseEmitter.event().name("topRankingUpdate").data(json));
-						synchronized (httpSession) {
-							httpSession.setAttribute("loginPreviousTopRanking", b);
-						}
 					}
 
 					// 1초마다 체크 (필요에 따라 조정 가능)
