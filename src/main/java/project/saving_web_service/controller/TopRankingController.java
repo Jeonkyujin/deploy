@@ -1,4 +1,4 @@
-/*package project.saving_web_service.controller;
+package project.saving_web_service.controller;
 
 import java.util.Set;
 
@@ -41,4 +41,4 @@ public class TopRankingController {
 		// 성공적으로 저장되었음을 반환
 		return ResponseEntity.ok().build();
 	}
-}*/
+}

@@ -52,7 +52,22 @@ public class LoginController {
         model.addAttribute("login_id", login_id);
         List<Map<String, String>> newsList = newsService.getLatestNews();
         model.addAttribute("newsList", newsList);
+        if (httpSession.getAttribute("firstLogin") == null) {
+            httpSession.setAttribute("firstLogin", true);
 
+        } else {
+            if (!currentTopProduct.equals(previousTopProduct)) {
+                System.out.println("---------------");
+                model.addAttribute("showAlert", true);
+                String alertMessage = "1위 상품이 변경되었습니다.<br>" + currentTopProduct;
+                model.addAttribute("alertMessage", alertMessage);
+                model.addAttribute("currentTopProduct", currentTopProduct);
+                httpSession.setAttribute("previousTopProduct", currentTopProduct);
+                model.addAttribute("notebookResult", null);
+
+            }
+
+        }
         return "login/login.html";
     }
 
