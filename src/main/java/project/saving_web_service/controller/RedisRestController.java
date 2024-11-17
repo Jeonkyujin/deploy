@@ -71,23 +71,26 @@ public class RedisRestController {
 
 
 
+
 					// 1위 상품이 변경되었는지 확인
 					if ( !normalizedA.equals(normalizedB) ) {
 						// JSON 형식의 데이터 생성
 						Map<String, Object> data = new HashMap<>();
 
-						System.out.println("Difference found between normalizedA and normalizedB:");
-						for (String elementA : normalizedA) {
-							if (!normalizedB.contains(elementA)) {
-								System.out.println("Element in A but not in B: " + elementA);
+						System.out.println("Normalized A Elements:");
+						for (String element : normalizedA) {
+							System.out.println("'" + element + "' - Length: " + element.length());
+							for (char c : element.toCharArray()) {
+								System.out.println("Char: " + c + ", Unicode: " + (int) c);
 							}
 						}
-						for (String elementB : normalizedB) {
-							if (!normalizedA.contains(elementB)) {
-								System.out.println("Element in B but not in A: " + elementB);
+						System.out.println("Normalized B Elements:");
+						for (String element : normalizedB) {
+							System.out.println("'" + element + "' - Length: " + element.length());
+							for (char c : element.toCharArray()) {
+								System.out.println("Char: " + c + ", Unicode: " + (int) c);
 							}
 						}
-
 
 
 						data.put("message", "1위 상품이 변경되었습니다");
