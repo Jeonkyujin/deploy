@@ -69,19 +69,26 @@ public class RedisRestController {
 						.map(String::toLowerCase)
 						.collect(Collectors.toSet());
 
-					List<String> sortedA = new ArrayList<>(normalizedA);
-					List<String> sortedB = new ArrayList<>(normalizedB);
 
 
-					System.out.println("--------------------------");
-					System.out.println(sortedA);
-					System.out.println("--------------------------");
-					System.out.println(sortedB);
-					System.out.println("--------------------------");
 					// 1위 상품이 변경되었는지 확인
-					if ( !sortedA.equals(sortedB) ) {
+					if ( !normalizedA.equals(normalizedB) ) {
 						// JSON 형식의 데이터 생성
 						Map<String, Object> data = new HashMap<>();
+
+						System.out.println("Difference found between normalizedA and normalizedB:");
+						for (String elementA : normalizedA) {
+							if (!normalizedB.contains(elementA)) {
+								System.out.println("Element in A but not in B: " + elementA);
+							}
+						}
+						for (String elementB : normalizedB) {
+							if (!normalizedA.contains(elementB)) {
+								System.out.println("Element in B but not in A: " + elementB);
+							}
+						}
+
+
 
 						data.put("message", "1위 상품이 변경되었습니다");
 						data.put("productNames", b); // Set을 그대로 JSON에 넣기
