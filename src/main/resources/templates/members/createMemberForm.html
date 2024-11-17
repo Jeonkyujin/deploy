@@ -58,6 +58,10 @@
       .button:hover {
         background-color: #0056b3;
       }
+      .input-style.password-input {
+        width: calc(100% + 2rem); /* 비밀번호 칸의 너비를 조정 */
+        max-width: 100%; /* 칸이 초과하지 않도록 제한 */
+      }
   </style>
 </head>
 
@@ -79,7 +83,7 @@
           </div>
           <div class="form-label__box">
             <label th:for="password">비밀번호</label>
-            <input type="text" size=16 th:field="*{password}" placeholder="비밀번호를 입력하세요" class="input-style">
+            <input type="text" size=16 th:field="*{password}" placeholder="비밀번호를 입력하세요" class="input-style password-input" >
           </div>
           <div class="nav-item">
             <label class="label-title">성별을 선택해주세요</label>
