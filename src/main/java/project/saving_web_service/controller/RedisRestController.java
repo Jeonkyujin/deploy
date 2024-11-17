@@ -1,6 +1,8 @@
 package project.saving_web_service.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
@@ -67,13 +69,17 @@ public class RedisRestController {
 						.map(String::toLowerCase)
 						.collect(Collectors.toSet());
 
+					List<String> sortedA = new ArrayList<>(normalizedA);
+					List<String> sortedB = new ArrayList<>(normalizedB);
+
+
 					System.out.println("--------------------------");
-					System.out.println(normalizedA);
+					System.out.println(sortedA);
 					System.out.println("--------------------------");
-					System.out.println(normalizedB);
+					System.out.println(sortedB);
 					System.out.println("--------------------------");
 					// 1위 상품이 변경되었는지 확인
-					if ( !normalizedA.equals(normalizedB) ) {
+					if ( !sortedA.equals(sortedB) ) {
 						// JSON 형식의 데이터 생성
 						Map<String, Object> data = new HashMap<>();
 
