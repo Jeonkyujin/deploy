@@ -2,183 +2,205 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <th:replace="fragments /header :: headerContent"></th:replace>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Saving the Youth</title>
-  <link href="/css/default.css" rel="stylesheet" type="text/css" />
-  <link href="/css/page.css" rel="stylesheet" type="text/css" />
-  <style>
+  <th:replace="fragments /header :: headerContent">
+    </th:replace>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saving the Youth</title>
+    <link href="/css/default.css" rel="stylesheet" type="text/css" />
+    <link href="/css/page.css" rel="stylesheet" type="text/css" />
+    <style>
     /* CSS 코드 */
-    .input-group {
+      .input-group {
       display: flex;
       align-items: center;
-    }
+      }
 
-    .input-style {
-      flex: 1;
-      padding: 0.5rem;
-      font-size: 1rem;
-      box-sizing: border-box;
-    }
+      .input-style {
+        flex: 1;
+        padding: 0.5rem;
+        font-size: 1rem;
+        box-sizing: border-box;
+      }
 
-    .button-style {
-      flex: 0;
-      margin-left: 0.5rem;
-      padding: 0.5rem 1rem;
-      font-size: 1rem;
-      cursor: pointer;
-      box-sizing: border-box;
-    }
+      .button-style {
+        flex: 0;
+        margin-left: 0.5rem;
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+        cursor: pointer;
+        box-sizing: border-box;
+      }
 
-    .full-width {
-      width: 100%;
-      padding: 0.5rem;
-      font-size: 1rem;
-      box-sizing: border-box;
-    }
+      .full-width {
+        width: 100%;
+        padding: 0.5rem;
+        font-size: 1rem;
+        box-sizing: border-box;
+      }
 
-    .form-label__box {
-      margin-bottom: 1rem;
-    }
-
-    .checkbox-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-
-    .nav-item {
-      margin-bottom: 1.5rem;
-    }
-
-    .button {
-      padding: 0.5rem 1rem;
-      font-size: 1.2rem;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 0.3rem;
-      cursor: pointer;
-    }
-
-    .button:hover {
-      background-color: #0056b3;
-    }
+      .form-label__box {
+        margin-bottom: 1rem;
+      }
   </style>
 </head>
 
 <body>
-<div class="login-wrapper">
-  <div class="login-container auto">
-    <div class="login-content__box">
-      <h2>회원가입</h2>
-      <p>사용자 정보를 입력해주세요.</p>
-      <form role="form" action="/members/new" th:object="${memberForm}" method="post" class="join-form__box" onsubmit="return validateForm()">
-        <div class="form-label__box">
-          <label for="login_id">아이디</label>
-          <div class="input-group">
-            <input type="text" id="login_id" th:field="*{login_id}" placeholder="아이디를 입력하세요" class="input-style">
-            <button type="button" class="button-style" onclick="checkDuplicate()">중복 확인</button>
+  <div class="login-wrapper">
+    <div class="login-container auto">
+      <div class="login-content__box">
+        <h2>회원가입</h2>
+        <p>사용자 정보를 입력해주세요.</p>
+        <form role="form" action="/members/new" th:object="${memberForm}" method="post" class="join-form__box" onsubmit="return validateForm()">
+          <div class="form-label__box">
+            <label th:for="login_id">아이디</label>
+            <div class="input-group">
+              <input type="text" size=14 th:field="*{login_id}" placeholder="아이디를 입력하세요" class="input-style">
+              <button type="button" class="button-style" onclick="checkDuplicate()">중복 확인</button>
+            </div>
+              <input type="hidden" id="duplicateChecked" value="false">
+              <input type="hidden" id="checkedLoginId" value="">
           </div>
-          <input type="hidden" id="duplicateChecked" value="false">
-          <input type="hidden" id="checkedLoginId" value="">
-        </div>
-
-        <div class="form-label__box">
-          <label for="password">비밀번호</label>
-          <input type="text" id="password" th:field="*{password}" placeholder="비밀번호를 입력하세요" class="input-style full-width">
-        </div>
-
-        <div class="nav-item">
-          <label class="label-title">성별을 선택해주세요</label>
-          <div class="checkbox-container">
-            <input type="radio" name="sex" th:field="*{sex}" value="남성"> 남성
-            <input type="radio" name="sex" th:field="*{sex}" value="여성"> 여성
+          <div class="form-label__box">
+            <label th:for="password">비밀번호</label>
+            <input type="text" size=16 th:field="*{password}" placeholder="비밀번호를 입력하세요" class="input-style">
           </div>
-        </div>
-
-        <div class="nav-item">
-          <label class="label-title">연령대를 선택해주세요</label>
-          <div class="checkbox-container">
-            <input type="checkbox" name="age" th:field="*{age}" value="20대"> 20대
-            <input type="checkbox" name="age" th:field="*{age}" value="30대"> 30대
-            <input type="checkbox" name="age" th:field="*{age}" value="40대이상"> 40대이상
+          <div class="nav-item">
+            <label class="label-title">성별을 선택해주세요</label>
+            <div class="checkbox-container">
+              <input type="checkbox" th:field="*{sex}" value="남성"> 남성
+              <input type="checkbox" th:field="*{sex}" value="여성"> 여성
+            </div>
           </div>
-        </div>
-
-        <div class="nav-item">
-          <label class="label-title">관심있는 분야를 선택해주세요</label>
-          <div class="checkbox-container">
-            <input type="checkbox" name="status" th:field="*{status}" value="환경"> 환경
-            <input type="checkbox" name="status" th:field="*{status}" value="직장인"> 직장인
-            <input type="checkbox" name="status" th:field="*{status}" value="청년"> 청년
-            <input type="checkbox" name="status" th:field="*{status}" value="퇴직"> 퇴직
-            <input type="checkbox" name="status" th:field="*{status}" value="스포츠"> 스포츠
-            <input type="checkbox" name="status" th:field="*{status}" value="사회적 약자"> 사회적 약자
-            <input type="checkbox" name="status" th:field="*{status}" value="군인"> 군인
-            <input type="checkbox" name="status" th:field="*{status}" value="가족"> 가족
-            <input type="checkbox" name="status" th:field="*{status}" value="대학생"> 대학생
-            <input type="checkbox" name="status" th:field="*{status}" value="학생"> 학생
+          <div class="nav-item">
+            <label class="label-title">연령대를 선택해주세요</label>
+            <div class="checkbox-container">
+              <input type="checkbox" th:field="*{age}" value="20대"> 20대
+              <input type="checkbox" th:field="*{age}" value="30대"> 30대
+              <input type="checkbox" th:field="*{age}" value="40대이상"> 40대이상
+            </div>
           </div>
-        </div>
+          <div class="nav-item">
+            <label class="label-title">관심있는 분야를 선택해주세요</label>
+            <div class="checkbox-container">
+              <input type="checkbox" th:field="*{status}" value="환경"> 환경
+              <input type="checkbox" th:field="*{status}" value="직장인"> 직장인
+              <input type="checkbox" th:field="*{status}" value="청년"> 청년
+              <input type="checkbox" th:field="*{status}" value="퇴직"> 퇴직
+              <input type="checkbox" th:field="*{status}" value="스포츠"> 스포츠
+              <input type="checkbox" th:field="*{status}" value="사회적 약자"> 사회적 약자
+              <input type="checkbox" th:field="*{status}" value="군인"> 군인
+              <input type="checkbox" th:field="*{status}" value="가족"> 가족
+              <input type="checkbox" th:field="*{status}" value="대학생"> 대학생
+              <input type="checkbox" th:field="*{status}" value="학생"> 학생
+            </div>
+          </div>
 
-        <div class="nav-item">
-          <label for="amount" class="label-title">월 저축 금액은 얼마인가요?</label>
-          <input type="text" id="amount" th:field="*{amount}" placeholder="만원단위로 숫자만 입력해주세요 ex)10" class="input-style full-width">
-        </div>
+          <div class="nav-item">
+            <label th:for="interest" class="label-title">저축을 할 때(또는 하고 있다면) 월 저축 금액은 얼마인가요?</label>
+            <input type="text" size=17 th:field="*{amount}" placeholder="만원단위로 적되 숫자만 적어주세요 ex)10만원 -> 10"
+              class="input-style2">
+          </div>
+          <div class="nav-item">
+            <label class="label-title">저축의 주요 목적은 무엇인가요?</label>
+            <div class="checkbox-container">
+              <input type="checkbox" th:field="*{purpose}" value="생활비 자금"> 생활비 자금
+              <input type="checkbox" th:field="*{purpose}" value="결혼 자금"> 결혼 자금
+              <input type="checkbox" th:field="*{purpose}" value="여행 자금"> 여행 자금
+              <input type="checkbox" th:field="*{purpose}" value="투자 자금"> 투자 자금
+              <input type="checkbox" th:field="*{purpose}" value="취미 활동을 위한 자금"> 취미 활동을 위한 자금
+              <input type="checkbox" th:field="*{purpose}" value="원하는 물건 구매 자금"> 원하는 물건 구매 자금
 
-        <div style="text-align: center;">
-          <button type="submit" class="button">회원가입</button>
-        </div>
-      </form>
+            </div>
+          </div>
+          <div class="nav-item">
+            <label th:for="commodity" class="label-title">원하는 저축의 기간은?</label>
+            <input type="text" size=9 th:field="*{period}" placeholder="원하시는 개월을 써주세요 ex)18개월 -> 18"
+              class="input-style2">
+          </div>
+          <div class="nav-item">
+            <label class="label-title">저축상품을 가입하게 된다면 가장 중요하게 생각하는 것이 무엇인가요?</label>
+            <div class="checkbox-container">
+              <input type="checkbox" th:field="*{important}" value="높은 금리"> 높은 금리
+              <input type="checkbox" th:field="*{important}" value="해당 금융권에 대한 평판"> 해당 금융권에 대한 평판
+              <input type="checkbox" th:field="*{important}" value="우대조건"> 우대조건
+            </div>
+          </div>
+          <div class="nav-item">
+            <label class="label-title">원하는 우대조건이 무엇인가요?</label>
+            <div class="checkbox-container">
+              <input type="checkbox" th:field="*{preferredCondition}" value="실적"> 실적
+              <input type="checkbox" th:field="*{preferredCondition}" value="이체"> 이체
+              <input type="checkbox" th:field="*{preferredCondition}" value="정보 사용 동의"> 정보 사용 동의
+              <input type="checkbox" th:field="*{preferredCondition}" value="앱 사용"> 앱 사용
+              <input type="checkbox" th:field="*{preferredCondition}" value="가입"> 가입
+            </div>
+          </div>
+          <div style="text-align: center;">
+            <button type="submit" class="button">회원가입</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
-</div>
 
-<script>
-  function checkDuplicate() {
-    const loginIdInput = document.getElementById("login_id").value;
-    if (!loginIdInput.trim()) {
-      alert("아이디를 입력해주세요.");
-      return;
+  <script>
+    // 중복 확인 함수
+    function checkDuplicate() {
+      const loginIdInput = document.getElementById("login_id").value;
+      if (!loginIdInput.trim()) {
+        alert("아이디를 입력해주세요.");
+        return;
+      }
+      fetch(`/api/members/check-duplicate?login_id=` + loginIdInput)
+        .then(response => response.text())
+        .then(data => {
+          if (data === "duplicate") {
+            alert("중복된 아이디입니다.");
+            document.getElementById("duplicateChecked").value = "false";
+          } else {
+            alert("사용 가능한 아이디입니다.");
+            document.getElementById("duplicateChecked").value = "true";
+            document.getElementById("checkedLoginId").value = loginIdInput;
+          }
+        })
+        .catch(error => console.error('Error:', error));
     }
-    fetch(`/api/members/check-duplicate?login_id=` + loginIdInput)
-      .then(response => response.text())
-      .then(data => {
-        if (data === "duplicate") {
-          alert("중복된 아이디입니다.");
-          document.getElementById("duplicateChecked").value = "false";
-        } else {
-          alert("사용 가능한 아이디입니다.");
-          document.getElementById("duplicateChecked").value = "true";
-          document.getElementById("checkedLoginId").value = loginIdInput;
-        }
-      })
-      .catch(error => console.error('Error:', error));
-  }
-
-  function validateForm() {
-    const duplicateChecked = document.getElementById("duplicateChecked").value;
-    const loginIdInput = document.getElementById("login_id").value;
-    const checkedLoginId = document.getElementById("checkedLoginId").value;
-    if (duplicateChecked !== "true" || loginIdInput !== checkedLoginId) {
-      alert("아이디 중복 확인을 해주세요.");
-      return false;
-    }
-
-    const requiredFields = ["login_id", "password", "amount"];
-    for (const fieldId of requiredFields) {
-      const field = document.getElementById(fieldId);
-      if (!field || field.value.trim() === "") {
-        alert("모든 필수 항목을 입력해주세요.");
-        field.focus();
+    // 유효성 검사 함수 추가
+    function validateForm() {
+      // 중복 확인 여부 검사
+      const duplicateChecked = document.getElementById("duplicateChecked").value;
+      const loginIdInput = document.getElementById("login_id").value;
+      const checkedLoginId = document.getElementById("checkedLoginId").value;
+      if (duplicateChecked !== "true" || loginIdInput !== checkedLoginId) {
+        alert("아이디 중복 확인을 해주세요.");
         return false;
       }
+      // 필수 항목 검사
+      const requiredFields = ["login_id", "password", "amount"];
+      for (const fieldId of requiredFields) {
+        const field = document.getElementById(fieldId);
+        if (!field || field.value.trim() === "") {
+          alert("모든 필수 항목을 입력해주세요.");
+          field.focus();
+          return false;
+        }
+      }
+      // 체크박스 검사
+      const sexChecked = document.querySelectorAll('input[name="sex"]:checked').length > 0;
+      const ageChecked = document.querySelectorAll('input[name="age"]:checked').length > 0;
+      const statusChecked = document.querySelectorAll('input[name="status"]:checked').length > 0;
+      if (!sexChecked || !ageChecked || !statusChecked) {
+        alert("모든 질문에 답변해주세요.");
+        return false;
+      }
+      return true;
     }
-    return true;
-  }
-</script>
+  </script>
+
+
+
+
 </body>
 
 </html>
