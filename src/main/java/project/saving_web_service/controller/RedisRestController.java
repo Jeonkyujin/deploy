@@ -2,6 +2,7 @@ package project.saving_web_service.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -44,69 +45,44 @@ public class RedisRestController {
 		String login_id = (String) httpSession.getAttribute("login_id");
 		Member member = memberService.findMember(login_id);
 
-		Set<String> strings = redisService.viewedData(member.getAge(), member.getAge());
-		httpSession.setAttribute("loginPreviousTopRanking", strings);
+		// 초기 세션 데이터를 Redis에서 가져와 복사본 생성
+		Set<String> copiedRanking = new HashSet<>(redisService.viewedData(member.getAge(), member.getAge()));
 
 		ObjectMapper objectMapper = new ObjectMapper();
-
 
 		new Thread(() -> {
 			try {
 				while (true) {
-					// 현재 1위 상품 가져오기
+					// 현재 Redis에서 1위 상품 가져오기
+					Set<String> currentRanking = redisService.viewedData(member.getAge(), member.getSex());
 
-					Set<String> a  = (Set<String>) httpSession.getAttribute("loginPreviousTopRanking");
-
-					Set<String> b = redisService.viewedData(member.getAge(), member.getSex());
-
-					Set<String> normalizedA = a.stream()
+					// 이전 랭킹과 현재 랭킹 비교
+					Set<String> normalizedPreviousRanking = copiedRanking.stream()
 						.map(String::trim)
 						.map(String::toLowerCase)
 						.collect(Collectors.toSet());
 
-					Set<String> normalizedB = b.stream()
+					Set<String> normalizedCurrentRanking = currentRanking.stream()
 						.map(String::trim)
 						.map(String::toLowerCase)
 						.collect(Collectors.toSet());
 
-
-
-
-					// 1위 상품이 변경되었는지 확인
-					if ( !normalizedA.equals(normalizedB) ) {
-						// JSON 형식의 데이터 생성
+					// 랭킹이 변경되었는지 확인
+					if (!normalizedPreviousRanking.equals(normalizedCurrentRanking)) {
+						// JSON 형식 데이터 생성 및 SSE 전송
 						Map<String, Object> data = new HashMap<>();
-
-						System.out.println("Normalized A Elements:");
-						for (String element : normalizedA) {
-							System.out.println("'" + element + "' - Length: " + element.length());
-							for (char c : element.toCharArray()) {
-								System.out.println("Char: " + c + ", Unicode: " + (int) c);
-							}
-						}
-						System.out.println("Normalized B Elements:");
-						for (String element : normalizedB) {
-							System.out.println("'" + element + "' - Length: " + element.length());
-							for (char c : element.toCharArray()) {
-								System.out.println("Char: " + c + ", Unicode: " + (int) c);
-							}
-						}
-
-
 						data.put("message", "1위 상품이 변경되었습니다");
-						data.put("productNames", b); // Set을 그대로 JSON에 넣기
+						data.put("productNames", currentRanking);
 
-
-						// JSON 문자열로 변환
 						String json = objectMapper.writeValueAsString(data);
-
-						// JSON 데이터 전송
 						emitter.send(SseEmitter.event().name("topRankingUpdate").data(json));
-						httpSession.setAttribute("loginPreviousTopRanking", b);
 
+						// copiedRanking을 최신 값으로 업데이트
+						copiedRanking.clear();
+						copiedRanking.addAll(currentRanking);
 					}
 
-					// 1초마다 체크 (필요에 따라 조정 가능)
+					// 1초 대기
 					Thread.sleep(1000);
 				}
 			} catch (Exception e) {
