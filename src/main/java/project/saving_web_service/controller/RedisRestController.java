@@ -97,7 +97,7 @@ public class RedisRestController {
 					}
 
 					// 1초마다 체크 (필요에 따라 조정 가능)
-					Thread.sleep(1000);
+					Thread.sleep(5000);
 				}
 			} catch (Exception e) {
 				emitter.completeWithError(e);
