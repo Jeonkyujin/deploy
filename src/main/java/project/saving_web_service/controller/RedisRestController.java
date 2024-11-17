@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -56,13 +57,23 @@ public class RedisRestController {
 
 					Set<String> b = redisService.viewedData(member.getAge(), member.getSex());
 
+					Set<String> normalizedA = a.stream()
+						.map(String::trim)
+						.map(String::toLowerCase)
+						.collect(Collectors.toSet());
+
+					Set<String> normalizedB = b.stream()
+						.map(String::trim)
+						.map(String::toLowerCase)
+						.collect(Collectors.toSet());
+
 					System.out.println("--------------------------");
-					System.out.println(a);
+					System.out.println(normalizedA);
 					System.out.println("--------------------------");
-					System.out.println(b);
+					System.out.println(normalizedB);
 					System.out.println("--------------------------");
 					// 1위 상품이 변경되었는지 확인
-					if (a != null && b != null && ! (a.equals(b)) ) {
+					if ( !normalizedA.equals(normalizedB) ) {
 						// JSON 형식의 데이터 생성
 						Map<String, Object> data = new HashMap<>();
 
