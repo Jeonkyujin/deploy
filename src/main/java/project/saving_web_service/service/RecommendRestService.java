@@ -139,11 +139,11 @@ public class RecommendRestService {
 				testData[position[0]][position[1]] = 1;
 			}
 
-			List<Double> memberA = convertRowToList(listData, 0);
-			List<Double> memberB = convertRowToList(listData, 1);
-			List<Double> memberC = convertRowToList(listData, 2);
-			List<Double> memberD = convertRowToList(listData, 3);
-			List<Double> memberE = convertRowToList(listData, 4);
+			List<Double> memberA = convertRowToList(testData, 0);
+			List<Double> memberB = convertRowToList(testData, 1);
+			List<Double> memberC = convertRowToList(testData, 2);
+			List<Double> memberD = convertRowToList(testData, 3);
+			List<Double> memberE = convertRowToList(testData, 4);
 
 			double a = cosineSimilarity(vectorA,memberA) + cosineSimilarity(vectorB,memberB)
 				+ cosineSimilarity(vectorC, memberC) + cosineSimilarity(vectorD, memberD)
