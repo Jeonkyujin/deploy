@@ -67,35 +67,24 @@ public class RedisRestController {
 						.map(String::toLowerCase)
 						.collect(Collectors.toSet());
 
-					System.out.println("Normalized A Elements:");
+
 					for (String element : normalizedPreviousRanking) {
-						System.out.println("'" + element + "' - Length: " + element.length());
-						for (char c : element.toCharArray()) {
-							System.out.println("Char: " + c + ", Unicode: " + (int) c);
+						if (!normalizedCurrentRanking.contains(element)) {
+							// 알림 데이터 생성
+							Map<String, Object> data = new HashMap<>();
+							data.put("message", "1위 상품이 변경되었습니다");
+							data.put("currentRanking", currentRanking);
+
+
+
+							copiedRanking.clear();
+							copiedRanking.addAll(currentRanking);
+							// JSON으로 변환 및 전송
+							String json = objectMapper.writeValueAsString(data);
+
+							emitter.send(SseEmitter.event().name("rankingUpdate").data(json));
+							break; // 알림 후 즉시 종료
 						}
-					}
-
-					System.out.println("Normalized B Elements:");
-					for (String element : normalizedCurrentRanking) {
-						System.out.println("'" + element + "' - Length: " + element.length());
-						for (char c : element.toCharArray()) {
-							System.out.println("Char: " + c + ", Unicode: " + (int) c);
-						}
-					}
-
-					// 랭킹이 변경되었는지 확인
-					if (!normalizedPreviousRanking.equals(normalizedCurrentRanking)) {
-						// JSON 형식 데이터 생성 및 SSE 전송
-						Map<String, Object> data = new HashMap<>();
-						data.put("message", "1위 상품이 변경되었습니다");
-						data.put("productNames", currentRanking);
-
-						String json = objectMapper.writeValueAsString(data);
-						emitter.send(SseEmitter.event().name("topRankingUpdate").data(json));
-
-						// copiedRanking을 최신 값으로 업데이트
-						copiedRanking.clear();
-						copiedRanking.addAll(currentRanking);
 					}
 
 					// 1초 대기
