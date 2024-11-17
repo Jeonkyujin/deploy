@@ -58,7 +58,7 @@ public class RedisRestController {
 					Set<String> b = redisService.viewedData(member.getAge(), member.getSex());
 
 					for (String element : a) {
-						if (! b.contains(element) ) {
+						if (! b.contains(element) || a.size() != b.size()) {
 							// JSON 형식의 데이터 생성
 							Map<String, Object> data = new HashMap<>();
 
