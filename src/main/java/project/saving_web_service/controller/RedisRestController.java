@@ -67,6 +67,21 @@ public class RedisRestController {
 						.map(String::toLowerCase)
 						.collect(Collectors.toSet());
 
+					System.out.println("Normalized A Elements:");
+					for (String element : normalizedPreviousRanking) {
+						System.out.println("'" + element + "' - Length: " + element.length());
+						for (char c : element.toCharArray()) {
+							System.out.println("Char: " + c + ", Unicode: " + (int) c);
+						}
+					}
+
+					System.out.println("Normalized A Elements:");
+					for (String element : normalizedCurrentRanking) {
+						System.out.println("'" + element + "' - Length: " + element.length());
+						for (char c : element.toCharArray()) {
+							System.out.println("Char: " + c + ", Unicode: " + (int) c);
+						}
+					}
 
 					for (String element : normalizedPreviousRanking) {
 						if (!normalizedCurrentRanking.contains(element)) {
