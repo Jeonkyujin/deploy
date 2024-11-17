@@ -56,8 +56,11 @@ public class RedisRestController {
 
 					Set<String> b = redisService.viewedData(member.getAge(), member.getSex());
 
+					System.out.println("--------------------------");
 					System.out.println(a);
+					System.out.println("--------------------------");
 					System.out.println(b);
+					System.out.println("--------------------------");
 					// 1위 상품이 변경되었는지 확인
 					if (a != null && b != null && ! (a.equals(b)) ) {
 						// JSON 형식의 데이터 생성
