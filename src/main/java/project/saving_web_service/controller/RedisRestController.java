@@ -57,6 +57,23 @@ public class RedisRestController {
 
 					Set<String> b = redisService.viewedData(member.getAge(), member.getSex());
 
+					System.out.println("Normalized A Elements:");
+					for (String element : a) {
+						System.out.println("'" + element + "' - Length: " + element.length());
+						for (char c : element.toCharArray()) {
+							System.out.println("Char: " + c + ", Unicode: " + (int) c);
+						}
+					}
+
+					System.out.println("Normalized A Elements:");
+					for (String element : b) {
+						System.out.println("'" + element + "' - Length: " + element.length());
+						for (char c : element.toCharArray()) {
+							System.out.println("Char: " + c + ", Unicode: " + (int) c);
+						}
+					}
+
+
 					for (String element : a) {
 						if (! b.contains(element) || a.size() != b.size()) {
 							// JSON 형식의 데이터 생성
