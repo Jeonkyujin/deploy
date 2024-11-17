@@ -43,13 +43,7 @@ public class RedisRestController {
 
 		Set<String> strings = redisService.viewedData(member.getAge(), member.getAge());
 		httpSession.setAttribute("loginPreviousTopRanking", strings);
-		// AtomicReference<Set<String>> previousTopProduct = new AtomicReference<>(
-		// 	(Set<String>) httpSession.getAttribute("previousTopProduct")
-		// );
-		//
-		// AtomicReference<Set<String>> currentTopProduct = new AtomicReference<>(
-		// 	(Set<String>) httpSession.getAttribute("currentTopProduct")
-		// );
+
 
 		ObjectMapper objectMapper = new ObjectMapper();
 
@@ -62,8 +56,24 @@ public class RedisRestController {
 					Set<String> a  = (Set<String>) httpSession.getAttribute("loginPreviousTopRanking");
 
 					Set<String> b = redisService.viewedData(member.getAge(), member.getSex());
+
+					System.out.println("A Elements:");
+					for (String element : a) {
+						System.out.println("'" + element + "' - Length: " + element.length());
+						for (char c : element.toCharArray()) {
+							System.out.println("Char: " + c + ", Unicode: " + (int) c);
+						}
+					}
+
+					System.out.println("B Elements:");
+					for (String element : b) {
+						System.out.println("'" + element + "' - Length: " + element.length());
+						for (char c : element.toCharArray()) {
+							System.out.println("Char: " + c + ", Unicode: " + (int) c);
+						}
+					}
 					// 1위 상품이 변경되었는지 확인
-					if (httpSession.getAttribute("firstLogin") != null && a != null && b != null && ! (a.equals(b)) ) {
+					if (! a.equals(b) ) {
 						// JSON 형식의 데이터 생성
 						Map<String, Object> data = new HashMap<>();
 
