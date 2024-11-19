@@ -67,7 +67,8 @@ public class installmentRecommendController {
         model.addAttribute("install", SecondFilterInstall);
         model.addAttribute("member", member);
         model.addAttribute("status", status);
-        model.addAttribute("statusMessage", member.getStatus() + "추천상품");
+        model.addAttribute("login_id", login_id);
+        model.addAttribute("statusMessage", member.getStatus() + " 을 위한 추천상품");
         model.addAttribute("commonMessage", "조건 맞춤 추천상품");
 
         return "Recommend/reputationByInstall";
