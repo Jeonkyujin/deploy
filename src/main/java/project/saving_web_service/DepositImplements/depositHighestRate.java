@@ -18,7 +18,6 @@ public class depositHighestRate extends AbstractDepositFilter {
 				filteredDeposit.add(deposit1);
 			}
 		}
-
 		filteredDeposit.sort((Deposit1, Deposit2) -> {
 			// 첫 번째 Install 객체에서 금리 추출
 			double maxRate1 = getMaxRate(Deposit1.get금리());
