@@ -18,7 +18,6 @@ import project.saving_web_service.service.FavoriteDepositService;
 public class FavoriteDepositController {
 
 	private final FavoriteDepositService favoriteDepositService;
-
 	@PostMapping
 	public ResponseEntity<String> addFavorite(@RequestBody FavoriteDepositDTO favoritedepositDTO, HttpSession session) {
 		return favoriteDepositService.addFavorite(favoritedepositDTO, session);
