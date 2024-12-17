@@ -9,6 +9,7 @@ public class depositCondition extends AbstractDepositFilter {
 	@Override
 	protected List<Deposit> filterByCriteria(List<Deposit> deposit) {
 
+
 		return deposit;
 	}
 }
