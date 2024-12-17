@@ -10,6 +10,7 @@ public class depositCondition extends AbstractDepositFilter {
 	protected List<Deposit> filterByCriteria(List<Deposit> deposit) {
 
 
+
 		return deposit;
 	}
 }
